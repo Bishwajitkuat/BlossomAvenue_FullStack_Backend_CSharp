@@ -7,7 +7,7 @@ Blossom Avenue, is an online flower which treat your loved once at right time. Y
 - List available flower bouquets (as anonymous user)
 - Check more details on one bouquets (as anonymous user)
 - Add / Remove bouquets to cart (as registered user)
-- Make orders
+- Make orders (as registered user)
 - Check the status of the order (as registered user)
 - Have a review with your the experience (as registered user)
 
