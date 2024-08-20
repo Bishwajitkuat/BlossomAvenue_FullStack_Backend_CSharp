@@ -26,4 +26,3 @@ Blossom Avenue, is an online flower which treat your loved once at right time. Y
 - PostgreSQL 16
 - Entity Framework Core 8
 - Unit testing with xUnit
--
