@@ -30,4 +30,6 @@ Blossom Avenue, is an online flower which treat your loved once at right time. Y
 
 ## ER diagram
 
+Live preview - https://miro.com/app/board/uXjVKoSnikk=/?share_link_id=309653355211
+
 ![alt text](erd.png)
