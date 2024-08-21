@@ -1,0 +1,81 @@
+# Products endpoints
+
+### URL
+
+#### Authentication Required: `False`
+
+```
+GET base_url/api/v1/products
+```
+
+### Response on success
+
+```json
+HTTP status 200 with
+[
+  {
+    "product_id" : "9722b5b6-27a3-4990-9b21-5aa71c47418d", // guid
+    "title": "White rose", // string
+    "description": "product description", // test
+    "variations":[
+      {
+        "variation_id": "798e5283-f46f-47c2-891f-6fdf80b367eb", // guid
+        "variation_name": "50 white rose", // string
+        "price": 26.50, // decimal
+        "inventory": 12, // int
+        "product_id" : "9722b5b6-27a3-4990-9b21-5aa71c47418d", // guid
+      },
+      {
+        "variation_id": "ac833de7-1c42-49a6-850c-041be666991a", // guid
+        "variation_name": "100 white rose", // string
+        "price": 44.99, // decimal
+        "inventory": 5, // int
+        "product_id" : "9722b5b6-27a3-4990-9b21-5aa71c47418d", // guid
+      }
+    ],
+    "images":[
+      {
+        "image_id": "1ff53c9b-4489-4258-8a32-0dea3710f205", // guid
+        "image_url": "https://images.unsplash.com/photo-1509449764226-63afec1c342a?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // text
+
+        "product_id": "9722b5b6-27a3-4990-9b21-5aa71c47418d"
+      },
+      {
+        "image_id": "27e84fc1-402d-4621-83e5-23cc42d13abd", // guid
+        "image_url": "https://images.unsplash.com/photo-1525258946800-98cfd641d0de?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // text
+
+        "product_id": "9722b5b6-27a3-4990-9b21-5aa71c47418d"
+      },
+    ],
+    "categories": [
+      {
+        "category_id" : "1ff53c9b-4489-4258-8a32-0dea3710f205", // guid
+        "category_name": "Rose", // string
+        "parent_id": "798e5283-f46f-47c2-891f-6fdf80b367eb" // guid
+      },
+      {
+        "category_id": "1f7593d5-2a5d-4138-a9d3-dcd47f8811bd", // guid
+        "category_name": "Season",
+        "parent_id": "d455fc4c-ceeb-478f-a830-0e38b4e08434" //null or guid
+      }
+    ]
+  }
+
+]
+```
+
+### Responses on fail
+
+```json
+HTTP status 404 with
+{
+    "message": "Server cannot find the products. Please wait and try again or contact system administrator." // message | string
+}
+```
+
+```json
+HTTP status 500 with
+{
+    "message": "Something unusual happened. Please wait and try again or contact system administrator" // message | string
+}
+```
