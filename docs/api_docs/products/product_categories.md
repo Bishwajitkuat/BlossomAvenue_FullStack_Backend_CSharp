@@ -11,6 +11,7 @@ GET base_url/api/v1/categories
 ### Response on success
 
 ```json
+HTTP status 200 with
 [
   {
     "category_id": "9fbac7dc-612f-4853-8957-16281e122941", // guid
