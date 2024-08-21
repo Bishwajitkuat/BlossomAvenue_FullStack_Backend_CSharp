@@ -1,10 +1,10 @@
 # Order Endpoints
 
-- [Get single order](#url1)
+- [Get single order](#url)
 
-- [Create order](#url2)
+- [Create order](#url-1)
 
-- [Get all orders](#url3)
+- [Get all orders](#url-2)
 
 
 ## Get single order
