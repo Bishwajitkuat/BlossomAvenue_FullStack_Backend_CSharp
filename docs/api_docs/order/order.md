@@ -1,17 +1,17 @@
 # Order Endpoints
 
-- [Get single order](#Get single order)
+- [Get single order](#url1)
 
-- [Create order](#Create order)
+- [Create order](#url2)
 
-- [Get all orders](#Get all orders)
+- [Get all orders](#url3)
 
 
-## Get single order details
-
-### URL
+## Get single order
 
 #### Authentication Required : `True`
+
+### URL
 
 ```
 GET base_url/api/v1/order/:order_id
@@ -76,10 +76,9 @@ HTTP status 500 with
 
 ## Create order
 
-### URL
-
 #### Authentication Required : `True`
 
+### URL
 ```
 POST base_url/api/v1/order
 ```
@@ -150,9 +149,9 @@ HTTP status 500 with
 
 ## Get all orders
 
-### URL
-
 #### Authentication Required : `True`
+
+### URL
 
 ```
 GET base_url/api/v1/order/
