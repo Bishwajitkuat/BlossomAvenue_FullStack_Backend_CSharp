@@ -2,9 +2,9 @@
 
 - [Get cart details](#url)
 
-- [Create order](#url-1)
+- [Update cart](#url-1)
 
-- [Get all orders](#url-2)
+- [Remove product from cart](#url-2)
 
 
 ## Get cart details
