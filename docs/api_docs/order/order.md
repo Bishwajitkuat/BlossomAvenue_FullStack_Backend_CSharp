@@ -56,7 +56,7 @@ Authorization: Bearer <access-token>
 ```json
 HTTP status 401 with
 {
-    "message": "Invalid access token" // message | string
+    "message": "Unauthorised" // message | string
 }
 ```
 
@@ -129,7 +129,7 @@ Authorization: Bearer <access-token>
 ```json
 HTTP status 401 with
 {
-    "message": "Invalid access token" // message | string
+    "message": "Unauthorised" // message | string
 }
 ```
 
@@ -196,7 +196,7 @@ Authorization: Bearer <access-token>
 ```json
 HTTP status 401 with
 {
-    "message": "Invalid access token" // message | string
+    "message": "Unauthorised" // message | string
 }
 ```
 

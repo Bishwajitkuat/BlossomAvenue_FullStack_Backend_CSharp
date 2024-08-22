@@ -55,14 +55,7 @@ Authorization: Bearer <access-token>
 ```json
 HTTP status 401 with
 {
-    "message": "Invalid access token" // message | string
-}
-```
-
-```json
-HTTP status 404 with
-{
-    "message": "Cart not found" // message | string
+    "message": "Unauthorised" // message | string
 }
 ```
 
@@ -89,6 +82,15 @@ Request Headers:
 Authorization: Bearer <access-token>
 ```
 
+### Request body
+
+```json
+{
+   "product_id" : "product_id", // guid
+    "qty": "product_qty" //int
+}
+```
+
 ### Response on success
 
 ```json
@@ -102,7 +104,7 @@ Authorization: Bearer <access-token>
 ```json
 HTTP status 401 with
 {
-    "message": "Invalid access token" // message | string
+    "message": "Unauthorised" // message | string
 }
 ```
 
@@ -127,7 +129,7 @@ HTTP status 500 with
 ### URL
 
 ```
-DELETE base_url/api/v1/cart/user_id/:product_id
+DELETE base_url/api/v1/cart/:cart_id/:product_id
 ```
 
 ### Request Header
@@ -140,7 +142,6 @@ Authorization: Bearer <access-token>
 ### Response on success
 
 ```json
-```json
 {
     "message" : "Prodcut removed from the cart successfully!" // message | string
 }
@@ -151,7 +152,7 @@ Authorization: Bearer <access-token>
 ```json
 HTTP status 401 with
 {
-    "message": "Invalid access token" // message | string
+    "message": "Unauthorised" // message | string
 }
 ```
 
