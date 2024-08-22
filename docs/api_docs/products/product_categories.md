@@ -29,13 +29,6 @@ HTTP status 200 with
 ### Responses on fail
 
 ```json
-HTTP status 404 with
-{
-    "message": "Server cannot find the product categories resource. Please wait and try again or contact system administrator." // message | string
-}
-```
-
-```json
 HTTP status 500 with
 {
     "message": "Something unusual happened. Please wait and try again or contact system administrator" // message | string
@@ -60,27 +53,23 @@ POST base_url/api/v1/categories
 ### Response on success
 
 ```json
-HTTP status 201 with
-{
-  "category_id": "b7434c00-ce6e-4614-a193-b84d9eaa7539",
-  "category_name": "Rose", // string
-  "parent_id": "d455fc4c-ceeb-478f-a830-0e38b4e08434" //null or guid
-}
+HTTP status 204 with
+{}
 ```
 
 ### Response on fail
 
 ```json
-HTTP status 400 with
+HTTP status 404 with
 {
-  "message": "Category name or parent id data is missing."  // string
+  "message": "Category name is null or invalid parent id."  // string
 }
 ```
 
 ```json
 HTTP status 401 with
 {
-  "message": "Only admin users are authorized to add new category."
+  "message": "Unauthorized."
 }
 ```
 
@@ -94,14 +83,13 @@ HTTP status 500 with
 #### Authentication Required as Admin: `True`
 
 ```
-PATCH base_url/api/v1/categories
+PATCH base_url/api/v1/categories/:id
 ```
 
 ### Request Body
 
 ```json
 {
-  "category_id": "b7434c00-ce6e-4614-a193-b84d9eaa7539",
   "category_name": "Red Rose", // string
   "parent_id": "d455fc4c-ceeb-478f-a830-0e38b4e08434" //null or guid
 }
@@ -110,27 +98,23 @@ PATCH base_url/api/v1/categories
 ### Response on success
 
 ```json
-HTTP status 200 with
-{
-  "category_id": "b7434c00-ce6e-4614-a193-b84d9eaa7539",
-  "category_name": "Red Rose", // string
-  "parent_id": "d455fc4c-ceeb-478f-a830-0e38b4e08434" //null or guid
-}
+HTTP status 204 with
+{}
 ```
 
 ### Response on fail
 
 ```json
-HTTP status 400 with
+HTTP status 404 with
 {
-  "message": "Category name or parent id data is missing."  // string
+  "message": "Category name is null or invalid category id or parent id."  // string
 }
 ```
 
 ```json
 HTTP status 401 with
 {
-  "message": "Only admin users are authorized to update a category."
+  "message": "Unauthorized."
 }
 ```
 
@@ -144,22 +128,20 @@ HTTP status 500 with
 #### Authentication Required as Admin: `True`
 
 ```
-DELETE base_url/api/v1/categories/id
+DELETE base_url/api/v1/categories/:id
 ```
 
 ### Response on success
 
 ```json
-HTTP status 200 with
-{
-  "deleted": true, // boolean
-}
+HTTP status 204 with
+{}
 ```
 
 ```json
 HTTP status 401 with
 {
-  "message": "Only admin users are authorized to delete a category."
+  "message": "Unauthorized."
 }
 ```
 
