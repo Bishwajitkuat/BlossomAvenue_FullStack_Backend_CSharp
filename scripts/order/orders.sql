@@ -18,7 +18,7 @@ CREATE TABLE orders(
   user_id UUID NOT NULL,
   order_status order_status,
   address_id UUID,
-  total_amlount INT,
+  total_amount INT,
   payment_method payment_method_type,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) 
