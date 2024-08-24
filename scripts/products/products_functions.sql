@@ -109,4 +109,46 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 
+-- function to create a product
+
+CREATE TYPE variation AS(
+  variation_name VARCHAR,
+  price DECIMAL,
+  inventory INT
+);
+
+CREATE OR REPLACE FUNCTION create_product(
+  ti VARCHAR, 
+  des TEXT, 
+  imgs TEXT[], 
+  varis variation[])
+RETURNS UUID
+AS
+$$
+DECLARE
+  new_product_id UUID;
+  item_img TEXT;
+  item_vari variation;
+BEGIN
+-- creating product entry and storing new product id
+INSERT INTO products(title, description) VALUES (ti, des)
+RETURNING product_id INTO new_product_id;
+-- creating images entries with new product id
+FOREACH item_img IN ARRAY imgs 
+  LOOP
+  INSERT INTO images(image_url, product_id) VALUES(item_img, new_product_id);
+  END LOOP;
+-- creating variation entries with new product id
+FOREACH item_vari IN ARRAY varis
+  LOOP
+  INSERT INTO variations(variation_name, price, inventory, product_id) 
+  VALUES(item_vari.variation_name, item_vari.price, item_vari.inventory, new_product_id);
+  END LOOP;
+
+RETURN new_product_id;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
+
 
