@@ -72,3 +72,41 @@ RETURN QUERY EXECUTE query;
 END;
 $$ LANGUAGE PLPGSQL;
 
+
+-- function to get a products by id
+
+CREATE OR REPLACE FUNCTION get_product_by_id(id UUID)
+RETURNS TABLE
+  (
+  product_id UUID, 
+  title VARCHAR, 
+  description TEXT, 
+  min_price DECIMAL, 
+  image_url TEXT
+  )
+AS
+$$
+BEGIN
+RETURN QUERY
+WITH sub AS
+  (
+    SELECT v.product_id, MIN(v.price) AS min_p, MIN(i.image_url) AS image_url FROM variations v
+    JOIN images i
+    ON v.product_id = i.product_id
+    WHERE v.product_id = id
+    GROUP BY v.product_id
+  )
+SELECT 
+  p.product_id, 
+  p.title, 
+  p.description, 
+  s.min_p, 
+  s.image_url 
+  FROM products p
+  JOIN sub s
+  ON p.product_id = s.product_id;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
+
