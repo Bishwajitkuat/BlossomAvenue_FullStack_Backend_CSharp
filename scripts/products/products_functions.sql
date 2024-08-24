@@ -225,6 +225,31 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 
+-- Functions to get the most x purchased products
+
+CREATE OR REPLACE FUNCTION get_most_purchased_products(count INT)
+RETURNS TABLE(product_id UUID, title VARCHAR, description TEXT, total_sale_count INT)
+AS
+$$
+BEGIN
+IF count IS NULL OR count < 1 THEN
+  RAISE EXCEPTION 'Count can not be null or smaller than 1.';
+END IF;
+RETURN QUERY
+WITH sub AS (
+SELECT oi.product_id, SUM(oi.quantity) AS sl_count FROM order_items oi
+GROUP BY oi.product_id
+)
+SELECT p.product_id, p.title, p.description, CAST(s.sl_count AS INT) AS sale_count FROM products p
+JOIN sub s
+ON p.product_id = s.product_id
+ORDER BY sale_count DESC
+LIMIT count;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
+
 
 
 
