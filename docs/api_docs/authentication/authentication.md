@@ -6,9 +6,9 @@
 
 ## Login
 
-### URL
-
 #### Authentication Required : `False`
+
+### URL
 
 ```
 POST base_url/api/v1/auth/login
@@ -43,14 +43,7 @@ HTTP status 401 with
 ```json
 HTTP status 400 with
 {
-    "message": "Username cannot be empty" // message | string
-}
-```
-
-```json
-HTTP status 400 with
-{
-    "message": "Password cannot be empty" // message | string
+    "message": "Username | Password cannot be empty" // message | string
 }
 ```
 
@@ -85,7 +78,7 @@ HTTP status 204 - No content
 ### Responses on failures
 
 ```json
-HTTP status 403
+HTTP status 401
 {
     "message": "Unauthorized" // message | string
 }

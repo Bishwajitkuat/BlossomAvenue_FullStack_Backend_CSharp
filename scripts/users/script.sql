@@ -38,16 +38,18 @@ CREATE TABLE address_details(
         ON DELETE RESTRICT
 )
 -- create address_details --
-CREATE TABLE user_addresses(
-	user_id UUID,
-	address_id UUID,
-	PRIMARY KEY (user_id, address_id),
-	FOREIGN KEY (user_id) 
-        REFERENCES users (user_id)
+CREATE TABLE user_addresses
+(
+    user_id uuid NOT NULL,
+    address_id uuid NOT NULL,
+    default_address boolean DEFAULT false,
+    PRIMARY KEY (user_id, address_id),
+    FOREIGN KEY (address_id)
+        REFERENCES address_details (address_id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
-	FOREIGN KEY (address_id) 
-        REFERENCES address_details (address_id)
+    FOREIGN KEY (user_id)
+        REFERENCES users (user_id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 )
