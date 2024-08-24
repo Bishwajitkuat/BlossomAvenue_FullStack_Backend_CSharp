@@ -37,7 +37,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
+-- Get all users -- 
 CREATE OR REPLACE FUNCTION get_users(
     p_page_no INT,
     p_page_size INT,
