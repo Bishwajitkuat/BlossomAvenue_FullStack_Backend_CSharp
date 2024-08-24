@@ -150,5 +150,26 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 
+-- function to delete product by id
+
+CREATE OR REPLACE FUNCTION delete_product_by_id(id UUID)
+RETURNS BOOLEAN
+AS
+$$
+BEGIN
+  -- raise error if the id does not EXISTS
+  IF NOT EXISTS (SELECT * FROM products WHERE product_id = id) THEN
+  RAISE EXCEPTION 'Product can not be found.';
+  END IF;
+  DELETE FROM variations WHERE product_id = id;
+  DELETE FROM images WHERE product_id = id;
+  DELETE FROM products WHERE product_id = id;
+RETURN TRUE;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
+
+
 
 
