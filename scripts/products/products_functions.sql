@@ -169,6 +169,64 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 
+-- function to update product by id
+
+CREATE TYPE images_with_id AS(
+  image_id UUID,
+  image_url TEXT
+);
+
+CREATE TYPE variation_with_id AS (
+  variation_id UUID,
+  variation_name VARCHAR,
+  price DECIMAL,
+  inventory INT
+);
+CREATE OR REPLACE FUNCTION update_product_by_id(
+  id UUID, 
+  ti VARCHAR, 
+  des TEXT,
+  imgs images_with_id[],
+  varis variation_with_id[]
+  )
+RETURNS BOOLEAN
+AS
+$$
+DECLARE
+    item_img images_with_id;
+    item_vari variation_with_id;
+BEGIN
+    -- raise error if product id does not exist
+    IF NOT EXISTS (SELECT * FROM products WHERE product_id = id)
+    THEN RAISE EXCEPTION 'Product can not be found.';
+    END IF;
+    UPDATE products SET  title = ti, description = des WHERE product_id = id;
+    FOREACH item_img IN ARRAY imgs
+      LOOP
+        IF NOT EXISTS (SELECT * FROM images WHERE image_id = item_img.image_id) THEN 
+          RAISE EXCEPTION 'Image can not be found.';
+        END IF;
+        UPDATE images SET image_url = item_img.image_url WHERE image_id = item_img.image_id;
+      END LOOP;
+
+    FOREACH item_vari IN ARRAY varis
+      LOOP
+        IF NOT EXISTS (SELECT * FROM variations WHERE variation_id = item_vari.variation_id) THEN 
+          RAISE EXCEPTION 'Variation can not be found.';
+        END IF;
+        UPDATE variations SET
+        variation_name = item_vari.variation_name,
+        price = item_vari.price,
+        inventory = item_vari.inventory
+        WHERE variation_id = item_vari.variation_id;
+      END LOOP;
+RETURN TRUE;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
+
+
 
 
 
