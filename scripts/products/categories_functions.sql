@@ -78,14 +78,3 @@ BEGIN
   RETURN TRUE;
 END;
 $$ LANGUAGE PLPGSQL;
-
-SELECT *  FROM get_all_categories();
-
-SELECT * FROM get_category_by_id_fn('80ed4a83-807a-4ebc-9097-95ef85a86c3e');
-
-SELECT * FROM update_category_by_id_fn('b5de9995-e20b-4992-bfa9-6cb2bdf71acf', 'Roses','80ed4a83-807a-4ebc-9097-95ef85a86c3e');
-
-SELECT * FROM create_category('Basket', null);
-
-
-SELECT delete_category_by_id('22916656-f053-46cd-a73d-7f1657a7b15b');
