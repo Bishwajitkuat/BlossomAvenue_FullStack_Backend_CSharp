@@ -13,7 +13,8 @@ base_url/api/v1/products?page=1&items_per_page=10&search_by=a&sort_by=title&sort
 - Get all products
 - Pagination (page number and item per page)
 - Search by product title
-- Sort by price
+- Sort by price or min price or ratings
+- Sort order ASC or DESC
 
 ```json
 HTTP status 200 with
@@ -26,10 +27,10 @@ HTTP status 200 with
     "product_id" : "9722b5b6-27a3-4990-9b21-5aa71c47418d", // guid
     "title": "White rose", // string
     "description": "product description", // test
-    "min_price": 26.56 // decimal
-    "images": "https://images.unsplash.com/photo-1509449764226-63afec1c342a?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // text
+    "min_price": 26.56, // decimal
+    "avg_star": 3.5, // decimal (10,1)
+    "image_url": "https://images.unsplash.com/photo-1509449764226-63afec1c342a?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // text
   }
-
 ]
 }
 ```
