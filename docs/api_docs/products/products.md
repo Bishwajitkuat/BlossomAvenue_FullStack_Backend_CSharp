@@ -46,7 +46,7 @@ HTTP status 500 with
 #### Authentication Required: `False`
 
 ```
-GET base_url/api/v1/products/:id
+GET base_url/api/v1/products/{id}
 ```
 
 ### Response on success
@@ -197,7 +197,7 @@ HTTP status 500 with
 #### Authentication Required as Admin: `True`
 
 ```
-PATCH base_url/api/v1/products/:id
+PATCH base_url/api/v1/products/{id}
 ```
 
 - Update a product by Id (guid)
@@ -287,7 +287,7 @@ HTTP status 500 with
 #### Authentication Required as Admin: `True`
 
 ```
-DELETE base_url/api/v1/products/id
+DELETE base_url/api/v1/products/{id}
 ```
 
 - Delete a product by Id(guid)
