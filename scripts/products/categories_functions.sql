@@ -71,6 +71,9 @@ BEGIN
   IF NOT EXISTS (SELECT category_id FROM categories WHERE category_id = id)
   THEN RAISE EXCEPTION 'Category can not be found';
   END IF;
+  IF EXISTS (SELECT c.category_id FROM categories c WHERE c.parent_id = id) THEN
+    RAISE EXCEPTION 'This category can not be deleted as it is used as a reference   for parent category in other category.';
+  END IF;
   DELETE FROM categories WHERE category_id=id;
   RETURN TRUE;
 END;
