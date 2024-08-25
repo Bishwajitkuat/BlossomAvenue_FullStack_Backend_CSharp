@@ -61,6 +61,7 @@ HTTP status 200 with
     "product_id" : "9722b5b6-27a3-4990-9b21-5aa71c47418d", // guid
     "title": "White rose", // string
     "description": "product description", // test
+    "avg_star": 3.5, // decimal (10,1)
     "variations":[
       {
         "variation_id": "798e5283-f46f-47c2-891f-6fdf80b367eb", // guid
