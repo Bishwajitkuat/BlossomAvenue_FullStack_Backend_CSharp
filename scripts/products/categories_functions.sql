@@ -17,9 +17,11 @@ RETURNS TABLE(category_id UUID, category_name VARCHAR, parent_id UUID)
 AS
 $$
 BEGIN
+    IF id IS NULL OR NOT EXISTS (SELECT c.category_id FROM categories c) THEN
+      RAISE EXCEPTION 'Category id can not be null.';
+    END IF;
   RETURN QUERY
   SELECT c.category_id, c.category_name, c.parent_id FROM categories c WHERE c.category_id = id;
-
 END;
 $$ LANGUAGE PLPGSQL;
 
