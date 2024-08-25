@@ -1,5 +1,5 @@
 -- function to get all categories
-CREATE OR REPLACE FUNCTION get_all_categories_fn() 
+CREATE OR REPLACE FUNCTION get_all_categories() 
 RETURNS TABLE(category_id UUID, category_name VARCHAR, parent_id UUID)
 AS 
 $$
@@ -12,7 +12,7 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 -- function to get category by id
-CREATE OR REPLACE FUNCTION get_category_by_id_fn(id UUID)
+CREATE OR REPLACE FUNCTION get_category_by_id(id UUID)
 RETURNS TABLE(category_id UUID, category_name VARCHAR, parent_id UUID)
 AS
 $$
@@ -25,7 +25,7 @@ $$ LANGUAGE PLPGSQL;
 
 
 -- function to update a category by id
-CREATE OR REPLACE FUNCTION update_category_by_id_fn(cat_id UUID, cat_name VARCHAR, par_id UUID)
+CREATE OR REPLACE FUNCTION update_category_by_id(cat_id UUID, cat_name VARCHAR, par_id UUID)
 RETURNS TABLE(cate_id UUID, cate_name VARCHAR, pare_id UUID)
 AS
 $$

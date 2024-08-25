@@ -1,7 +1,7 @@
 
 -- function to get all product with parameters
 
-CREATE OR REPLACE FUNCTION get_all_products_fn(
+CREATE OR REPLACE FUNCTION get_all_products(
   page_num INT, 
   item_per_page INT, 
   search_word VARCHAR, 
