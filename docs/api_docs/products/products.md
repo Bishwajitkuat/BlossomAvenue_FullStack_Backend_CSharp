@@ -5,7 +5,7 @@
 #### Authentication Required: `False`
 
 ```
-base_url/api/v1/products?page=page_number&items_per_page=item_number&search_by=search_word&order_with=name&order_by=asc | desc
+base_url/api/v1/products?page=1&items_per_page=10&search_by=a&sort_by=title&sort_order=ASC
 ```
 
 ### Response on success
