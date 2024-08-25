@@ -208,7 +208,6 @@ PATCH base_url/api/v1/products/{id}
 
 ```json
 {
-  "product_id": "9722b5b6-27a3-4990-9b21-5aa71c47418d", // guid
   "title": "White rose special", // string
   "description": "product description", // test
   "variations": [
