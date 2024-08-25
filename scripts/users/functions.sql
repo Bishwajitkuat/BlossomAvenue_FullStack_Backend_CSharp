@@ -53,10 +53,7 @@ RETURNS TABLE
     last_name VARCHAR, 
     email VARCHAR, 
     user_role_id UUID,
-    user_role_name VARCHAR,
-    last_login TIMESTAMP,
-    is_user_active BOOLEAN,
-    created_at TIMESTAMP
+    user_role_name VARCHAR
 ) AS $$
 DECLARE
     query TEXT;
@@ -102,10 +99,7 @@ BEGIN
                 users.last_name, 
                 users.email, 
                 users.user_role_id,
-                user_roles.user_role_name,
-                users.last_login,
-                users.is_user_active,
-                users.created_at
+                user_roles.user_role_name
               FROM users 
               INNER JOIN user_roles ON users.user_role_id = user_roles.user_role_id
               WHERE (
@@ -123,39 +117,6 @@ BEGIN
     -- Execute the dynamic query safely
     RETURN QUERY EXECUTE query USING p_user_role_id;
 
-END;
-$$ LANGUAGE plpgsql;
-
--- Get one user by id --
-CREATE OR REPLACE FUNCTION get_user(p_user_id UUID)
-RETURNS TABLE 
-(
-user_id UUID, 
-first_name VARCHAR, 
-last_name VARCHAR, 
-email VARCHAR, 
-user_role_id UUID,
-user_role_name VARCHAR,
-last_login TIMESTAMP,
-is_user_active BOOLEAN,
-created_at TIMESTAMP
-) AS $$
-BEGIN
-	RETURN QUERY
-	SELECT 
-		users.user_id, 
-		users.first_name, 
-		users.last_name, 
-		users.email, 
-		users.user_role_id,
-		user_roles.user_role_name,
-		users.last_login,
-		users.is_user_active,
-		users.created_at
-	FROM users INNER JOIN
-	user_roles
-	ON users.user_role_id = user_roles.user_role_id
-	WHERE users.user_id = p_user_id;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -209,28 +170,57 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Delete one user --
+-- Get user by Id -- 
 
-CREATE OR REPLACE FUNCTION delete_user(
-	p_user_id UUID
+CREATE OR REPLACE FUNCTION get_user_by_id(
+    p_user_id UUID
 )
-RETURNS BOOLEAN AS $$
-DECLARE
-    rows_affected INT;
+RETURNS TABLE 
+(
+    user_id UUID, 
+    first_name VARCHAR, 
+    last_name VARCHAR, 
+    email VARCHAR, 
+    user_role_id UUID,
+	last_login TIMESTAMP,
+	is_user_active BOOLEAN,
+	created_at TIMESTAMP,
+	address_line_1 VARCHAR,
+	address_line_2 VARCHAR,
+	city_id UUID,
+	contact_number VARCHAR
+) AS $$
 BEGIN
+    -- Validate inputs
+    IF p_user_id IS NULL THEN
+        RAISE EXCEPTION 'Error: user id cannot be null';
+    END IF;
 
 	-- Check if a user exists with user_id
 	IF NOT EXISTS (SELECT 1 FROM users WHERE users.user_id = p_user_id) THEN
         RAISE EXCEPTION 'Error: A user with given user id does not exists';
     END IF;
 
-	DELETE FROM users 
-	WHERE 
-	   users.user_id = p_user_id;
+	RETURN QUERY
+	SELECT 
+      users.user_id,
+	  users.first_name,
+	  users.last_name,
+	  users.email,
+	  users.user_role_id,
+	  users.last_login,
+	  users.is_user_active,
+	  users.created_at,
+	  address_details.address_line_1,
+	  address_details.address_line_2,
+	  address_details.city_id,
+	  user_contact_number.contact_number,
+	  user_addresses.default_address
+	FROM users 
+	INNER JOIN user_addresses ON user_addresses.user_id = users.user_id
+	INNER JOIN address_details ON address_details.address_id = user_addresses.address_id
+	INNER JOIN user_contact_number ON user_contact_number.user_id = users.user_id
+	WHERE users.user_id = p_user_id;
 
-	GET DIAGNOSTICS rows_affected = ROW_COUNT;
-
-    RETURN rows_affected > 0;
-    
 END;
 $$ LANGUAGE plpgsql;
