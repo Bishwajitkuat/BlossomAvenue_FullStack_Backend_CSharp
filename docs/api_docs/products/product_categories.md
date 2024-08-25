@@ -83,7 +83,7 @@ HTTP status 500 with
 #### Authentication Required as Admin: `True`
 
 ```
-PATCH base_url/api/v1/categories/:id
+PATCH base_url/api/v1/categories/{id}
 ```
 
 ### Request Body
@@ -128,7 +128,7 @@ HTTP status 500 with
 #### Authentication Required as Admin: `True`
 
 ```
-DELETE base_url/api/v1/categories/:id
+DELETE base_url/api/v1/categories/{id}
 ```
 
 ### Response on success

@@ -5,7 +5,7 @@
 #### Authentication Required: `False`
 
 ```
-base_url/api/v1/products?page=page_number&items_per_page=item_number&search_by=search_word&order_with=name&order_by=asc | desc
+base_url/api/v1/products?page=1&items_per_page=10&search_by=a&sort_by=title&sort_order=ASC
 ```
 
 ### Response on success
@@ -13,7 +13,8 @@ base_url/api/v1/products?page=page_number&items_per_page=item_number&search_by=s
 - Get all products
 - Pagination (page number and item per page)
 - Search by product title
-- Sort by price
+- Sort by price or min price or ratings
+- Sort order ASC or DESC
 
 ```json
 HTTP status 200 with
@@ -26,10 +27,10 @@ HTTP status 200 with
     "product_id" : "9722b5b6-27a3-4990-9b21-5aa71c47418d", // guid
     "title": "White rose", // string
     "description": "product description", // test
-    "min_price": 26.56 // decimal
-    "images": "https://images.unsplash.com/photo-1509449764226-63afec1c342a?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // text
+    "min_price": 26.56, // decimal
+    "avg_star": 3.5, // decimal (10,1)
+    "image_url": "https://images.unsplash.com/photo-1509449764226-63afec1c342a?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // text
   }
-
 ]
 }
 ```
@@ -46,7 +47,7 @@ HTTP status 500 with
 #### Authentication Required: `False`
 
 ```
-GET base_url/api/v1/products/:id
+GET base_url/api/v1/products/{id}
 ```
 
 ### Response on success
@@ -60,6 +61,7 @@ HTTP status 200 with
     "product_id" : "9722b5b6-27a3-4990-9b21-5aa71c47418d", // guid
     "title": "White rose", // string
     "description": "product description", // test
+    "avg_star": 3.5, // decimal (10,1)
     "variations":[
       {
         "variation_id": "798e5283-f46f-47c2-891f-6fdf80b367eb", // guid
@@ -197,7 +199,7 @@ HTTP status 500 with
 #### Authentication Required as Admin: `True`
 
 ```
-PATCH base_url/api/v1/products/:id
+PATCH base_url/api/v1/products/{id}
 ```
 
 - Update a product by Id (guid)
@@ -206,7 +208,6 @@ PATCH base_url/api/v1/products/:id
 
 ```json
 {
-  "product_id": "9722b5b6-27a3-4990-9b21-5aa71c47418d", // guid
   "title": "White rose special", // string
   "description": "product description", // test
   "variations": [
@@ -287,7 +288,7 @@ HTTP status 500 with
 #### Authentication Required as Admin: `True`
 
 ```
-DELETE base_url/api/v1/products/id
+DELETE base_url/api/v1/products/{id}
 ```
 
 - Delete a product by Id(guid)
