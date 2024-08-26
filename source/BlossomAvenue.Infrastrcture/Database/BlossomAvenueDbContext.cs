@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BlossomAvenue.Core.ProductAggregate;
 using BlossomAvenue.Core.Users;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,14 @@ public partial class BlossomAvenueDbContext : DbContext
     public virtual DbSet<UserCredential> UserCredentials { get; set; }
 
     public virtual DbSet<UserRole> UserRoles { get; set; }
+
+    // product related tables
+    public virtual DbSet<Category> Categories { get; set; }
+    public virtual DbSet<Image> Images { get; set; }
+    public virtual DbSet<Product> Products { get; set; }
+    public virtual DbSet<Variation> Variations { get; set; }
+    public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
