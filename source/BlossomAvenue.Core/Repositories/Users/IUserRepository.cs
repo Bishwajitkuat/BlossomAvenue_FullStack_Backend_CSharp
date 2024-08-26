@@ -10,7 +10,7 @@ namespace BlossomAvenue.Core.Repositories.Users
     public interface IUserRepository
     {
         public Task<User> CreateUser(User user);
-        public Task<List<User>> GetUsers(int pageNo, int page_size, Guid userRoleId, string orderWith, string orderBy, string search);
+        public Task<List<User>> GetUsers(int pageNo, int pageSize, Guid? userRoleId, string orderWith, string orderBy, string? search);
         public Task<User> GetUser(Guid userId);
         public void UpdateUser(Guid userId, User user);
         public void DeleteUser(Guid userId);

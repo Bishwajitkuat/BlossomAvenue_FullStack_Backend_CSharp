@@ -33,9 +33,9 @@ namespace BlossomAvenue.Service.UsersService
             throw new NotImplementedException();
         }
 
-        public async Task<List<UserDto>> GetUsers(int pageNo, int page_size, Guid userRoleId, string orderWith, string orderBy, string search)
+        public async Task<List<UserDto>> GetUsers(int pageNo, int pageSize, Guid? userRoleId, string orderWith, string orderBy, string? search)
         {
-            var users = await _userRepository.GetUsers(pageNo, page_size, userRoleId, orderWith, orderBy, search);
+            var users = await _userRepository.GetUsers(pageNo, pageSize, userRoleId, orderWith, orderBy, search);
 
             return _mapper.Map<List<UserDto>>(users);
         }
