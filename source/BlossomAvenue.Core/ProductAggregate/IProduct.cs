@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 
 namespace BlossomAvenue.Core.ProductAggregate
 {
-    public class Product : IProduct
+    public class IProduct
     {
         public Guid ProductId { get; set; }
         public string Title { get; set; }

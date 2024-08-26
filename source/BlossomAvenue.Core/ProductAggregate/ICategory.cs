@@ -2,7 +2,7 @@ using System;
 
 namespace BlossomAvenue.Core.ProductAggregate
 {
-    public class Category : ICategory
+    public interface ICategory
     {
         public Guid CategoryId { get; set; }
         public string CategoryName { get; set; }
