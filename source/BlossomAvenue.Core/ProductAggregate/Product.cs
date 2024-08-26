@@ -8,8 +8,8 @@ namespace BlossomAvenue.Core.ProductAggregate
         public Guid ProductId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public IEnumerable<IImage> Images { get; set; }
-        public IEnumerable<IVariation> Variations { get; set; }
-        public IEnumerable<IProductCategory> ProductCategories { get; set; }
+        public IEnumerable<Image> Images { get; set; }
+        public IEnumerable<Variation> Variations { get; set; }
+        public IEnumerable<ProductCategory> ProductCategories { get; set; }
     }
 }

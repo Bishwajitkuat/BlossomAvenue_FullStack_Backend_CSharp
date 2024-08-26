@@ -74,7 +74,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
 
             // Assert
             Assert.NotNull(images);
-            Assert.Equal(typeof(IEnumerable<IImage>), images.PropertyType);
+            Assert.Equal(typeof(IEnumerable<Image>), images.PropertyType);
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
 
             // Assert
             Assert.NotNull(variations);
-            Assert.Equal(typeof(IEnumerable<IVariation>), variations.PropertyType);
+            Assert.Equal(typeof(IEnumerable<Variation>), variations.PropertyType);
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
 
             // Assert
             Assert.NotNull(productCategories);
-            Assert.Equal(typeof(IEnumerable<IProductCategory>), productCategories.PropertyType);
+            Assert.Equal(typeof(IEnumerable<ProductCategory>), productCategories.PropertyType);
         }
     }
 }
