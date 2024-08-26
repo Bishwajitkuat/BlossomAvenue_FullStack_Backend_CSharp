@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 using BlossomAvenue.Core.ProductAggregate;
@@ -60,6 +61,48 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
             // Assert
             Assert.NotNull(description);
             Assert.Equal(typeof(string), description.PropertyType);
+        }
+
+        [Fact]
+        public void Product_ShouldHaveValidImages()
+        {
+            //Arrange
+            var product = typeof(Product);
+
+            // Act
+            var images = product.GetProperty("Images");
+
+            // Assert
+            Assert.NotNull(images);
+            Assert.Equal(typeof(IEnumerable<IImage>), images.PropertyType);
+        }
+
+        [Fact]
+        public void Product_ShouldHaveValidVariations()
+        {
+            //Arrange
+            var product = typeof(Product);
+
+            // Act
+            var variations = product.GetProperty("Variations");
+
+            // Assert
+            Assert.NotNull(variations);
+            Assert.Equal(typeof(IEnumerable<IVariation>), variations.PropertyType);
+        }
+
+        [Fact]
+        public void Product_ShouldHaveValidCategories()
+        {
+            //Arrange
+            var product = typeof(Product);
+
+            // Act
+            var categories = product.GetProperty("Categories");
+
+            // Assert
+            Assert.NotNull(categories);
+            Assert.Equal(typeof(IEnumerable<ICategory>), categories.PropertyType);
         }
     }
 }
