@@ -63,3 +63,6 @@ x86/
 # App settings
 appsettings.Development.json
 
+# Migrations
+source/BlossomAvenue.Infrastrcture/Migrations
+
