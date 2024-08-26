@@ -1,3 +1,6 @@
+using System;
+using Xunit;
+
 using BlossomAvenue.Core.ProductAggregate;
 
 namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
