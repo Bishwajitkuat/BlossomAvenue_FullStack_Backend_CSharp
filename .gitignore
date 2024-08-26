@@ -1,2 +1,65 @@
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+bin/
+obj/
+*.user
+*.userosx
+*.suo
+*.sln.docstates
+
+# ASP.NET Core
+wwwroot/
+*.nupkg
+*.snupkg
+
+# Visual Studio Code
+.vscode/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+*.pkgproj
+.nuget/
+# NuGet package directory
+# If using NuGet Package Restore, make sure to include this directory to prevent it from being included in the repo.
+# This is typically where NuGet caches downloaded packages.
+# Remove the line below if you want to include the cache in your repo
+packages/
+
+# OS-specific files
 .DS_Store
-.vscode
+Thumbs.db
+
+# Logs
+*.log
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# VS Code
+.vscode/
+
+# User-specific files
+*.suo
+*.user
+*.userosx
+*.suo
+*.ntvs_analysis.dat
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+
+# App settings
+appsettings.Development.json
+

@@ -1,0 +1,411 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{37951990-25B7-4C95-98FB-20FA4952302E}|BlossomAvenue.Infrastrcture\\BlossomAvenue.Infrastrcture.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.infrastrcture\\database\\blossomavenuedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37951990-25B7-4C95-98FB-20FA4952302E}|BlossomAvenue.Infrastrcture\\BlossomAvenue.Infrastrcture.csproj|solutionrelative:blossomavenue.infrastrcture\\database\\blossomavenuedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37951990-25B7-4C95-98FB-20FA4952302E}|BlossomAvenue.Infrastrcture\\BlossomAvenue.Infrastrcture.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.infrastrcture\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37951990-25B7-4C95-98FB-20FA4952302E}|BlossomAvenue.Infrastrcture\\BlossomAvenue.Infrastrcture.csproj|solutionrelative:blossomavenue.infrastrcture\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.tests\\blossomavenue.core\\users\\useraddressentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|solutionrelative:blossomavenue.tests\\blossomavenue.core\\users\\useraddressentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.tests\\blossomavenue.core\\users\\cityentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|solutionrelative:blossomavenue.tests\\blossomavenue.core\\users\\cityentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.tests\\blossomavenue.core\\users\\usercontactnumberentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|solutionrelative:blossomavenue.tests\\blossomavenue.core\\users\\usercontactnumberentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.tests\\blossomavenue.core\\users\\usercredentialentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|solutionrelative:blossomavenue.tests\\blossomavenue.core\\users\\usercredentialentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.core\\users\\usercredential.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|solutionrelative:blossomavenue.core\\users\\usercredential.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.core\\users\\usercontactnumber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|solutionrelative:blossomavenue.core\\users\\usercontactnumber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.core\\users\\useraddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|solutionrelative:blossomavenue.core\\users\\useraddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.tests\\blossomavenue.core\\users\\addressdetailentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|solutionrelative:blossomavenue.tests\\blossomavenue.core\\users\\addressdetailentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.core\\users\\addressdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|solutionrelative:blossomavenue.core\\users\\addressdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.tests\\blossomavenue.core\\users\\userroleentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|solutionrelative:blossomavenue.tests\\blossomavenue.core\\users\\userroleentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.core\\users\\userrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|solutionrelative:blossomavenue.core\\users\\userrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.tests\\blossomavenue.core\\users\\userentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|solutionrelative:blossomavenue.tests\\blossomavenue.core\\users\\userentitytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.core\\users\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|solutionrelative:blossomavenue.core\\users\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.core\\blossomavenue.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|solutionrelative:blossomavenue.core\\blossomavenue.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.core\\users\\city.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4128330-4A27-4CB6-BE28-B2558DFB2A69}|BlossomAvenue.Core\\BlossomAvenue.Core.csproj|solutionrelative:blossomavenue.core\\users\\city.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37951990-25B7-4C95-98FB-20FA4952302E}|BlossomAvenue.Infrastrcture\\BlossomAvenue.Infrastrcture.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.infrastrcture\\database\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37951990-25B7-4C95-98FB-20FA4952302E}|BlossomAvenue.Infrastrcture\\BlossomAvenue.Infrastrcture.csproj|solutionrelative:blossomavenue.infrastrcture\\database\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41526BF5-CBBA-4E8A-979E-1E5B261503E6}|BlossomAvenue.Service\\BlossomAvenue.Service.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.service\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41526BF5-CBBA-4E8A-979E-1E5B261503E6}|BlossomAvenue.Service\\BlossomAvenue.Service.csproj|solutionrelative:blossomavenue.service\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37951990-25B7-4C95-98FB-20FA4952302E}|BlossomAvenue.Infrastrcture\\BlossomAvenue.Infrastrcture.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.infrastrcture\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{37951990-25B7-4C95-98FB-20FA4952302E}|BlossomAvenue.Infrastrcture\\BlossomAvenue.Infrastrcture.csproj|solutionrelative:blossomavenue.infrastrcture\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.tests\\blossomavenue.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4B4B32C0-2976-49C9-B284-33D4DC3348F9}|BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj|solutionrelative:blossomavenue.tests\\blossomavenue.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41526BF5-CBBA-4E8A-979E-1E5B261503E6}|BlossomAvenue.Service\\BlossomAvenue.Service.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.service\\blossomavenue.service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{41526BF5-CBBA-4E8A-979E-1E5B261503E6}|BlossomAvenue.Service\\BlossomAvenue.Service.csproj|solutionrelative:blossomavenue.service\\blossomavenue.service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B601D62A-F416-4460-B7AB-E8266D83F916}|BlossomAvenue.Presentation\\BlossomAvenue.Presentation.csproj|c:\\users\\arajm\\onedrive\\documents\\integrify\\teamwork\\fs18_csharp_teamwork\\source\\blossomavenue.presentation\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B601D62A-F416-4460-B7AB-E8266D83F916}|BlossomAvenue.Presentation\\BlossomAvenue.Presentation.csproj|solutionrelative:blossomavenue.presentation\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserCredentialEntityTests.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserCredentialEntityTests.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserCredentialEntityTests.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserCredentialEntityTests.cs",
+              "RelativeToolTip": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserCredentialEntityTests.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T22:00:35.041Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserCredential.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\UserCredential.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Core\\Users\\UserCredential.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\UserCredential.cs",
+              "RelativeToolTip": "BlossomAvenue.Core\\Users\\UserCredential.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:59:55.387Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserContactNumberEntityTests.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserContactNumberEntityTests.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserContactNumberEntityTests.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserContactNumberEntityTests.cs",
+              "RelativeToolTip": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserContactNumberEntityTests.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:59:09.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserContactNumber.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\UserContactNumber.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Core\\Users\\UserContactNumber.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\UserContactNumber.cs",
+              "RelativeToolTip": "BlossomAvenue.Core\\Users\\UserContactNumber.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:58:31.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BlossomAvenueDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Infrastrcture\\Database\\BlossomAvenueDbContext.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Infrastrcture\\Database\\BlossomAvenueDbContext.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Infrastrcture\\Database\\BlossomAvenueDbContext.cs",
+              "RelativeToolTip": "BlossomAvenue.Infrastrcture\\Database\\BlossomAvenueDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:55:58.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CityEntityTests.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\CityEntityTests.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\CityEntityTests.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\CityEntityTests.cs",
+              "RelativeToolTip": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\CityEntityTests.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:47:41.491Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserAddressEntityTests.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserAddressEntityTests.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserAddressEntityTests.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserAddressEntityTests.cs",
+              "RelativeToolTip": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserAddressEntityTests.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAAAkAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:46:16.351Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Infrastrcture\\Program.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Infrastrcture\\Program.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Infrastrcture\\Program.cs",
+              "RelativeToolTip": "BlossomAvenue.Infrastrcture\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T20:22:37.164Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AddressDetailEntityTests.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\AddressDetailEntityTests.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\AddressDetailEntityTests.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\AddressDetailEntityTests.cs",
+              "RelativeToolTip": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\AddressDetailEntityTests.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:48:57.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UserRoleEntityTests.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserRoleEntityTests.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserRoleEntityTests.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserRoleEntityTests.cs",
+              "RelativeToolTip": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserRoleEntityTests.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABgAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:42:25.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "BlossomAvenue.Core",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\BlossomAvenue.Core.csproj",
+              "RelativeDocumentMoniker": "BlossomAvenue.Core\\BlossomAvenue.Core.csproj",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\BlossomAvenue.Core.csproj",
+              "RelativeToolTip": "BlossomAvenue.Core\\BlossomAvenue.Core.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-08-25T21:21:51.849Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AddressDetail.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\AddressDetail.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Core\\Users\\AddressDetail.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\AddressDetail.cs",
+              "RelativeToolTip": "BlossomAvenue.Core\\Users\\AddressDetail.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:16:20.815Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserAddress.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\UserAddress.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Core\\Users\\UserAddress.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\UserAddress.cs",
+              "RelativeToolTip": "BlossomAvenue.Core\\Users\\UserAddress.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:16:01.933Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "City.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\City.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Core\\Users\\City.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\City.cs",
+              "RelativeToolTip": "BlossomAvenue.Core\\Users\\City.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:16:30.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UserRole.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\UserRole.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Core\\Users\\UserRole.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\UserRole.cs",
+              "RelativeToolTip": "BlossomAvenue.Core\\Users\\UserRole.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAUAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:16:08.047Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\User.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Core\\Users\\User.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Core\\Users\\User.cs",
+              "RelativeToolTip": "BlossomAvenue.Core\\Users\\User.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAYAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:15:12.046Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "UserEntityTests.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserEntityTests.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserEntityTests.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserEntityTests.cs",
+              "RelativeToolTip": "BlossomAvenue.Tests\\BlossomAvenue.Core\\Users\\UserEntityTests.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:10:59.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Infrastrcture\\Database\\User.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Infrastrcture\\Database\\User.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Infrastrcture\\Database\\User.cs",
+              "RelativeToolTip": "BlossomAvenue.Infrastrcture\\Database\\User.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T21:10:16.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Infrastrcture\\appsettings.json",
+              "RelativeDocumentMoniker": "BlossomAvenue.Infrastrcture\\appsettings.json",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Infrastrcture\\appsettings.json",
+              "RelativeToolTip": "BlossomAvenue.Infrastrcture\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-25T20:36:33.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BlossomAvenue.Tests",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj",
+              "RelativeDocumentMoniker": "BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj",
+              "RelativeToolTip": "BlossomAvenue.Tests\\BlossomAvenue.Tests.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-08-25T20:20:45.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "BlossomAvenue.Service",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Service\\BlossomAvenue.Service.csproj",
+              "RelativeDocumentMoniker": "BlossomAvenue.Service\\BlossomAvenue.Service.csproj",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Service\\BlossomAvenue.Service.csproj",
+              "RelativeToolTip": "BlossomAvenue.Service\\BlossomAvenue.Service.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-08-25T20:19:40.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Service\\Class1.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Service\\Class1.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Service\\Class1.cs",
+              "RelativeToolTip": "BlossomAvenue.Service\\Class1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T20:16:26.857Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Presentation\\Class1.cs",
+              "RelativeDocumentMoniker": "BlossomAvenue.Presentation\\Class1.cs",
+              "ToolTip": "C:\\Users\\ARajm\\OneDrive\\Documents\\Integrify\\TeamWork\\fs18_CSharp_Teamwork\\source\\BlossomAvenue.Presentation\\Class1.cs",
+              "RelativeToolTip": "BlossomAvenue.Presentation\\Class1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-25T20:15:59.253Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
