@@ -92,17 +92,17 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
         }
 
         [Fact]
-        public void Product_ShouldHaveValidCategories()
+        public void Product_ShouldHaveValidProductCategories()
         {
             //Arrange
             var product = typeof(Product);
 
             // Act
-            var categories = product.GetProperty("Categories");
+            var productCategories = product.GetProperty("ProductCategories");
 
             // Assert
-            Assert.NotNull(categories);
-            Assert.Equal(typeof(IEnumerable<ICategory>), categories.PropertyType);
+            Assert.NotNull(productCategories);
+            Assert.Equal(typeof(IEnumerable<IProductCategory>), productCategories.PropertyType);
         }
     }
 }
