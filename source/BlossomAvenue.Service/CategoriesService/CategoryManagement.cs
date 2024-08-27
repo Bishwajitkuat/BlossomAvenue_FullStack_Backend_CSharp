@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
+using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.Repositories.Categories;
 
 
@@ -19,12 +20,16 @@ namespace BlossomAvenue.Service.CategoriesService
 
         public async Task<bool> CreateCategory(Category category)
         {
-            return await _categoryRepository.CreateCategory(category);
+            var result = await _categoryRepository.CreateCategory(category);
+            if (result == false) throw new RecordNotCreatedException("category");
+            return result;
         }
 
         public async Task<bool> DeleteCategory(Guid categoryId)
         {
-            return await _categoryRepository.DeleteCategory(categoryId);
+            var result = await _categoryRepository.DeleteCategory(categoryId);
+            if (result == false) throw new RecordNotFoundException("category");
+            return result;
         }
 
         public async Task<IEnumerable<Category>> GetAllCategories()
@@ -34,7 +39,9 @@ namespace BlossomAvenue.Service.CategoriesService
 
         public async Task<bool> UpdateCategory(Guid categoryId, UpdateCategoryDto updateCategoryDto)
         {
-            return await _categoryRepository.UpdateCategory(categoryId, updateCategoryDto);
+            var result = await _categoryRepository.UpdateCategory(categoryId, updateCategoryDto);
+            if (result is false) throw new RecordNotUpdatedException("category");
+            return result;
         }
     }
 }
