@@ -12,7 +12,7 @@ namespace BlossomAvenue.Service.Repositories.Users
         public Task<User> CreateUser(User user);
         public Task<List<User>> GetUsers(int pageNo, int pageSize, Guid? userRoleId, string orderWith, string orderBy, string? search);
         public Task<User?> GetUser(Guid userId);
-        public void UpdateUser(Guid userId, User user);
+        public Task UpdateUser(User user);
         public void DeleteUser(Guid userId);
     }
 }

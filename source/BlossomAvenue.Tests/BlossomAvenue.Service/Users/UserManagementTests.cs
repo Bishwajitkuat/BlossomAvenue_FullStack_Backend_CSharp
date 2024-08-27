@@ -136,5 +136,32 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             // Act and Assert
             await Assert.ThrowsAsync<RecordNotFoundException>(() => _userManagement.GetUser(userId));
         }
+
+        [Fact]
+        public async Task UserManagement_ShouldHaveActiveInactiveUserMethod() 
+        {
+            //Arrange
+            var type = typeof(UserManagement);
+
+            // Act
+            var activeInactiveUserMethod = type.GetMethod("ActiveInactiveUser");
+
+            Assert.NotNull(activeInactiveUserMethod);
+        }
+
+        [Fact]
+        public async Task UserManagement_ActiveInacitve_ShouldThrowExceptionOnNoUser() 
+        {
+            //Arrange
+            var userId = Guid.NewGuid();
+            var status = true;
+
+            _mockUserRepository.Setup(x => x.GetUser(userId)).ReturnsAsync((User)null);
+
+            //Act and Assert
+             Assert.ThrowsAsync<RecordNotFoundException>(() => _userManagement.ActiveInactiveUser(userId, status));
+
+            
+        }
     }
 }

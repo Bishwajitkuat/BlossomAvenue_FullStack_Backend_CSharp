@@ -19,6 +19,15 @@ namespace BlossomAvenue.Service.UsersService
             _userRepository = userRepository;
             _mapper = mapper;
         }
+
+        public async Task ActiveInactiveUser(Guid userId, bool status)
+        {
+            var user = await _userRepository.GetUser(userId) ?? throw new RecordNotFoundException("User");
+            
+            user.IsUserActive = status;
+            await _userRepository.UpdateUser(user);
+        }
+
         public Task<UserDto> CreateUser(UserDto user)
         {
             throw new NotImplementedException();

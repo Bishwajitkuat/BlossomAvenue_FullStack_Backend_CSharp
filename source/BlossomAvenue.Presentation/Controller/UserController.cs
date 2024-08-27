@@ -45,11 +45,19 @@ namespace BlossomAvenue.Presentation.Controller
 
             return Ok(users);
         }
+
         [HttpGet("profile/{profileId}")]
         public async Task<IActionResult> GetUser(Guid profileId)
         {
             var user = await _userManagement.GetUser(profileId);
             return Ok(user);
+        }
+        
+        [HttpPatch("profileStatus")]
+        public async Task<IActionResult> ActiveInactiveUser([FromQuery] Guid userId, [FromQuery] bool status)
+        {
+            await _userManagement.ActiveInactiveUser(userId, status);
+            return NoContent();
         }
     }
 }

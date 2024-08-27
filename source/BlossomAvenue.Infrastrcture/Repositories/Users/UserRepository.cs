@@ -71,9 +71,10 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
             return users;
         }
 
-        public void UpdateUser(Guid userId, User user)
+        public async Task UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
         }
     }
 }
