@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using BlossomAvenue.Core.Products;
 using BlossomAvenue.Core.Users;
+// using BlossomAvenue.Core.Products;
+using BlossomAvenue.Core.ProductReviews;
+using BlossomAvenue.Core.Orders;
+using BlossomAvenue.Core.Carts;
 using Microsoft.EntityFrameworkCore;
+using BlossomAvenue.Core.Products;
 
 namespace BlossomAvenue.Infrastrcture.Database;
 
@@ -16,6 +20,40 @@ public partial class BlossomAvenueDbContext : DbContext
         : base(options)
     {
     }
+
+    // public virtual DbSet<AddressDetail> AddressDetails { get; set; }
+
+    // public virtual DbSet<Cart> Carts { get; set; }
+
+    // public virtual DbSet<CartItem> CartItems { get; set; }
+
+    // public virtual DbSet<Category> Categories { get; set; }
+
+    // public virtual DbSet<City> Cities { get; set; }
+
+    // public virtual DbSet<Image> Images { get; set; }
+
+    // public virtual DbSet<Order> Orders { get; set; }
+
+    // public virtual DbSet<OrderItem> OrderItems { get; set; }
+
+    // public virtual DbSet<Product> Products { get; set; }
+
+    // public virtual DbSet<ProductReview> ProductReviews { get; set; }
+
+    // public virtual DbSet<ProductCategory> ProductsCategories { get; set; }
+
+    // public virtual DbSet<User> Users { get; set; }
+
+    // public virtual DbSet<UserAddress> UserAddresses { get; set; }
+
+    // public virtual DbSet<UserContactNumber> UserContactNumbers { get; set; }
+
+    // public virtual DbSet<UserCredential> UserCredentials { get; set; }
+
+    // public virtual DbSet<UserRole> UserRoles { get; set; }
+
+    // public virtual DbSet<Variation> Variations { get; set; }
 
     public virtual DbSet<AddressDetail> AddressDetails { get; set; }
 
@@ -38,6 +76,17 @@ public partial class BlossomAvenueDbContext : DbContext
     public virtual DbSet<Variation> Variations { get; set; }
     public virtual DbSet<ProductCategory> ProductCategories { get; set; }
 
+    // order related tables
+    public virtual DbSet<Order> Orders { get; set; }
+    public virtual DbSet<OrderItem> OrderItems { get; set; }
+    public virtual DbSet<Cart> Carts { get; set; }
+    public virtual DbSet<CartItem> CartItems { get; set; }
+    public virtual DbSet<ProductReview> ProductReviews { get; set; }
+
+
+//     // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+//         => optionsBuilder.UseNpgsql("Host=localhost;Database=blossom_avenue_db;Username=app_user;Password=11223344");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -19,10 +19,13 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserManagement, UserManagement>();
+
 // DI category repository
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 // DI category management service
 builder.Services.AddScoped<ICategoryManagement, CategoryManagement>();
+
+builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
