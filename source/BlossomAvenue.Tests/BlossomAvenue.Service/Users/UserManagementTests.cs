@@ -125,7 +125,6 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             Assert.Equal(usersDto.UserRoleId, result.UserRoleId);
 
         }
-
         [Fact]
         public async Task UserManagement_GetUser_ShouldThrowRecrodNotFoundExceptionOnNoRecrods() 
         {
@@ -136,9 +135,8 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             // Act and Assert
             await Assert.ThrowsAsync<RecordNotFoundException>(() => _userManagement.GetUser(userId));
         }
-
         [Fact]
-        public async Task UserManagement_ShouldHaveActiveInactiveUserMethod() 
+        public void UserManagement_ShouldHaveActiveInactiveUserMethod() 
         {
             //Arrange
             var type = typeof(UserManagement);
@@ -148,7 +146,6 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
 
             Assert.NotNull(activeInactiveUserMethod);
         }
-
         [Fact]
         public async Task UserManagement_ActiveInacitve_ShouldThrowExceptionOnNoUser() 
         {
@@ -159,8 +156,32 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             _mockUserRepository.Setup(x => x.GetUser(userId)).ReturnsAsync((User)null);
 
             //Act and Assert
-             Assert.ThrowsAsync<RecordNotFoundException>(() => _userManagement.ActiveInactiveUser(userId, status));
+             await Assert.ThrowsAsync<RecordNotFoundException>(() => _userManagement.ActiveInactiveUser(userId, status));
+            
+        }
+        [Fact]
+        public async Task UserManagement_ActiveInacitve_ShouldCallUpdateUserOnce()
+        {
+            //Arrange
+            var userId = Guid.NewGuid();
+            var status = true;
 
+            var user = new User
+            {
+                UserId = Guid.NewGuid(),
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "a.b@c.com",
+                UserRoleId = Guid.NewGuid()
+            };
+
+            _mockUserRepository.Setup(x => x.GetUser(userId)).ReturnsAsync(user);
+
+            //Act
+            await _userManagement.ActiveInactiveUser(userId, status);
+
+            //Assert
+            _mockUserRepository.Verify(x => x.UpdateUser(It.IsAny<User>()), Times.Once);
             
         }
     }
