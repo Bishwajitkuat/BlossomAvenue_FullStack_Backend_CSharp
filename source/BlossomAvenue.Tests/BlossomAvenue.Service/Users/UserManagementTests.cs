@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
 {
@@ -17,13 +18,17 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
     {
         private readonly Mock<IUserRepository> _mockUserRepository;
         private readonly Mock<IMapper> _mockMapper;
+        private readonly Mock<IConfiguration> _mockConfiguration;
+        private readonly Mock<IUserRoleRepository> _mockUserRoleRepository;
         private readonly UserManagement _userManagement;
 
         public UserManagementTests()
         {
             _mockUserRepository = new Mock<IUserRepository>();
             _mockMapper = new Mock<IMapper>();
-            _userManagement = new UserManagement(_mockUserRepository.Object, _mockMapper.Object);
+            _mockConfiguration = new Mock<IConfiguration>();
+            _mockUserRoleRepository = new Mock<IUserRoleRepository>();
+            _userManagement = new UserManagement(_mockUserRepository.Object, _mockUserRoleRepository.Object, _mockMapper.Object, _mockConfiguration.Object);
         }
         [Fact]
         public void UserManagement_ShouldExists()
@@ -183,6 +188,79 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             //Assert
             _mockUserRepository.Verify(x => x.UpdateUser(It.IsAny<User>()), Times.Once);
             
+        }
+        [Fact]
+        public void UserManagement_ShouldHaveCreateUserMethod()
+        {
+            //Arrange
+            var type = typeof(UserManagement);
+
+            // Act
+            var createUserMethod = type.GetMethod("CreateUser");
+
+            Assert.NotNull(createUserMethod);
+        }
+        [Fact]
+        public async Task UserManagement_CreateUser_ShouldThrowExceptionOnEmailExist() 
+        {
+            //Arrange
+            var newUserDto = new CreateUserDto
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "a.b@c.com"
+            };
+
+            _mockUserRepository.Setup(x => x.CheckUserExistsByEmail(newUserDto.Email)).ReturnsAsync(true);
+
+            //Act and Assert
+            await Assert.ThrowsAsync<RecordAlreadyExistsException>(() => _userManagement.CreateUser(newUserDto));
+        }
+        [Fact]
+        public async Task UserManagement_CreateUser_ShouldCallCreateUserOnceAndValidReturn()
+        {
+            //Arrange
+            var newUserDto = new CreateUserDto
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "a.b@c.com"
+            };
+
+            var newUserEntity = new User
+            {
+                UserId = Guid.NewGuid(),
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "a.b@c.com"
+            };
+
+            var savedUserDto = new UserDto
+            {
+                UserId = newUserEntity.UserId,
+                FirstName = newUserEntity.FirstName,
+                LastName = newUserEntity.LastName,
+                Email = newUserEntity.Email
+            };
+
+            _mockUserRepository.Setup(x => x.CheckUserExistsByEmail(newUserDto.Email)).ReturnsAsync(false);
+            _mockConfiguration.Setup(c => c.GetSection("UserRoles").GetSection("Admin").Value)
+            .Returns("Admin");
+            _mockUserRoleRepository.Setup(x => x.GetUserRoleByName(It.IsAny<string>())).ReturnsAsync(new UserRole { UserRoleName = "Admin" });
+            _mockMapper.Setup(x => x.Map<User>(newUserDto)).Returns(newUserEntity);
+            _mockUserRepository.Setup(x => x.CreateUser(newUserEntity)).ReturnsAsync(newUserEntity);
+            _mockMapper.Setup(x => x.Map<UserDto>(newUserEntity)).Returns(savedUserDto);
+
+            //Act
+            var result = await _userManagement.CreateUser(newUserDto);
+
+            //Assert
+            _mockUserRepository.Verify(x => x.CreateUser(newUserEntity), Times.Once);
+            Assert.NotNull(result);
+            Assert.IsType<UserDto>(result);
+            Assert.Equal(Guid.Empty, newUserEntity.UserId);
+            Assert.Equal("Admin", newUserEntity.UserRole.UserRoleName);
+            Assert.True(newUserEntity.IsUserActive);
         }
     }
 }

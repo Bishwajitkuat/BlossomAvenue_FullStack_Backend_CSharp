@@ -23,6 +23,8 @@ namespace BlossomAvenue.Service.MappingProfile
                     CityName = e.Address != null && e.Address.City != null ? e.Address.City.CityName : String.Empty,
                     IsDefaultAddress = e.DefaultAddress ?? false
                 })));
+
+            CreateMap<CreateUserDto, Core.Users.User>();
         }
     }
 }

@@ -13,9 +13,11 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
         {
             _context = context;
         }
-        public Task<User> CreateUser(User user)
+        public async Task<User> CreateUser(User user)
         {
-            throw new NotImplementedException();
+            var savedUser = (await _context.Users.AddAsync(user)).Entity;
+            _context.SaveChanges();
+            return savedUser;
         }
 
         public void DeleteUser(Guid userId)
@@ -75,6 +77,11 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
         {
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
+        }
+
+        public Task<bool> CheckUserExistsByEmail(string email)
+        {
+            return _context.Users.Where(s => s.Email == email).AnyAsync();
         }
     }
 }
