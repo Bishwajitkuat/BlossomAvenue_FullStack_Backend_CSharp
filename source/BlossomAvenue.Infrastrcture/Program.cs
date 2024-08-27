@@ -1,4 +1,4 @@
-using BlossomAvenue.Core.Repositories.Users;
+using BlossomAvenue.Service.Repositories.Users;
 using BlossomAvenue.Infrastrcture.Database;
 using BlossomAvenue.Infrastrcture.Repositories.Users;
 using BlossomAvenue.Service.UsersService;

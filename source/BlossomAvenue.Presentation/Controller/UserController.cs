@@ -45,5 +45,11 @@ namespace BlossomAvenue.Presentation.Controller
 
             return Ok(users);
         }
+        [HttpGet("profile/{profileId}")]
+        public async Task<IActionResult> GetUser(Guid profileId)
+        {
+            var user = await _userManagement.GetUser(profileId);
+            return Ok(user);
+        }
     }
 }

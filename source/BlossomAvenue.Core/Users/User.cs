@@ -24,4 +24,6 @@ public partial class User
     public virtual ICollection<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
 
     public virtual UserRole UserRole { get; set; } = null!;
+
+    public virtual ICollection<UserContactNumber> UserContactNumbers { get; set; } = new List<UserContactNumber>();
 }

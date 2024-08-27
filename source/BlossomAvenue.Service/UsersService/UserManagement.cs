@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using BlossomAvenue.Core.Repositories.Users;
+using BlossomAvenue.Service.Repositories.Users;
+using BlossomAvenue.Service.CustomExceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +29,10 @@ namespace BlossomAvenue.Service.UsersService
             throw new NotImplementedException();
         }
 
-        public Task<UserDto> GetUser(Guid userId)
+        public async Task<UserDetailedDto> GetUser(Guid userId)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetUser(userId);
+            return user is null ? throw new RecordNotFoundException("User") : _mapper.Map<UserDetailedDto>(user);
         }
 
         public async Task<List<UserDto>> GetUsers(int pageNo, int pageSize, Guid? userRoleId, string orderWith, string orderBy, string? search)
@@ -41,6 +43,7 @@ namespace BlossomAvenue.Service.UsersService
 
         public void UpdateUser(Guid userId, UserDto user)
         {
+
             throw new NotImplementedException();
         }
     }

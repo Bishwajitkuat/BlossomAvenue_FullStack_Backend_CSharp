@@ -1,4 +1,4 @@
-﻿using BlossomAvenue.Core.Repositories.Users;
+﻿using BlossomAvenue.Service.Repositories.Users;
 using BlossomAvenue.Core.Users;
 using BlossomAvenue.Infrastrcture.Database;
 using Microsoft.EntityFrameworkCore;
@@ -23,9 +23,15 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
             throw new NotImplementedException();
         }
 
-        public Task<User> GetUser(Guid userId)
+        public Task<User?> GetUser(Guid userId)
         {
-            throw new NotImplementedException();
+            return _context.Users
+                .Include(u => u.UserRole)
+                .Include(u => u.UserContactNumbers)
+                .Include(u => u.UserAddresses)
+                .ThenInclude(ua => ua.Address)
+                .ThenInclude(a => a.City)
+                .FirstOrDefaultAsync(u => u.UserId == userId);
         }
 
         public async Task<List<User>> GetUsers(int pageNo, int pageSize, Guid? userRoleId, string orderWith, string orderBy, string? search)

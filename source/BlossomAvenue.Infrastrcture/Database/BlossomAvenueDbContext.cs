@@ -132,16 +132,16 @@ public partial class BlossomAvenueDbContext : DbContext
 
         modelBuilder.Entity<UserContactNumber>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("user_contact_number");
+            entity.HasKey(e => new { e.UserId, e.ContactNumber }).HasName("user_contact_number_pkey");
 
+            entity.ToTable("user_contact_number");
+
+            entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.ContactNumber)
                 .HasMaxLength(10)
                 .HasColumnName("contact_number");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.User).WithMany()
+            entity.HasOne(d => d.User).WithMany(p => p.UserContactNumbers)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("user_contact_number_user_id_fkey");
