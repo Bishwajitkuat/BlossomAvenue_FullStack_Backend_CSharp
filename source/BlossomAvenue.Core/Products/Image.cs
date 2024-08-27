@@ -1,6 +1,6 @@
 using System;
 
-namespace BlossomAvenue.Core.ProductAggregate
+namespace BlossomAvenue.Core.Products
 {
     public class Image : IImage
     {

@@ -1,5 +1,5 @@
 using System;
-using BlossomAvenue.Core.ProductAggregate;
+using BlossomAvenue.Core.Products;
 using Xunit;
 
 namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
@@ -10,7 +10,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
         public void VariationClass_ShouldExists()
         {
             // Act
-            var variationClassType = Type.GetType("BlossomAvenue.Core.ProductAggregate.Variation, BlossomAvenue.Core");
+            var variationClassType = Type.GetType("BlossomAvenue.Core.Products.Variation, BlossomAvenue.Core");
 
             // Assert
             Assert.NotNull(variationClassType);

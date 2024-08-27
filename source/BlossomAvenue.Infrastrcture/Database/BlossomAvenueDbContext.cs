@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BlossomAvenue.Core.ProductAggregate;
+using BlossomAvenue.Core.Products;
 using BlossomAvenue.Core.Users;
 using Microsoft.EntityFrameworkCore;
 

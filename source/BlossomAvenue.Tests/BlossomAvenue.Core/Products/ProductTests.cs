@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-using BlossomAvenue.Core.ProductAggregate;
+using BlossomAvenue.Core.Products;
 
 namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
 {
@@ -12,7 +12,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
         public void ProductClass_ShouldExists()
         {
             // Act
-            var classType = Type.GetType("BlossomAvenue.Core.ProductAggregate.Product, BlossomAvenue.Core");
+            var classType = Type.GetType("BlossomAvenue.Core.Products.Product, BlossomAvenue.Core");
 
             // Assert
             Assert.NotNull(classType);

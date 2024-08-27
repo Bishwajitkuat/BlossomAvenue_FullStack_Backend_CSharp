@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BlossomAvenue.Core.ProductAggregate
+namespace BlossomAvenue.Core.Products
 {
     public class Product : IProduct
     {

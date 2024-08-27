@@ -1,5 +1,5 @@
 using System;
-using BlossomAvenue.Core.ProductAggregate;
+using BlossomAvenue.Core.Products;
 using Xunit;
 
 namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
@@ -10,7 +10,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
         public void CategoryClass_ShouldExists()
         {
             // Act
-            var categoryClassType = Type.GetType("BlossomAvenue.Core.ProductAggregate.Category, BlossomAvenue.Core");
+            var categoryClassType = Type.GetType("BlossomAvenue.Core.Products.Category, BlossomAvenue.Core");
 
             // Assert
             Assert.NotNull(categoryClassType);
