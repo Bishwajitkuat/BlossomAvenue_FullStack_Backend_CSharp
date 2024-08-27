@@ -10,4 +10,5 @@ public partial class City
     public string CityName { get; set; } = null!;
 
     public virtual ICollection<AddressDetail> AddressDetails { get; set; } = new List<AddressDetail>();
+
 }

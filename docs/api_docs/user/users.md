@@ -4,6 +4,8 @@
 
 - [Create Profile](#create-profile)
 
+- [Get Users](#get-users)
+
 - [Get Profile By Id](#get-profile-by-id)
 
 - [Update User](#update-user)
@@ -123,6 +125,83 @@ HTTP status 201 with
 HTTP status 400 with
 {
     "message": "first name | last name | email | contact number | address | city cannot be empty" // message | string
+}
+```
+
+```json
+HTTP status 401 with
+{
+    "message": "Unauthorized" // message | string
+}
+```
+
+```json
+HTTP status 403 with
+{
+    "message": "Forbidden" // message | string
+}
+```
+
+```json
+HTTP status 500 with
+{
+    "message": "Something unusual happened. Please wait and try again or contact system administrator" // message | string
+}
+```
+
+## Get Users
+
+#### Authentication Required : `True`
+
+#### User Role : `Admin`
+
+### URL
+
+```
+GET base_url/api/v1/users?
+    userRoleId=cba8be27-52f5-42a0-b2b9-055aac01f293&
+    search=searchText&
+    pageNo=1&
+    pageSize=10&
+    orderWith=firstName&
+    orderBy=ASC
+```
+
+```
+    userRoleId : Can be null,
+    search : searchText
+    pageNo : Cannot be 0. Always should be more than 0,
+    pageSize: Cannot be 0. Always should be more than 0
+    orderWith: Possible values `firstName` | `lastName` | `roleName`
+    orderBy: Possible values `ASC` | `DESC`
+
+```
+
+### Response on success
+
+```json
+HTTP status 201 with
+{
+    [
+        {
+            "userId": "cba8be27-52f5-42a0-b2b9-055aac01f293", // guid
+            "firstName": "firstName", // string
+            "lastName": "lastName", // string
+            "email": "email", // string
+            "userRoleId": "cba8be27-52f5-42a0-b2b9-055aac01f293", // guid
+            "userRoleName": "userRoleName", // Admin | Customer  string
+            "isUserActive": true // true | false bool
+        }
+    ]
+}
+```
+
+### Responses on fail
+
+```json
+HTTP status 400 with
+{
+    "message": "first name | last name | email cannot be empty" // message | string
 }
 ```
 
@@ -292,7 +371,7 @@ HTTP status 500 with
 ### URL
 
 ```
-PATCH base_url/api/v1/activeuser/{userId}
+PATCH base_url/api/v1/activeuser?userId={userId}&status={status}
 ```
 
 ### Request Header
@@ -300,14 +379,6 @@ PATCH base_url/api/v1/activeuser/{userId}
 ```
 Request Headers:
 Authorization: Bearer <access-token>
-```
-
-### Request Body
-
-```json
-{
-  "isActive": true | false, // boolean
-}
 ```
 
 ### Response on success
