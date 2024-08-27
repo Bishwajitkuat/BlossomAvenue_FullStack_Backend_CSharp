@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
-using BlossomAvenue.Service.CategoryService;
 
-
-namespace BlossomAvenue.Service.Repositories.Category
+namespace BlossomAvenue.Service.CategoriesService
 {
-    public interface ICategoryRepository
+    public interface ICategoryManagement
     {
-        public Task<IEnumerable<ICategory>> GetAllCategories();
-        public Task<bool> CreateCategory(ICategory category);
+        public Task<IEnumerable<Category>> GetAllCategories();
+        public Task<bool> CreateCategory(Category category);
         public Task<bool> UpdateCategory(Guid categoryId, UpdateCategoryDto updateCategoryDto);
         public Task<bool> DeleteCategory(Guid categoryId);
 

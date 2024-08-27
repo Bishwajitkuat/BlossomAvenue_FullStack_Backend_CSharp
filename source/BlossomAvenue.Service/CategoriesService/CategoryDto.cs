@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
 
-namespace BlossomAvenue.Service.CategoryService
+namespace BlossomAvenue.Service.CategoriesService
 {
     public class CreateCategoryDto
     {

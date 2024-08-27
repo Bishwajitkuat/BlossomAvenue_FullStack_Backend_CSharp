@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
-using BlossomAvenue.Service.Repositories.Category;
+using BlossomAvenue.Service.Repositories.Categories;
 
-namespace BlossomAvenue.Service.CategoryService
+
+namespace BlossomAvenue.Service.CategoriesService
 {
     public class CategoryManagement : ICategoryManagement
     {
@@ -26,7 +27,7 @@ namespace BlossomAvenue.Service.CategoryService
             return await _categoryRepository.DeleteCategory(categoryId);
         }
 
-        public async Task<IEnumerable<ICategory>> GetAllCategories()
+        public async Task<IEnumerable<Category>> GetAllCategories()
         {
             return await _categoryRepository.GetAllCategories();
         }
