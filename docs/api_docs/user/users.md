@@ -182,10 +182,17 @@ GET base_url/api/v1/users?
 ```json
 HTTP status 201 with
 {
-  "userId": "cba8be27-52f5-42a0-b2b9-055aac01f293", // guid
-  "firstName": "firstName", // string
-  "lastName": "lastName", // string
-  "email": "email" // string
+    [
+        {
+            "userId": "cba8be27-52f5-42a0-b2b9-055aac01f293", // guid
+            "firstName": "firstName", // string
+            "lastName": "lastName", // string
+            "email": "email", // string
+            "userRoleId": "cba8be27-52f5-42a0-b2b9-055aac01f293", // guid
+            "userRoleName": "userRoleName", // Admin | Customer  string
+            "isUserActive": true // true | false bool
+        }
+    ]
 }
 ```
 
@@ -364,7 +371,7 @@ HTTP status 500 with
 ### URL
 
 ```
-PATCH base_url/api/v1/activeuser/{userId}
+PATCH base_url/api/v1/activeuser?userId={userId}&status={status}
 ```
 
 ### Request Header
@@ -372,14 +379,6 @@ PATCH base_url/api/v1/activeuser/{userId}
 ```
 Request Headers:
 Authorization: Bearer <access-token>
-```
-
-### Request Body
-
-```json
-{
-  "isActive": true | false, // boolean
-}
 ```
 
 ### Response on success
