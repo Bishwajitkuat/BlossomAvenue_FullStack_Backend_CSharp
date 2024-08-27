@@ -24,6 +24,7 @@ namespace BlossomAvenue.Service.MappingProfile
                     IsDefaultAddress = e.DefaultAddress ?? false
                 })));
 
+
             CreateMap<CreateUserDto, Core.Users.User>();
         }
     }

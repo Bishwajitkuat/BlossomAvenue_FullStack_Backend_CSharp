@@ -26,9 +26,11 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
         {
             _mockUserRepository = new Mock<IUserRepository>();
             _mockMapper = new Mock<IMapper>();
+
             _mockConfiguration = new Mock<IConfiguration>();
             _mockUserRoleRepository = new Mock<IUserRoleRepository>();
             _userManagement = new UserManagement(_mockUserRepository.Object, _mockUserRoleRepository.Object, _mockMapper.Object, _mockConfiguration.Object);
+            _userManagement = new UserManagement(_mockUserRepository.Object, _mockMapper.Object);
         }
         [Fact]
         public void UserManagement_ShouldExists()

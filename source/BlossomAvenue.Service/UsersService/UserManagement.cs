@@ -29,15 +29,26 @@ namespace BlossomAvenue.Service.UsersService
             _userRoleRepository = userRoleRepository;
             _mapper = mapper;
             _configuration = configuration;
+
+        private readonly IMapper _mapper;
+
+        public UserManagement(IUserRepository userRepository, IMapper mapper)
+        {
+            _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public async Task ActiveInactiveUser(Guid userId, bool status)
         {
+
             var user = await _userRepository.GetUser(userId) ?? throw new RecordNotFoundException(typeof(User).Name);
+
+            var user = await _userRepository.GetUser(userId) ?? throw new RecordNotFoundException("User");
             
             user.IsUserActive = status;
             await _userRepository.UpdateUser(user);
         }
+
 
         public async Task<UserDto> CreateUser(CreateUserDto user)
         {
@@ -52,6 +63,10 @@ namespace BlossomAvenue.Service.UsersService
 
             var createdUser = await _userRepository.CreateUser(userEntity);
             return _mapper.Map<UserDto>(createdUser);
+
+        public Task<UserDto> CreateUser(UserDto user)
+        {
+            throw new NotImplementedException();
         }
 
         public void DeleteUser(Guid userId)
