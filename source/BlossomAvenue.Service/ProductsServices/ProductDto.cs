@@ -46,4 +46,17 @@ namespace BlossomAvenue.Service.ProductsServices
         public IEnumerable<Variation> Variations { get; set; }
         public IEnumerable<ProductCategory> ProductCategories { get; set; }
     }
+
+    public class GetAllProductReadDto
+    {
+        public Guid ProductId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public decimal MinPrice { get; set; }
+        public decimal AvgStar { get; set; }
+
+    }
+
+
 }
