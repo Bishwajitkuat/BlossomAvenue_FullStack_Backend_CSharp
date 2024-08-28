@@ -6,6 +6,7 @@ using BlossomAvenue.Core.Carts;
 using BlossomAvenue.Service.Repositories.Carts;
 using BlossomAvenue.Infrastrcture.Database;
 using Microsoft.EntityFrameworkCore;
+using BlossomAvenue.Service.CartsService;
 
 namespace BlossomAvenue.Infrastrcture.Repositories.Carts
 {
@@ -17,25 +18,30 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Carts
         {
             _context = context;
         }
-
-        // public Task<bool> ClearCart(Guid cartId)
-        // {
-        //     throw new NotImplementedException();
-        // }
-
-        // public Task<bool> DeleteProductFromCart(Guid productId)
-        // {
-        //     throw new NotImplementedException();
-        // }
-
-        public async Task<Cart> GetCart(Guid userId)
+        public async Task<CartDto> GetCart(Guid cartId)
         {
-            return await _context.Carts.FirstOrDefaultAsync(c => c.UserId == userId);
-        }
+            var cart = await _context.Carts
+                         .Include(c => c.CartItems) // Eagerly load the related CartItems
+                         .FirstOrDefaultAsync(c => c.CartId == cartId);
 
-        // public Task<bool> UpdateCart(Guid cartId, Guid productId, int quantity)
-        // {
-        //     throw new NotImplementedException();
-        // }
+            if (cart == null)
+            {
+                return null;
+            }
+
+            // Map the Cart entity to CartDto
+            var cartDto = new CartDto
+            {
+                Id = cart.CartId,
+                CartItems = cart.CartItems.Select(ci => new CartItemDto
+                {
+                    CartId = ci.CartId,
+                    ProductId = ci.ProductId,
+                    Quantity = ci.Quantity
+                }).ToList()
+            };
+
+            return cartDto;
+        }
     }
 }

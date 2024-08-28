@@ -19,13 +19,10 @@ namespace BlossomAvenue.Presentation.Controller
             _cartManagement = cartManagement;
         }
 
-        [HttpGet("{userId}")]
-        public async Task<Cart> GetCart(Guid userId)
+        [HttpGet("{cartId}")]
+        public async Task<CartDto> GetCart(Guid cartId)
         {
-            return await _cartManagement.GetCart(userId);
-
+            return await _cartManagement.GetCart(cartId);
         }
-
-
     }
 }
