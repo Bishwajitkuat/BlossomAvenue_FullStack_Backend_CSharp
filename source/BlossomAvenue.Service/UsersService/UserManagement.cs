@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using BlossomAvenue.Core.Users;
 using Microsoft.Extensions.Configuration;
 using BlossomAvenue.Service.Repositories.Cities;
+using BlossomAvenue.Service.Cryptography;
 
 namespace BlossomAvenue.Service.UsersService
 {
@@ -19,13 +20,15 @@ namespace BlossomAvenue.Service.UsersService
         private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
+        private readonly IPasswordHasher _passwordHasher;
 
         public UserManagement(
             IUserRepository userRepository,
             IUserRoleRepository userRoleRepository,
             ICityRepository cityRepository,
             IMapper mapper,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IPasswordHasher passwordHasher
             )
         {
             _userRepository = userRepository;
@@ -33,6 +36,7 @@ namespace BlossomAvenue.Service.UsersService
             _cityRepository = cityRepository;
             _mapper = mapper;
             _configuration = configuration;
+            this._passwordHasher = passwordHasher;
         }
 
         public UserManagement(IUserRepository userRepository, IMapper mapper)
@@ -78,8 +82,17 @@ namespace BlossomAvenue.Service.UsersService
                 var userRole = await GetUserRole();
 
                 var userEntity = _mapper.Map<User>(profile);
+
                 userEntity.UserRole = userRole;
+
+                userEntity.UserCredential = new UserCredential() 
+                {
+                    UserName = profile.UserName,
+                    Password = _passwordHasher.HashPassword(profile.Password)
+                };
+
                 var savedUser = await _userRepository.CreateUser(userEntity);
+
                 var returnProfile = _mapper.Map<CreateDetailedUserResponseDto>(profile);
                 returnProfile.UserId = savedUser.UserId;
                 returnProfile.Password = String.Empty;

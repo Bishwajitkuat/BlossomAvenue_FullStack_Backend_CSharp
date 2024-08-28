@@ -8,6 +8,8 @@ using BlossomAvenue.Infrastrcture.Repositories.Categories;
 using BlossomAvenue.Service.CategoriesService;
 using BlossomAvenue.Service.Repositories.Cities;
 using BlossomAvenue.Infrastrcture.Repositories.Cities;
+using BlossomAvenue.Service.Cryptography;
+using BlossomAvenue.Infrastrcture.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,8 @@ builder.Services.AddScoped<ICategoryManagement, CategoryManagement>();
 
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
+
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 builder.Services.AddControllers(options => 
 {

@@ -74,6 +74,7 @@ namespace BlossomAvenue.Presentation.Controller
         public async Task<IActionResult> CreateProfile(CreateDetailedUserDto profile)
         {
             var createdProfile = await _userManagement.CreateProfile(profile);
+            createdProfile.Password = String.Empty;
             return CreatedAtAction(nameof(GetUser), new { profileId = createdProfile.UserId }, createdProfile);
         }
     }

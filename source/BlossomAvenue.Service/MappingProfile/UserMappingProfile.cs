@@ -8,11 +8,11 @@ namespace BlossomAvenue.Service.MappingProfile
     {
         public UserMappingProfile()
         {
-            CreateMap<Core.Users.User, UserDto>().ForMember(dest => dest.UserRoleName, opt => opt.MapFrom(src => src.UserRole.UserRoleName));
+            CreateMap<User, UserDto>().ForMember(dest => dest.UserRoleName, opt => opt.MapFrom(src => src.UserRole.UserRoleName));
 
-            CreateMap<UserDto, Core.Users.User>();
+            CreateMap<UserDto, User>();
 
-            CreateMap<Core.Users.User, UserDetailedDto>()
+            CreateMap<User, UserDetailedDto>()
                 .ForMember(dest => dest.UserRoleName, opt => opt.MapFrom(src => src.UserRole.UserRoleName))
                 .ForMember(dest => dest.ContactNumbers, opt => opt.MapFrom(src => src.UserContactNumbers.Select(e => e.ContactNumber).ToArray()))
                 .ForMember(dest => dest.Addresses, opt => opt.MapFrom(src => src.UserAddresses.Select(e => new AddressDto
