@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlossomAvenue.Service.CustomAttributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,20 +10,11 @@ namespace BlossomAvenue.Service.UsersService
 {
     public class CreateUserDto
     {
-        [
-            Required, 
-            MinLength(3,ErrorMessage = "First name at least should be 3 characters"), 
-            MaxLength(50, ErrorMessage = "First name should not exceed 50 characters")
-        ]
+        [Required, NameValidation]
         public string FirstName { get; set; } = null!;
-        [
-            Required,
-            MinLength(3, ErrorMessage = "First name at least should be 3 characters"),
-            MaxLength(50, ErrorMessage = "First name should not exceed 50 characters")
-        ]
+        [Required, NameValidation]
         public string LastName { get; set; } = null!;
-
-        [EmailAddress]
+        [Required, EmailAddress(ErrorMessage = "Invalid email address")]
         public string? Email { get; set; }
     }
 }

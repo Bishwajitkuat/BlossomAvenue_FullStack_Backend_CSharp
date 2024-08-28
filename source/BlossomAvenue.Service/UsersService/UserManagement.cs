@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Users;
 using Microsoft.Extensions.Configuration;
+using BlossomAvenue.Service.Repositories.Cities;
 
 namespace BlossomAvenue.Service.UsersService
 {
@@ -15,18 +16,21 @@ namespace BlossomAvenue.Service.UsersService
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
+        private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
         public UserManagement(
             IUserRepository userRepository, 
-            IUserRoleRepository userRoleRepository, 
+            IUserRoleRepository userRoleRepository,
+            ICityRepository cityRepository,
             IMapper mapper,
             IConfiguration configuration
             )
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
+            _cityRepository = cityRepository;
             _mapper = mapper;
             _configuration = configuration;
         }
@@ -51,7 +55,28 @@ namespace BlossomAvenue.Service.UsersService
             userEntity.IsUserActive = true;
 
             var createdUser = await _userRepository.CreateUser(userEntity);
+
+            //TODO: Send email to user with password
+
             return _mapper.Map<UserDto>(createdUser);
+        }
+
+        public async Task<CreateDetailedUserResponseDto> CreateProfile(CreateDetailedUserDto profile)
+        {
+            if(await _userRepository.CheckUserExistsByEmail(profile.Email!)) throw new RecordAlreadyExistsException(typeof(User).Name);
+
+            if(!(await _cityRepository.IsCityExists(profile.CityId))) throw new RecordNotFoundException(typeof(City).Name);
+            
+            var userRole = await GetUserRole();
+
+            var userEntity = _mapper.Map<User>(profile);
+            userEntity.UserRole = userRole;
+            var savedUser = await _userRepository.CreateUser(userEntity);
+            var returnProfile = _mapper.Map<CreateDetailedUserResponseDto>(profile);
+            returnProfile.UserId = savedUser.UserId;
+            profile.Password = String.Empty;
+
+            return returnProfile;
         }
 
         public void DeleteUser(Guid userId)
@@ -86,8 +111,23 @@ namespace BlossomAvenue.Service.UsersService
                 throw new RecordNotFoundException("Admin Role in config");
             }
 
-            var userRole = await _userRoleRepository.GetUserRoleByName(adminRoleName);
+            return await GetRole(adminRoleName);
+        }
 
+        private async Task<UserRole> GetUserRole() 
+        {
+            var adminRoleName = _configuration.GetSection("UserRoles").GetSection("User").Value;
+            if (string.IsNullOrEmpty(adminRoleName))
+            {
+                throw new RecordNotFoundException("User Role in config");
+            }
+
+            return await GetRole(adminRoleName);
+        }
+
+        private async Task<UserRole> GetRole(string roleName)
+        {
+            var userRole = await _userRoleRepository.GetUserRoleByName(roleName);
             return userRole is null ? throw new RecordNotFoundException("User Role") : userRole;
         }
     }

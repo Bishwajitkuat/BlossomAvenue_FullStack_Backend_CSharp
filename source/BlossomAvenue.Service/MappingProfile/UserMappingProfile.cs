@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BlossomAvenue.Core.Users;
 using BlossomAvenue.Service.UsersService;
 
 namespace BlossomAvenue.Service.MappingProfile
@@ -24,7 +25,27 @@ namespace BlossomAvenue.Service.MappingProfile
                     IsDefaultAddress = e.DefaultAddress ?? false
                 })));
 
-            CreateMap<CreateUserDto, Core.Users.User>();
+            CreateMap<CreateUserDto, User>();
+
+            CreateMap<CreateDetailedUserDto, User>()
+            .ForMember(dest => dest.UserAddresses, opt => opt.MapFrom(src => new List<UserAddress>
+            {
+                new UserAddress
+                {
+                    Address = new AddressDetail
+                    {
+                        AddressLine1 = src.AddressLine1,
+                        AddressLine2 = src.AddressLine2,
+                        CityId = src.CityId
+                    }
+                }
+            }))
+            .ForMember(dest => dest.UserContactNumbers, opt => opt.MapFrom(src => src.ContactNumbers.Select(cn => new UserContactNumber
+            {
+                ContactNumber = cn
+            }).ToList()));
+
+            CreateMap<CreateDetailedUserDto , CreateDetailedUserResponseDto> ();
         }
     }
 }

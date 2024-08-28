@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,8 +63,17 @@ namespace BlossomAvenue.Presentation.Controller
         [HttpPost("user")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDto user)
         {
+            //Validate user model
+            if (!ModelState.IsValid) throw new ArgumentException(String.Join(" | ",ModelState.Values.SelectMany(e => e.Errors)));
+
             var createdUser = await _userManagement.CreateUser(user);
             return CreatedAtAction(nameof(GetUser), new { profileId = createdUser.UserId }, createdUser);
+        }
+        [HttpPost("profile")]
+        public async Task<IActionResult> CreateProfile(CreateDetailedUserDto profile)
+        {
+            var createdProfile = await _userManagement.CreateProfile(profile);
+            return CreatedAtAction(nameof(GetUser), new { profileId = createdProfile.UserId }, createdProfile);
         }
     }
 }

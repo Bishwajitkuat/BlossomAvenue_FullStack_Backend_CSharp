@@ -14,5 +14,6 @@ namespace BlossomAvenue.Service.UsersService
         public void UpdateUser(Guid userId, UserDto user);
         public void DeleteUser(Guid userId);
         public Task ActiveInactiveUser(Guid userId, bool status);
+        public Task<CreateDetailedUserResponseDto> CreateProfile(CreateDetailedUserDto profile);
     }
 }
