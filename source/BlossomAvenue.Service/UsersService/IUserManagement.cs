@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlossomAvenue.Core.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,6 @@ namespace BlossomAvenue.Service.UsersService
         public void DeleteUser(Guid userId);
         public Task ActiveInactiveUser(Guid userId, bool status);
         public Task<CreateDetailedUserResponseDto> CreateProfile(CreateDetailedUserDto profile);
+        public Task<User?> GetUserByUsernameAndPassword(string username, string password);
     }
 }
