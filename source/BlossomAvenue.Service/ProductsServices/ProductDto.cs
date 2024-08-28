@@ -37,4 +37,13 @@ namespace BlossomAvenue.Service.ProductsServices
         }
     }
 
+
+    public class UpdateProductDto
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public IEnumerable<Image> Images { get; set; }
+        public IEnumerable<Variation> Variations { get; set; }
+        public IEnumerable<ProductCategory> ProductCategories { get; set; }
+    }
 }
