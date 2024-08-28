@@ -13,6 +13,9 @@ using BlossomAvenue.Infrastrcture.Repositories.Carts;
 using BlossomAvenue.Service.CartsService;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Infrastrcture.Cryptography;
+using BlossomAvenue.Service.Repositories.Orders;
+using BlossomAvenue.Infrastrcture.Repositories.Orders;
+using BlossomAvenue.Service.OrdersService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +44,11 @@ builder.Services.AddScoped<ICartManagement, CartManagement>();
 builder.Services.AddScoped<ICartItemsRepository, CartItemsRepository>();
 // DI cart items management service
 builder.Services.AddScoped<ICartItemsManagement, CartItemsManagement>();
+
+// DI Order repository
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+// DI order management service
+builder.Services.AddScoped<IOrderManagement, OrderManagement>();
 
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
