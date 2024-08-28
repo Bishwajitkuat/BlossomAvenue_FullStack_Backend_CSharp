@@ -13,6 +13,7 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
         {
             _context = context;
         }
+
         public async Task<User> CreateUser(User user)
         {
             var savedUser = (await _context.Users.AddAsync(user)).Entity;

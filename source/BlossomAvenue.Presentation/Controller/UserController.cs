@@ -1,4 +1,4 @@
-﻿using BlossomAvenue.Service.UsersService;
+using BlossomAvenue.Service.UsersService;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -60,6 +60,7 @@ namespace BlossomAvenue.Presentation.Controller
             await _userManagement.ActiveInactiveUser(userId, status);
             return NoContent();
         }
+
         [HttpPost("user")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDto user)
         {

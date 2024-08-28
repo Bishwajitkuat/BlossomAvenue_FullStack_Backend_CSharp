@@ -28,6 +28,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
         {
             _mockUserRepository = new Mock<IUserRepository>();
             _mockMapper = new Mock<IMapper>();
+
             _mockConfiguration = new Mock<IConfiguration>();
             _mockUserRoleRepository = new Mock<IUserRoleRepository>();
             _mockCityRepository = new Mock<ICityRepository>();
