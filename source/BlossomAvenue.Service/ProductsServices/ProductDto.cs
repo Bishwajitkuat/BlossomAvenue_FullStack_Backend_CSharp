@@ -12,16 +12,16 @@ namespace BlossomAvenue.Service.ProductsServices
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public IEnumerable<CreateImageDto> Images { get; set; }
-        public IEnumerable<CreateVariationDto> Variations { get; set; }
-        public IEnumerable<CreateProductCategoryDto> ProductCategories { get; set; }
+        public ICollection<CreateImageDto> Images { get; set; }
+        public ICollection<CreateVariationDto> Variations { get; set; }
+        public ICollection<CreateProductCategoryDto> ProductCategories { get; set; }
 
         public Product ConvertToProduct()
         {
             Guid productId = Guid.NewGuid();
-            IEnumerable<Image> images = Images.Select(i => i.ConvertToImage(productId));
-            IEnumerable<Variation> variations = Variations.Select(v => v.ConvertToVariation(productId));
-            IEnumerable<ProductCategory> productCategories = ProductCategories.Select(pc => pc.ConvertToProductCategory(productId));
+            ICollection<Image> images = Images.Select(i => i.ConvertToImage(productId)).ToArray();
+            ICollection<Variation> variations = Variations.Select(v => v.ConvertToVariation(productId)).ToArray();
+            ICollection<ProductCategory> productCategories = ProductCategories.Select(pc => pc.ConvertToProductCategory(productId)).ToArray();
 
             return new Product
             {
@@ -42,9 +42,9 @@ namespace BlossomAvenue.Service.ProductsServices
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public IEnumerable<Image> Images { get; set; }
-        public IEnumerable<Variation> Variations { get; set; }
-        public IEnumerable<ProductCategory> ProductCategories { get; set; }
+        public ICollection<Image> Images { get; set; }
+        public ICollection<Variation> Variations { get; set; }
+        public ICollection<ProductCategory> ProductCategories { get; set; }
     }
 
     public class GetAllProductReadDto
@@ -65,10 +65,10 @@ namespace BlossomAvenue.Service.ProductsServices
         public Guid ProductId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public IEnumerable<Image> Images { get; set; }
-        public IEnumerable<Variation> Variations { get; set; }
-        public IEnumerable<ProductCategory> ProductCategories { get; set; }
-        public IEnumerable<ProductReview> ProductReviews { get; set; }
+        public ICollection<Image> Images { get; set; }
+        public ICollection<Variation> Variations { get; set; }
+        public ICollection<ProductCategory> ProductCategories { get; set; }
+        public ICollection<ProductReview> ProductReviews { get; set; }
         // implement later
         // public decimal AvgStar { get; set; }
 
