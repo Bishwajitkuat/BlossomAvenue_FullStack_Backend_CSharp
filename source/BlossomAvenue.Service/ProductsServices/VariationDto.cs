@@ -12,7 +12,7 @@ namespace BlossomAvenue.Service.ProductsServices
         public decimal Price { get; set; }
         public int Inventory { get; set; }
 
-        public Variation ConvertToVariation(Guid productId)
+        public Variation ConvertToVariation()
         {
             return new Variation
             {
@@ -20,7 +20,7 @@ namespace BlossomAvenue.Service.ProductsServices
                 VariationName = this.VariationName,
                 Price = this.Price,
                 Inventory = this.Inventory,
-                ProductId = productId
+
             };
         }
     }

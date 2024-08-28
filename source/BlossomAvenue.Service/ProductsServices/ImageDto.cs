@@ -11,9 +11,9 @@ namespace BlossomAvenue.Service.ProductsServices
     {
         public string ImageUrl { get; set; }
 
-        public Image ConvertToImage(Guid productId)
+        public Image ConvertToImage()
         {
-            return new Image { ImageId = Guid.NewGuid(), ImageUrl = this.ImageUrl, ProductId = productId };
+            return new Image { ImageId = Guid.NewGuid(), ImageUrl = this.ImageUrl };
         }
     }
 

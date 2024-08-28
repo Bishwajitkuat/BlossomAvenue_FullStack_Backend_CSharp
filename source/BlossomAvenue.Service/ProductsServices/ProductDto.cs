@@ -18,14 +18,12 @@ namespace BlossomAvenue.Service.ProductsServices
 
         public Product ConvertToProduct()
         {
-            Guid productId = Guid.NewGuid();
-            ICollection<Image> images = Images.Select(i => i.ConvertToImage(productId)).ToArray();
-            ICollection<Variation> variations = Variations.Select(v => v.ConvertToVariation(productId)).ToArray();
-            ICollection<ProductCategory> productCategories = ProductCategories.Select(pc => pc.ConvertToProductCategory(productId)).ToArray();
+            ICollection<Image> images = Images.Select(i => i.ConvertToImage()).ToArray();
+            ICollection<Variation> variations = Variations.Select(v => v.ConvertToVariation()).ToArray();
+            ICollection<ProductCategory> productCategories = ProductCategories.Select(pc => pc.ConvertToProductCategory()).ToArray();
 
             return new Product
             {
-                ProductId = productId,
                 Title = this.Title,
                 Description = this.Description,
                 Images = images,

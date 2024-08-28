@@ -10,13 +10,12 @@ namespace BlossomAvenue.Service.ProductsServices
     {
         public Guid CategoryId { get; set; }
 
-        public ProductCategory ConvertToProductCategory(Guid productId)
+        public ProductCategory ConvertToProductCategory()
         {
             return new ProductCategory
             {
                 ProductCategoryId = Guid.NewGuid(),
                 CategoryId = this.CategoryId,
-                ProductId = productId,
             };
         }
 
