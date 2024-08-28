@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BlossomAvenue.Core\BlossomAvenue.Core.csproj" />
     <ProjectReference Include="..\BlossomAvenue.Presentation\BlossomAvenue.Presentation.csproj" />
+    <ProjectReference Include="..\BlossomAvenue.Service\BlossomAvenue.Service.csproj" />
   </ItemGroup>
 
 </Project>

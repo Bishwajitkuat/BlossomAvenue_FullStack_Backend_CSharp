@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.Repositories.Categories;
 using BlossomAvenue.Infrastrcture.Repositories.Categories;
 using BlossomAvenue.Service.CategoriesService;
+using BlossomAvenue.Service.Repositories.Cities;
+using BlossomAvenue.Infrastrcture.Repositories.Cities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,8 +28,16 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryManagement, CategoryManagement>();
 
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => 
+{
+   
+}).ConfigureApiBehaviorOptions(options => 
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
