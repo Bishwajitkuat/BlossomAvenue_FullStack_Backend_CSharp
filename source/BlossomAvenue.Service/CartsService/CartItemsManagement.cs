@@ -38,9 +38,9 @@ namespace BlossomAvenue.Service.CartsService
             return result;
         }
 
-        public async Task<bool> UpdateCart(Guid cartItemId, Guid productId, int quantity)
+        public async Task<bool> UpdateCart(Guid cartItemId, Guid productId, Guid variantId, int quantity)
         {
-            var result = await _cartItemsRepository.UpdateCart(cartItemId, productId, quantity); 
+            var result = await _cartItemsRepository.UpdateCart(cartItemId, productId, variantId, quantity); 
             if(result == false) throw new RecordNotFoundException("cartItems");
             return result;
         }

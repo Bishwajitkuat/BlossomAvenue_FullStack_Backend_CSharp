@@ -10,11 +10,12 @@ namespace BlossomAvenue.Service.CartsService
     {
         public Guid CartId { get; set; }
         public Guid ProductId { get; set; }
+        public Guid VariationId { get; set; }
         public int Quantity { get; set; }
 
         public CartItem ConvertToCartitems()
         {
-            return new CartItem { CartItemsId = Guid.NewGuid(), CartId = this.CartId, ProductId = this.ProductId, Quantity = this.Quantity };
+            return new CartItem { CartItemsId = Guid.NewGuid(), CartId = this.CartId, ProductId = this.ProductId, Quantity = this.Quantity, Variationid = this.VariationId };
         }
 
     }
@@ -23,6 +24,8 @@ namespace BlossomAvenue.Service.CartsService
     {
         public Guid CartId { get; set; }
         public Guid ProductId { get; set; }
+
+        public Guid VariationId { get; set; }
         public int? Quantity { get; set; }
     }
 

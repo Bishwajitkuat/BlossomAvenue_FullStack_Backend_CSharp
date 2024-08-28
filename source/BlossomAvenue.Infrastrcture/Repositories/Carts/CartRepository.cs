@@ -21,7 +21,8 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Carts
         public async Task<CartDto> GetCart(Guid cartId)
         {
             var cart = await _context.Carts
-                         .Include(c => c.CartItems) // Eagerly load the related CartItems
+                         .Include(c => c.CartItems)
+                            .ThenInclude(ci => ci.Variation)
                          .FirstOrDefaultAsync(c => c.CartId == cartId);
 
             if (cart == null)

@@ -36,11 +36,11 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [HttpPatch()]
-        public async Task<IActionResult> UpdateCart([FromQuery] Guid cartItemId, [FromQuery] Guid productId, [FromQuery] int quantity)
+        public async Task<IActionResult> UpdateCart([FromQuery] Guid cartItemId, [FromQuery] Guid productId, [FromQuery] Guid variantId, [FromQuery] int quantity)
         {
             if (quantity <= 0) throw new ArgumentException("Quantity can not be less than or equal 0");
 
-            var result = await _cartItemsManagement.UpdateCart(cartItemId, productId, quantity);
+            var result = await _cartItemsManagement.UpdateCart(cartItemId, productId, variantId, quantity);
 
             if (result)
             {

@@ -45,7 +45,7 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Carts
             else return false;
         }
 
-        public async Task<bool> UpdateCart(Guid cartItemId, Guid productId, int quantity)
+        public async Task<bool> UpdateCart(Guid cartItemId, Guid productId, Guid variantId, int quantity)
         {
             var cartItem = await _context.CartItems.FindAsync(cartItemId);
 
@@ -55,6 +55,7 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Carts
             }
 
             cartItem.ProductId = productId;
+            cartItem.Variationid = variantId;
             cartItem.Quantity = quantity;
 
             _context.CartItems.Update(cartItem);
