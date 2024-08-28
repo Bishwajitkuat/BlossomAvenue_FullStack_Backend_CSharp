@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.Repositories.Categories;
 using BlossomAvenue.Infrastrcture.Repositories.Categories;
 using BlossomAvenue.Service.CategoriesService;
+using BlossomAvenue.Service.Repositories.Products;
+using BlossomAvenue.Infrastrcture.Repositories.Products;
+using BlossomAvenue.Service.ProductsServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,10 @@ builder.Services.AddScoped<IUserManagement, UserManagement>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 // DI category management service
 builder.Services.AddScoped<ICategoryManagement, CategoryManagement>();
+// DI product repository
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+// DI product management service
+builder.Services.AddScoped<IProductManagement, ProductManagement>();
 
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
