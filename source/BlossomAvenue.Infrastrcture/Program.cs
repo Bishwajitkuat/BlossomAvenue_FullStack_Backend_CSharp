@@ -3,6 +3,9 @@ using BlossomAvenue.Infrastrcture.Database;
 using BlossomAvenue.Infrastrcture.Repositories.Users;
 using BlossomAvenue.Service.UsersService;
 using Microsoft.EntityFrameworkCore;
+using BlossomAvenue.Service.Repositories.Categories;
+using BlossomAvenue.Infrastrcture.Repositories.Categories;
+using BlossomAvenue.Service.CategoriesService;
 using BlossomAvenue.Service.Repositories.Cities;
 using BlossomAvenue.Infrastrcture.Repositories.Cities;
 
@@ -18,6 +21,12 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserManagement, UserManagement>();
+
+// DI category repository
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+// DI category management service
+builder.Services.AddScoped<ICategoryManagement, CategoryManagement>();
+
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 
@@ -48,4 +57,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.Run();

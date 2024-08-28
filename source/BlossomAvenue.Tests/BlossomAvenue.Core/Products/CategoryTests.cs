@@ -55,7 +55,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Core.Products
 
             // Assert
             Assert.NotNull(parentId);
-            Assert.Equal(typeof(Guid), parentId.PropertyType);
+            Assert.Equal(typeof(Guid?), parentId.PropertyType);
         }
     }
 }
