@@ -26,10 +26,9 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Carts
 
             if (cartItem == null)
             {
-                return false; // Or throw an exception if you prefer
+                return false;
             }
 
-            // Remove the cart item from the context
             _context.CartItems.Remove(cartItem);
 
             await _context.SaveChangesAsync();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Carts;
 using BlossomAvenue.Service.CartsService;
+using BlossomAvenue.Service.CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlossomAvenue.Presentation.Controller
@@ -19,7 +20,7 @@ namespace BlossomAvenue.Presentation.Controller
             _cartItemsManagement = cartItemsManagement;
         }
 
-        [HttpPost("")]
+        [HttpPost()]
         public async Task<bool> CreateCartItems(CreateCartItemsDto cartItemsDto)
         {
             var cartItem = cartItemsDto.ConvertToCartitems();
@@ -34,7 +35,7 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(item);
         }
 
-        [HttpPatch("")]
+        [HttpPatch()]
         public async Task<IActionResult> UpdateCart([FromQuery] Guid cartItemId, [FromQuery] Guid productId, [FromQuery] int quantity)
         {
             if (quantity <= 0) throw new ArgumentException("Quantity can not be less than or equal 0");
@@ -43,11 +44,11 @@ namespace BlossomAvenue.Presentation.Controller
 
             if (result)
             {
-                return Ok(new { Message = "Cart item updated successfully." });
+                return NoContent();
             }
             else
             {
-                return NotFound(new { Message = "Cart item not found." });
+                throw new RecordNotFoundException("cartItems");
             }
 
         }
