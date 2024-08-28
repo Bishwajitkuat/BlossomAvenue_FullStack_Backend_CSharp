@@ -103,6 +103,17 @@ POST base_url/api/v1/profile
 }
 ```
 
+### Password Rules
+
+```
+- Required
+- At least 8 characters
+- Should contain at least one digit
+- Should contain at least one uppercase letter
+- Should contain at least one lowercase letter
+- Should contain at least one special character
+```
+
 ### Response on success
 
 ```json

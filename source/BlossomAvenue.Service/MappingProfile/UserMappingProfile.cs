@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BlossomAvenue.Core.Users;
 using BlossomAvenue.Service.UsersService;
 
 namespace BlossomAvenue.Service.MappingProfile
@@ -7,11 +8,11 @@ namespace BlossomAvenue.Service.MappingProfile
     {
         public UserMappingProfile()
         {
-            CreateMap<Core.Users.User, UserDto>().ForMember(dest => dest.UserRoleName, opt => opt.MapFrom(src => src.UserRole.UserRoleName));
+            CreateMap<User, UserDto>().ForMember(dest => dest.UserRoleName, opt => opt.MapFrom(src => src.UserRole.UserRoleName));
 
-            CreateMap<UserDto, Core.Users.User>();
+            CreateMap<UserDto, User>();
 
-            CreateMap<Core.Users.User, UserDetailedDto>()
+            CreateMap<User, UserDetailedDto>()
                 .ForMember(dest => dest.UserRoleName, opt => opt.MapFrom(src => src.UserRole.UserRoleName))
                 .ForMember(dest => dest.ContactNumbers, opt => opt.MapFrom(src => src.UserContactNumbers.Select(e => e.ContactNumber).ToArray()))
                 .ForMember(dest => dest.Addresses, opt => opt.MapFrom(src => src.UserAddresses.Select(e => new AddressDto
@@ -24,8 +25,27 @@ namespace BlossomAvenue.Service.MappingProfile
                     IsDefaultAddress = e.DefaultAddress ?? false
                 })));
 
+            CreateMap<CreateUserDto, User>();
 
-            CreateMap<CreateUserDto, Core.Users.User>();
+            CreateMap<CreateDetailedUserDto, User>()
+            .ForMember(dest => dest.UserAddresses, opt => opt.MapFrom(src => new List<UserAddress>
+            {
+                new UserAddress
+                {
+                    Address = new AddressDetail
+                    {
+                        AddressLine1 = src.AddressLine1,
+                        AddressLine2 = src.AddressLine2,
+                        CityId = src.CityId
+                    }
+                }
+            }))
+            .ForMember(dest => dest.UserContactNumbers, opt => opt.MapFrom(src => src.ContactNumbers.Select(cn => new UserContactNumber
+            {
+                ContactNumber = cn
+            }).ToList()));
+
+            CreateMap<CreateDetailedUserDto , CreateDetailedUserResponseDto> ();
         }
     }
 }

@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using BlossomAvenue.Service.Repositories.Cities;
+using BlossomAvenue.Service.Cryptography;
 
 namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
 {
@@ -20,7 +22,9 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
         private readonly Mock<IMapper> _mockMapper;
         private readonly Mock<IConfiguration> _mockConfiguration;
         private readonly Mock<IUserRoleRepository> _mockUserRoleRepository;
+        private readonly Mock<ICityRepository> _mockCityRepository;
         private readonly UserManagement _userManagement;
+        private readonly Mock<IPasswordHasher> _passwordHasher;
 
         public UserManagementTests()
         {
@@ -29,8 +33,16 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
 
             _mockConfiguration = new Mock<IConfiguration>();
             _mockUserRoleRepository = new Mock<IUserRoleRepository>();
-            _userManagement = new UserManagement(_mockUserRepository.Object, _mockUserRoleRepository.Object, _mockMapper.Object, _mockConfiguration.Object);
-            _userManagement = new UserManagement(_mockUserRepository.Object, _mockMapper.Object);
+            _mockCityRepository = new Mock<ICityRepository>();
+            _passwordHasher = new Mock<IPasswordHasher>();
+            _userManagement = new UserManagement(
+                _mockUserRepository.Object, 
+                _mockUserRoleRepository.Object, 
+                _mockCityRepository.Object,
+                _mockMapper.Object, 
+                _mockConfiguration.Object,
+                _passwordHasher.Object
+                );
         }
         [Fact]
         public void UserManagement_ShouldExists()
@@ -263,6 +275,97 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             Assert.Equal(Guid.Empty, newUserEntity.UserId);
             Assert.Equal("Admin", newUserEntity.UserRole.UserRoleName);
             Assert.True(newUserEntity.IsUserActive);
+        }
+        [Fact]
+        public void UserManagement_ShouldHaveCreateProfileMethod()
+        {
+            //Arrange
+            var type = typeof(UserManagement);
+
+            // Act
+            var createProfileMethod = type.GetMethod("CreateProfile");
+
+            Assert.NotNull(createProfileMethod);
+        }
+        [Fact]
+        public async Task UserManagement_CreateProfile_ShouldThrowExceptionIfEmailAlreadyExists() 
+        {
+            //Arrange
+            var newUserDto = new CreateDetailedUserDto
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "a.b@c.com"
+            };
+
+            _mockUserRepository.Setup(x => x.CheckUserExistsByEmail(newUserDto.Email)).ReturnsAsync(true);
+
+            //Act and Assert
+            await Assert.ThrowsAsync<RecordAlreadyExistsException>(() => _userManagement.CreateProfile(newUserDto));
+        }
+        [Fact]
+        public async Task UserManagement_CreateProfile_ShouldThrowExceptionIfCityDoesNotExist()
+        {
+            //Arrange
+            var newUserDto = new CreateDetailedUserDto
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "",
+                CityId = Guid.NewGuid()
+            };
+
+            _mockUserRepository.Setup(x => x.CheckUserExistsByEmail(newUserDto.Email)).ReturnsAsync(false);
+            _mockCityRepository.Setup(x => x.IsCityExists(newUserDto.CityId)).ReturnsAsync(false);
+
+            //Act and Assert
+            await Assert.ThrowsAsync<RecordNotFoundException>(() => _userManagement.CreateProfile(newUserDto));
+
+        }
+
+        [Fact]
+        public async Task UserManagement_CreateProfile_ShouldCallCreateUserOnceAndValidReturn()
+        {
+            //Arrange
+            var newUserDto = new CreateDetailedUserDto
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "",
+                CityId = Guid.NewGuid()
+            };
+
+            var newUserEntity = new User
+            {
+                UserId = Guid.NewGuid(),
+                FirstName = "John",
+                LastName = "Doe",
+                Email = ""
+            };
+
+            var savedUserDto = new CreateDetailedUserResponseDto
+            {
+                UserId = newUserEntity.UserId,
+                FirstName = newUserEntity.FirstName,
+                LastName = newUserEntity.LastName,
+                Email = newUserEntity.Email
+            };
+
+
+            _mockUserRepository.Setup(x => x.CheckUserExistsByEmail(newUserDto.Email)).ReturnsAsync(false);            
+            _mockConfiguration.Setup(c => c.GetSection("UserRoles").GetSection("User").Value).Returns("Customer");
+            _mockCityRepository.Setup(x => x.IsCityExists(newUserDto.CityId)).ReturnsAsync(true);
+            _mockUserRoleRepository.Setup(x => x.GetUserRoleByName(It.IsAny<string>())).ReturnsAsync(new UserRole { UserRoleName = "Customer" });
+            _mockMapper.Setup(x => x.Map<CreateDetailedUserResponseDto>(newUserDto)).Returns(savedUserDto);
+            _mockMapper.Setup(x => x.Map<User>(newUserDto)).Returns(newUserEntity);
+            _mockUserRepository.Setup(x => x.CreateUser(newUserEntity)).ReturnsAsync(newUserEntity);
+            
+            //Act
+            var result = await _userManagement.CreateProfile(newUserDto);
+            Assert.NotNull(result);
+            Assert.IsType<CreateDetailedUserResponseDto>(result);
+            Assert.NotEqual(Guid.Empty, newUserEntity.UserId);
+
         }
     }
 }

@@ -6,6 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.Repositories.Categories;
 using BlossomAvenue.Infrastrcture.Repositories.Categories;
 using BlossomAvenue.Service.CategoriesService;
+using BlossomAvenue.Service.Repositories.Cities;
+using BlossomAvenue.Infrastrcture.Repositories.Cities;
+using BlossomAvenue.Service.Cryptography;
+using BlossomAvenue.Infrastrcture.Cryptography;
 using BlossomAvenue.Service.Repositories.Products;
 using BlossomAvenue.Infrastrcture.Repositories.Products;
 using BlossomAvenue.Service.ProductsServices;
@@ -33,8 +37,18 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductManagement, ProductManagement>();
 
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
 
-builder.Services.AddControllers();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+builder.Services.AddControllers(options =>
+{
+
+}).ConfigureApiBehaviorOptions(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
