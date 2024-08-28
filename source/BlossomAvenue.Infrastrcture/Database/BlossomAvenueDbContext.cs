@@ -158,6 +158,8 @@ public partial class BlossomAvenueDbContext : DbContext
                 .HasForeignKey(d => d.UserRoleId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("users_user_role_id_fkey");
+
+            entity.HasOne(d => d.UserCredential).WithOne(p => p.User);
         });
 
         modelBuilder.Entity<UserAddress>(entity =>
@@ -202,9 +204,7 @@ public partial class BlossomAvenueDbContext : DbContext
 
         modelBuilder.Entity<UserCredential>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("user_credentials");
+            entity.HasKey(e => e.UserId).HasName("user_credentials_pk");
 
             entity.Property(e => e.Password).HasColumnName("password");
             entity.Property(e => e.UserId).HasColumnName("user_id");
@@ -212,8 +212,7 @@ public partial class BlossomAvenueDbContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("user_name");
 
-            entity.HasOne(d => d.User).WithMany()
-                .HasForeignKey(d => d.UserId)
+            entity.HasOne(d => d.User).WithOne(p => p.UserCredential)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("user_credentials_user_id_fkey");
         });

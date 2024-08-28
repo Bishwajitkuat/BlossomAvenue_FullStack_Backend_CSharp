@@ -11,6 +11,8 @@ using BlossomAvenue.Infrastrcture.Repositories.Cities;
 using BlossomAvenue.Service.Repositories.Carts;
 using BlossomAvenue.Infrastrcture.Repositories.Carts;
 using BlossomAvenue.Service.CartsService;
+using BlossomAvenue.Service.Cryptography;
+using BlossomAvenue.Infrastrcture.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +44,8 @@ builder.Services.AddScoped<ICartItemsManagement, CartItemsManagement>();
 
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
+
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 builder.Services.AddControllers(options => 
 {
