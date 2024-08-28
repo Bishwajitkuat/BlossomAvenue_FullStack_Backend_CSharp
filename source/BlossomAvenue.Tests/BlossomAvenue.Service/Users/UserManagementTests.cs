@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using BlossomAvenue.Service.Repositories.Cities;
+using BlossomAvenue.Service.Cryptography;
 
 namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
 {
@@ -23,6 +24,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
         private readonly Mock<IUserRoleRepository> _mockUserRoleRepository;
         private readonly Mock<ICityRepository> _mockCityRepository;
         private readonly UserManagement _userManagement;
+        private readonly Mock<IPasswordHasher> _passwordHasher;
 
         public UserManagementTests()
         {
@@ -32,12 +34,15 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             _mockConfiguration = new Mock<IConfiguration>();
             _mockUserRoleRepository = new Mock<IUserRoleRepository>();
             _mockCityRepository = new Mock<ICityRepository>();
+            _passwordHasher = new Mock<IPasswordHasher>();
             _userManagement = new UserManagement(
                 _mockUserRepository.Object, 
                 _mockUserRoleRepository.Object, 
                 _mockCityRepository.Object,
                 _mockMapper.Object, 
-                _mockConfiguration.Object);
+                _mockConfiguration.Object,
+                _passwordHasher.Object
+                );
         }
         [Fact]
         public void UserManagement_ShouldExists()
