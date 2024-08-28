@@ -59,4 +59,27 @@ namespace BlossomAvenue.Service.ProductsServices
     }
 
 
+
+    public class GetProductByIdReadDto
+    {
+        public Guid ProductId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public IEnumerable<Image> Images { get; set; }
+        public IEnumerable<Variation> Variations { get; set; }
+        public IEnumerable<ProductCategory> ProductCategories { get; set; }
+        public IEnumerable<ProductReview> ProductReviews { get; set; }
+        // implement later
+        // public decimal AvgStar { get; set; }
+
+    }
+
+
+
+
+
+
+
+
+
 }
