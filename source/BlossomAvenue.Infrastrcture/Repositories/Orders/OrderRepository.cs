@@ -53,7 +53,7 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Orders
                 // Calculate the total price
                 decimal itemPrice = variation.Price; // Assuming Variation has a Price property
                 decimal? totalPrice = itemPrice * cartItem.Quantity;
-                
+
                 totalAmount += totalPrice;
 
                 var orderItem = new OrderItem
@@ -79,9 +79,11 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Orders
             return true;
         }
 
-        public Task<Order> GetCart(Guid cartId)
+        public async Task<Order> GetOrder(Guid orderId)
         {
-            throw new NotImplementedException();
+            return await _context.Orders
+                                     .Include(o => o.OrderItems)
+                                     .FirstOrDefaultAsync(o => o.OrderId == orderId);
         }
 
         public async Task<bool> UpdateOrder(Guid orderId, string orderStatus)

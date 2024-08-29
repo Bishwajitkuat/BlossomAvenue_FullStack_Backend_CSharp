@@ -20,9 +20,9 @@ namespace BlossomAvenue.Service.OrdersService
             return await _orderRepository.CreateOrder(cartId, userId);
         }
 
-        public Task<Order> GetCart(Guid cartId)
+        public async Task<Order> GetOrder(Guid orderId)
         {
-            throw new NotImplementedException();
+            return await _orderRepository.GetOrder(orderId);
         }
 
         public async Task<bool> UpdateOrder(Guid orderId, string orderStatus)
