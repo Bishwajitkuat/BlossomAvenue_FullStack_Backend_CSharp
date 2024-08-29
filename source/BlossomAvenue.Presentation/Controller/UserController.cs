@@ -36,11 +36,11 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(users);
         }
 
-        
-        [HttpGet("profile/{profileId}")]
-        public async Task<IActionResult> GetUser(Guid profileId)
+        [Authorize(Policy = "AdminOrUserIdPolicy")]
+        [HttpGet("profile/{userId}")]
+        public async Task<IActionResult> GetUser(Guid userId)
         {
-            var user = await _userManagement.GetUser(profileId);
+            var user = await _userManagement.GetUser(userId);
             return Ok(user);
         }
 
