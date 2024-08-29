@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using BlossomAvenue.Core.Products;
 
 namespace BlossomAvenue.Core.Carts;
 
@@ -17,5 +18,8 @@ public partial class CartItem
 
     public DateTime? CreatedAt { get; set; }
 
+    public Guid Variationid { get; set; }
+
     public virtual Cart Cart { get; set; } = null!;
+    public Variation Variation { get; set; }
 }

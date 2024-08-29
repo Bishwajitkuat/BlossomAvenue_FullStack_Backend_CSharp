@@ -4,6 +4,7 @@ using BlossomAvenue.Infrastrcture.Database;
 using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.UsersService;
 using System.Linq;
+using BlossomAvenue.Service.Shared_Dtos;
 
 namespace BlossomAvenue.Infrastrcture.Repositories.Users
 {
@@ -59,12 +60,12 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
                     u.Email.Contains(userquery.Search));
             }
 
-            var isAscending = userquery.OrderBy.Equals("ASC", StringComparison.OrdinalIgnoreCase);
+            var isAscending = userquery.OrderBy == OrderBy.ASC;
 
-            query = userquery.OrderWith.ToLower() switch
+            query = userquery.OrderWith switch
             {
-                "firstName" => isAscending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName),
-                "roleName" => isAscending ? query.OrderBy(u => u.UserRole.UserRoleName) : query.OrderByDescending(u => u.UserRole.UserRoleName),
+                UsersOrderWith.FirstName => isAscending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName),
+                UsersOrderWith.LastName => isAscending ? query.OrderBy(u => u.UserRole.UserRoleName) : query.OrderByDescending(u => u.UserRole.UserRoleName),
                 _ => isAscending ? query.OrderBy(u => u.LastName) : query.OrderByDescending(u => u.LastName)
             };
 

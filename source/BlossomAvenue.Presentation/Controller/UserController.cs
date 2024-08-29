@@ -22,24 +22,10 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("users")]
+        [HttpGet]
         public async Task<IActionResult> GetUsers(
             [FromQuery] UsersQueryDto query)
         {
-            if (String.IsNullOrEmpty(query.OrderWith))
-            {
-                query.OrderWith = "lastName";
-            }
-
-
-            if (!(
-                query.OrderWith == "firstName" ||
-                query.OrderWith == "lastName" ||
-                query.OrderWith == "roleName")) 
-                throw new ArgumentException("Invalid orderWith parameter");
-
-            if (!(query.OrderBy == "ASC" || query.OrderBy == "DESC")) 
-                throw new ArgumentException("Invalid orderBy parameter");
 
             if (query.PageNo == 0) throw new ArgumentException("Invalid pageNo parameter");
 
@@ -50,11 +36,11 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(users);
         }
 
-        
-        [HttpGet("profile/{profileId}")]
-        public async Task<IActionResult> GetUser(Guid profileId)
+        [Authorize(Policy = "AdminOrUserIdPolicy")]
+        [HttpGet("profile/{userId}")]
+        public async Task<IActionResult> GetUser(Guid userId)
         {
-            var user = await _userManagement.GetUser(profileId);
+            var user = await _userManagement.GetUser(userId);
             return Ok(user);
         }
 
@@ -67,7 +53,7 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("user")]
+        [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDto user)
         {
             //Validate user model
