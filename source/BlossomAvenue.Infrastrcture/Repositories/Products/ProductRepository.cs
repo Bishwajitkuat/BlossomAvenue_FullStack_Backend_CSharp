@@ -41,9 +41,18 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Products
             return product;
         }
 
-        public Task<bool> UpdateProduct(Guid productId, UpdateProductDto updateProductDto)
+        public async Task<bool> UpdateProduct(Guid productId, Product productToUpdate)
         {
-            throw new NotImplementedException();
+            Product product = await _context.Products.Where(p => p.ProductId == productId).FirstOrDefaultAsync();
+            if (product == null) return false;
+            // updating product
+            product.Title = productToUpdate.Title;
+            product.Description = productToUpdate.Description;
+            product.Images = productToUpdate.Images;
+            product.Variations = productToUpdate.Variations;
+            product.ProductCategories = productToUpdate.ProductCategories;
+            // saving context
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
