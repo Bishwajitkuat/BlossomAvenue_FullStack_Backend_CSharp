@@ -58,6 +58,12 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Products
             return await _context.SaveChangesAsync() > 0;
         }
 
+
+        public async Task<bool> DeleteProductById(Guid productId)
+        {
+            Product? product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == productId);
+            if (product == null) return false;
+            _context.Remove(product);
             return await _context.SaveChangesAsync() > 0;
         }
     }
