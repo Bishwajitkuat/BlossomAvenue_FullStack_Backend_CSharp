@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlossomAvenue.Service.UsersService
+namespace BlossomAvenue.Service.UsersService.Dtos
 {
-    public class CreateUserDto
+    public class CreateUpdateUserDto
     {
         [Required, NameValidation]
         public string FirstName { get; set; } = null!;

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BlossomAvenue.Core.Users;
-using BlossomAvenue.Service.UsersService;
+using BlossomAvenue.Service.UsersService.Dtos;
 
 namespace BlossomAvenue.Service.MappingProfile
 {
@@ -25,7 +25,7 @@ namespace BlossomAvenue.Service.MappingProfile
                     IsDefaultAddress = e.DefaultAddress ?? false
                 })));
 
-            CreateMap<CreateUserDto, User>();
+            CreateMap<UsersService.Dtos.CreateUpdateUserDto, User>();
 
             CreateMap<CreateDetailedUserDto, User>()
             .ForMember(dest => dest.UserAddresses, opt => opt.MapFrom(src => new List<UserAddress>
