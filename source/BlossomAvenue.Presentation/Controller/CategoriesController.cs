@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
 using BlossomAvenue.Service.CategoriesService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlossomAvenue.Presentation.Controller
@@ -20,21 +21,21 @@ namespace BlossomAvenue.Presentation.Controller
             _categoryManagement = categoryManagement;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IEnumerable<Category>> GetAllCategories()
         {
             return await _categoryManagement.GetAllCategories();
 
         }
-        // ADMIN USER
-        [HttpPost("")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
         public async Task<bool> CreateCategory(CreateCategoryDto createCategoryDto)
         {
             var category = createCategoryDto.ConvertToCategory();
             return await _categoryManagement.CreateCategory(category);
         }
 
-        // ADMIN USER
+        [Authorize(Roles = "Admin")]
         [HttpPatch("{id}")]
         public async Task<bool> UpdateCategory([FromRoute] Guid id, [FromBody] UpdateCategoryDto updateCategoryDto)
         {
@@ -44,7 +45,7 @@ namespace BlossomAvenue.Presentation.Controller
 
         }
 
-        // ADMIN USER
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<bool> DeleteCategory([FromRoute] Guid id)
         {

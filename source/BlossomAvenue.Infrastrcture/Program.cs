@@ -27,6 +27,9 @@ using Microsoft.OpenApi.Models;
 using BlossomAvenue.Service.Repositories.InMemory;
 using BlossomAvenue.Presentation.Middleware;
 using Microsoft.AspNetCore.Authorization;
+using BlossomAvenue.Service.Repositories.Products;
+using BlossomAvenue.Infrastrcture.Repositories.Products;
+using BlossomAvenue.Service.ProductsServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +62,10 @@ builder.Services.AddScoped<ICartItemsManagement, CartItemsManagement>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 // DI order management service
 builder.Services.AddScoped<IOrderManagement, OrderManagement>();
+// DI product repository
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+// DI product management service
+builder.Services.AddScoped<IProductManagement, ProductManagement>();
 
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
@@ -70,12 +77,12 @@ builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("J
 
 /** Domain DI Container End */
 
-builder.Services.AddAuthentication(options => 
+builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-    .AddJwtBearer(options => 
+    .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -89,7 +96,7 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-builder.Services.AddAuthorization(options => 
+builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminOrUserIdPolicy", policy =>
         policy.RequireAssertion(context => IsAdminOrMatchingUserId(context))
@@ -128,19 +135,20 @@ string GetRouteUserId(AuthorizationHandlerContext context)
         : null;
 }
 
-builder.Services.AddControllers(options => 
+builder.Services.AddControllers(options =>
 {
-   
-}).ConfigureApiBehaviorOptions(options => 
+
+}).ConfigureApiBehaviorOptions(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
-}).AddJsonOptions(options => 
+}).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options => {
+builder.Services.AddSwaggerGen(options =>
+{
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
