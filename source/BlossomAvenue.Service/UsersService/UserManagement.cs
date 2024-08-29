@@ -10,6 +10,7 @@ using BlossomAvenue.Core.Users;
 using Microsoft.Extensions.Configuration;
 using BlossomAvenue.Service.Repositories.Cities;
 using BlossomAvenue.Service.Cryptography;
+using BlossomAvenue.Service.UsersService.Dtos;
 
 namespace BlossomAvenue.Service.UsersService
 {
@@ -55,7 +56,7 @@ namespace BlossomAvenue.Service.UsersService
         }
 
 
-        public async Task<UserDto> CreateUser(CreateUserDto user)
+        public async Task<UserDto> CreateUser(Dtos.CreateUpdateUserDto user)
         {
             if (await _userRepository.CheckUserExistsByEmail(user.Email!)) throw new RecordAlreadyExistsException(typeof(User).Name);
 
@@ -117,13 +118,20 @@ namespace BlossomAvenue.Service.UsersService
                 return _mapper.Map<List<UserDto>>(users);
             }
 
-            public void UpdateUser(Guid userId, UserDto user)
+            public async Task UpdateUser(Guid userId, CreateUpdateUserDto user) 
             {
+                var existing = await _userRepository.GetUser(userId) ?? throw new RecordNotFoundException(typeof(User).Name);
+            
+                if (await _userRepository.CheckEmailExistsWithOtherUsers(userId, user.Email!)) throw new RecordAlreadyExistsException("Email");
 
-                throw new NotImplementedException();
+                existing.FirstName = user.FirstName;
+                existing.LastName = user.LastName;
+                existing.Email = user.Email;
+                
+                await _userRepository.UpdateUser(existing);
             }
 
-            private async Task<UserRole> GetAdminRole()
+        private async Task<UserRole> GetAdminRole()
             {
                 var adminRoleName = _configuration.GetSection("UserRoles").GetSection("Admin").Value;
 
