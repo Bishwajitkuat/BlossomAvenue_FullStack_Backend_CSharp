@@ -113,6 +113,38 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Products
         }
 
 
+        [Fact]
+        public async Task DeleteProductById_ValidData_ReturnTrue()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            _mockProductRepo.Setup(x => x.DeleteProductById(It.IsAny<Guid>())).ReturnsAsync(true);
+
+            // Act
+            var result = await _productMg.DeleteProductById(Guid.NewGuid());
+
+            //Assert
+            Assert.True(result);
+        }
+
+
+        [Fact]
+        public async Task DeleteProductById_InValidData_RiseException()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            _mockProductRepo.Setup(x => x.DeleteProductById(It.IsAny<Guid>())).ReturnsAsync(false);
+
+            // Act and Assert
+            await Assert.ThrowsAsync<RecordNotFoundException>(() =>
+            _productMg.GetProductById(id)
+            );
+        }
+
+
+
+
+
 
 
 
