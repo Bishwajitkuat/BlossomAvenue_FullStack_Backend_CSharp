@@ -2,7 +2,7 @@ using System;
 
 namespace BlossomAvenue.Core.Products
 {
-    public class Image : IImage
+    public class Image
     {
         public Guid ImageId { get; set; }
         public string ImageUrl { get; set; }

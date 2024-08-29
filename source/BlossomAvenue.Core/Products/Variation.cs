@@ -2,7 +2,7 @@ using System;
 
 namespace BlossomAvenue.Core.Products
 {
-    public class Variation : IVariation
+    public class Variation
     {
         public Guid VariationId { get; set; }
         public string VariationName { get; set; }
