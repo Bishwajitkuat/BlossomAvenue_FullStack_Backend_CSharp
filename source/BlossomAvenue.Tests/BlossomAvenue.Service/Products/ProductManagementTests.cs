@@ -142,6 +142,27 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Products
         }
 
 
+        [Fact]
+        public async Task GetAllProducts_ValidData_ReturnGetAllProductReadDto()
+        {
+            // Arrange
+            var readDtos = new List<Product>{
+                new Mock<Product>().Object,
+                new Mock<Product>().Object,
+                new Mock<Product>().Object,
+            };
+            var mockPQDto = new Mock<ProductQueryDto>().Object;
+            _mockProductRepo.Setup(x => x.GetAllProducts(It.IsAny<ProductQueryDto>())).ReturnsAsync(readDtos);
+
+            // Act
+            var result = await _productMg.GetAllProducts(mockPQDto);
+
+            //Assert
+            Assert.Equal(readDtos, result);
+        }
+
+
+
 
 
 
