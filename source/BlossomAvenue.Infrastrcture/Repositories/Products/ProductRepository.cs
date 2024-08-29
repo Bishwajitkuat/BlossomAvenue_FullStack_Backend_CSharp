@@ -27,49 +27,18 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Products
             return newProduct;
         }
 
-        public async Task<GetProductByIdReadDto?> GetProductById(Guid productId)
+        public async Task<Product?> GetProductById(Guid productId)
         {
             var product = await _context.Products
             .Include(p => p.Images)
             .Include(p => p.Variations)
             .Include(p => p.ProductCategories)
+            .ThenInclude(pc => pc.Category)
+            .Include(p => p.ProductReviews)
             .FirstOrDefaultAsync(p => p.ProductId == productId);
 
             if (product is null) return null;
-
-            var categories = await _context.ProductCategories
-            .Where(pc => pc.ProductId == productId)
-            .Join(_context.Categories,
-            pc => pc.CategoryId,
-            c => c.CategoryId,
-            (pc, c) => new Category
-            {
-                CategoryId = c.CategoryId,
-                CategoryName = c.CategoryName,
-                ParentId = c.ParentId
-            }
-            ).ToListAsync();
-
-            var productReviews = await _context.ProductReviews.Where(p => p.ProductId == productId).ToListAsync();
-
-            var stars = await _context.ProductReviews.Where(p => p.ProductId == productId && p.Star != null).Select(r => r.Star).ToListAsync();
-            decimal avgStar = 0;
-            if (stars.Count > 1)
-            {
-                avgStar = (decimal)stars.Average();
-            }
-
-            return new GetProductByIdReadDto
-            {
-                ProductId = product.ProductId,
-                Title = product.Title,
-                Description = product.Description,
-                Images = product.Images,
-                Variations = product.Variations,
-                Categories = categories,
-                ProductReviews = productReviews,
-                AvgStar = avgStar
-            };
+            return product;
         }
 
         public Task<bool> UpdateProduct(Guid productId, UpdateProductDto updateProductDto)

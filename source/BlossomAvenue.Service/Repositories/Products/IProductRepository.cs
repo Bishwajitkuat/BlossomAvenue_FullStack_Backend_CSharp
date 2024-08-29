@@ -11,6 +11,6 @@ namespace BlossomAvenue.Service.Repositories.Products
     {
         public Task<Product?> CreateProduct(Product product);
         public Task<bool> UpdateProduct(Guid productId, UpdateProductDto updateProductDto);
-        public Task<GetProductByIdReadDto?> GetProductById(Guid productId);
+        public Task<Product?> GetProductById(Guid productId);
     }
 }
