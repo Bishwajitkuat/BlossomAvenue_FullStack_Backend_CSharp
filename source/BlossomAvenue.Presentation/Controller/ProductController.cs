@@ -34,9 +34,9 @@ namespace BlossomAvenue.Presentation.Controller
         public async Task<GetProductByIdReadDto> GetProductById([FromRoute] Guid id)
         {
             var product = await _productManagement.GetProductById(id);
-            return product;
+            var readProduct = new GetProductByIdReadDto(product);
+            return readProduct;
         }
-
 
 
 
