@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.UsersService;
 using System.Linq;
 using BlossomAvenue.Service.Shared_Dtos;
+using BlossomAvenue.Service.UsersService.Dtos;
 
 namespace BlossomAvenue.Infrastrcture.Repositories.Users
 {
@@ -93,7 +94,13 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
             return _context.Users
                 .Include(u => u.UserRole)
                 .Include(u => u.UserCredential)
-                .FirstOrDefaultAsync(u => u.UserCredential.UserName == username);
+                .FirstOrDefaultAsync(u => (u.UserCredential.UserName == username) && (u.IsUserActive ?? false));
+        }
+
+        public Task<bool> CheckEmailExistsWithOtherUsers(Guid userId, string email) 
+        {
+            //Check if email exists in the database and the email is not the same as the user's email
+            return _context.Users.Where(s => s.Email == email && s.UserId != userId).AnyAsync();
         }
     }
 }

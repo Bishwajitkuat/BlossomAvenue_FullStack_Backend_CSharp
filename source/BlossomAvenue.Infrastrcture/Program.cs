@@ -126,12 +126,12 @@ bool IsMatchingUserId(AuthorizationHandlerContext context)
 
     var routeUserId = GetRouteUserId(context);
 
-    return userIdClaim == routeUserId;
+    return userIdClaim is not null && routeUserId is not null && userIdClaim == routeUserId;
 }
 string GetRouteUserId(AuthorizationHandlerContext context)
 {
     return context.Resource is HttpContext httpContext
-        ? httpContext.Request.RouteValues["userId"]?.ToString()
+        ? httpContext?.Request.RouteValues["userId"]?.ToString()
         : null;
 }
 
@@ -185,6 +185,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseMiddleware<TokenValidationMiddleware>();
 

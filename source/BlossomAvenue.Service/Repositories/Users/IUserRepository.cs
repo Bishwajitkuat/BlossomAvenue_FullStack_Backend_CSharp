@@ -1,5 +1,5 @@
 ﻿using BlossomAvenue.Core.Users;
-using BlossomAvenue.Service.UsersService;
+using BlossomAvenue.Service.UsersService.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +16,7 @@ namespace BlossomAvenue.Service.Repositories.Users
         public Task UpdateUser(User user);
         public void DeleteUser(Guid userId);
         public Task<bool> CheckUserExistsByEmail(string email);
+        public Task<bool> CheckEmailExistsWithOtherUsers(Guid userId, string email);
         public Task<User?> GetUserByUsername(string username);
     }
 }
