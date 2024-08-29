@@ -111,9 +111,9 @@ namespace BlossomAvenue.Service.UsersService
                 return user is null ? throw new RecordNotFoundException("User") : _mapper.Map<UserDetailedDto>(user);
             }
 
-            public async Task<List<UserDto>> GetUsers(int pageNo, int pageSize, Guid? userRoleId, string orderWith, string orderBy, string? search)
+            public async Task<List<UserDto>> GetUsers(UsersQueryDto query)
             {
-                var users = await _userRepository.GetUsers(pageNo, pageSize, userRoleId, orderWith, orderBy, search);
+                var users = await _userRepository.GetUsers(query);
                 return _mapper.Map<List<UserDto>>(users);
             }
 

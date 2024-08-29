@@ -1,4 +1,5 @@
 ﻿using BlossomAvenue.Core.Users;
+using BlossomAvenue.Service.UsersService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace BlossomAvenue.Service.Repositories.Users
     public interface IUserRepository
     {
         public Task<User> CreateUser(User user);
-        public Task<List<User>> GetUsers(int pageNo, int pageSize, Guid? userRoleId, string orderWith, string orderBy, string? search);
+        public Task<List<User>> GetUsers(UsersQueryDto userquery);
         public Task<User?> GetUser(Guid userId);
         public Task UpdateUser(User user);
         public void DeleteUser(Guid userId);
