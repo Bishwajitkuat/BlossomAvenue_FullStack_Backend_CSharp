@@ -3,7 +3,7 @@ using System;
 
 namespace BlossomAvenue.Core.Products
 {
-    public class ProductCategory : IProductCategory
+    public class ProductCategory
     {
         public Guid ProductCategoryId { get; set; }
         // reference to categories table
@@ -11,6 +11,6 @@ namespace BlossomAvenue.Core.Products
         // reference to product table
         public Guid ProductId { get; set; }
 
-
+        public Category Category { get; set; }
     }
 }
