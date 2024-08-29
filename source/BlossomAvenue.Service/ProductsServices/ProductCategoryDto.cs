@@ -14,7 +14,6 @@ namespace BlossomAvenue.Service.ProductsServices
         {
             return new ProductCategory
             {
-                ProductCategoryId = Guid.NewGuid(),
                 CategoryId = this.CategoryId,
             };
         }
