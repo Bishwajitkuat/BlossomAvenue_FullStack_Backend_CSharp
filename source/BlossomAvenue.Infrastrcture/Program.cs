@@ -102,6 +102,9 @@ builder.Services.AddControllers(options =>
 }).ConfigureApiBehaviorOptions(options => 
 {
     options.SuppressModelStateInvalidFilter = true;
+}).AddJsonOptions(options => 
+{
+    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -141,6 +144,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseMiddleware<TokenValidationMiddleware>();

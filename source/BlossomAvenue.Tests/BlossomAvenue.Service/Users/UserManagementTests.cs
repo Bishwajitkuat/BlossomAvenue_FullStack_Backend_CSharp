@@ -7,6 +7,8 @@ using Moq;
 using Microsoft.Extensions.Configuration;
 using BlossomAvenue.Service.Repositories.Cities;
 using BlossomAvenue.Service.Cryptography;
+using BlossomAvenue.Core.Orders;
+using BlossomAvenue.Service.Shared_Dtos;
 
 namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
 {
@@ -81,8 +83,8 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
                     PageNo = 1,
                     PageSize = 10,
                     Search = null,
-                    OrderWith = "lastName",
-                    OrderBy = "ASC",
+                    OrderWith = UsersOrderWith.LastName,
+                    OrderBy = OrderBy.ASC,
                     UserRoleId = null
                 };
 
