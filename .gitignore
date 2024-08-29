@@ -45,6 +45,9 @@ Thumbs.db
 # VS Code
 .vscode/
 
+# VS
+.vs/
+
 # User-specific files
 *.suo
 *.user

@@ -4,11 +4,6 @@ using BlossomAvenue.Core.Users;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.UsersService;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using BlossomAvenue.Service.Repositories.Cities;
 using BlossomAvenue.Service.Cryptography;
@@ -81,11 +76,21 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
                     new() { UserId = Guid.NewGuid(), FirstName = "Jane", LastName="Smith", Email="c.d@e.com", UserRoleId= Guid.NewGuid()}
                 };
 
-            _mockUserRepository.Setup(x => x.GetUsers(1, 10, null, "lastName", "ASC", null)).ReturnsAsync(users);
+            var userSearch = new UsersQueryDto
+                {
+                    PageNo = 1,
+                    PageSize = 10,
+                    Search = null,
+                    OrderWith = "lastName",
+                    OrderBy = "ASC",
+                    UserRoleId = null
+                };
+
+            _mockUserRepository.Setup(x => x.GetUsers(userSearch)).ReturnsAsync(users);
             _mockMapper.Setup(x => x.Map<List<UserDto>>(users)).Returns(usersDtos);
 
             //Act
-            var result = await _userManagement.GetUsers(1, 10, null, "lastName", "ASC", null);
+            var result = await _userManagement.GetUsers(userSearch);
             
 
             //Assert
