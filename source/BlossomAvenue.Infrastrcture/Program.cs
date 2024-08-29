@@ -8,8 +8,14 @@ using BlossomAvenue.Infrastrcture.Repositories.Categories;
 using BlossomAvenue.Service.CategoriesService;
 using BlossomAvenue.Service.Repositories.Cities;
 using BlossomAvenue.Infrastrcture.Repositories.Cities;
+using BlossomAvenue.Service.Repositories.Carts;
+using BlossomAvenue.Infrastrcture.Repositories.Carts;
+using BlossomAvenue.Service.CartsService;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Infrastrcture.Cryptography;
+using BlossomAvenue.Service.Repositories.Orders;
+using BlossomAvenue.Infrastrcture.Repositories.Orders;
+using BlossomAvenue.Service.OrdersService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -20,6 +26,7 @@ using BlossomAvenue.Service.AuthenticationService;
 using Microsoft.OpenApi.Models;
 using BlossomAvenue.Service.Repositories.InMemory;
 using BlossomAvenue.Presentation.Middleware;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,24 +42,31 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserManagement, UserManagement>();
-
-// DI category repository
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-// DI category management service
 builder.Services.AddScoped<ICategoryManagement, CategoryManagement>();
+
+// DI cart repository
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+// DI cart management service
+builder.Services.AddScoped<ICartManagement, CartManagement>();
+
+// DI cart items repository
+builder.Services.AddScoped<ICartItemsRepository, CartItemsRepository>();
+// DI cart items management service
+builder.Services.AddScoped<ICartItemsManagement, CartItemsManagement>();
+
+// DI Order repository
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+// DI order management service
+builder.Services.AddScoped<IOrderManagement, OrderManagement>();
 
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
-
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-
-builder.Services.AddSingleton<IInMemoryDB, InMemoryDB>();
-
-builder.Services.AddTransient<IJwtManagement, JwtManagement>();
 builder.Services.AddScoped<IAuthManagement, AuthManagement>();
-
+builder.Services.AddSingleton<IInMemoryDB, InMemoryDB>();
+builder.Services.AddTransient<IJwtManagement, JwtManagement>();
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtConfiguration"));
-
 
 /** Domain DI Container End */
 
@@ -75,18 +89,59 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+builder.Services.AddAuthorization(options => 
+{
+    options.AddPolicy("AdminOrUserIdPolicy", policy =>
+        policy.RequireAssertion(context => IsAdminOrMatchingUserId(context))
+    );
+
+    options.AddPolicy("UserIdPolicy", policy =>
+        policy.RequireAssertion(context => IsMatchingUserId(context))
+    );
+});
+
+bool IsAdminOrMatchingUserId(AuthorizationHandlerContext context)
+{
+    var roleClaim = context.User.Claims.FirstOrDefault(c =>
+        c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value;
+
+    var userIdClaim = context.User.Claims.FirstOrDefault(c =>
+        c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+
+    var routeUserId = GetRouteUserId(context);
+
+    return roleClaim == "Admin" || userIdClaim == routeUserId;
+}
+bool IsMatchingUserId(AuthorizationHandlerContext context)
+{
+    var userIdClaim = context.User.Claims.FirstOrDefault(c =>
+        c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+
+    var routeUserId = GetRouteUserId(context);
+
+    return userIdClaim == routeUserId;
+}
+string GetRouteUserId(AuthorizationHandlerContext context)
+{
+    return context.Resource is HttpContext httpContext
+        ? httpContext.Request.RouteValues["userId"]?.ToString()
+        : null;
+}
+
 builder.Services.AddControllers(options => 
 {
    
 }).ConfigureApiBehaviorOptions(options => 
 {
     options.SuppressModelStateInvalidFilter = true;
+}).AddJsonOptions(options => 
+{
+    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => {
-    // Add Bearer token configuration
+
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -120,6 +175,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseMiddleware<TokenValidationMiddleware>();
