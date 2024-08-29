@@ -38,6 +38,14 @@ namespace BlossomAvenue.Presentation.Controller
             return readProduct;
         }
 
+        [HttpPatch("{id:Guid}")]
+        public async Task<bool> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto)
+        {
+
+            var productToUpdate = updateProductDto.ConvertToProduct();
+            return await _productManagement.UpdateProduct(id, productToUpdate);
+        }
+
 
 
 
