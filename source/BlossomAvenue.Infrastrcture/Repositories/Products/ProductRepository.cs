@@ -66,5 +66,33 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Products
             _context.Remove(product);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<ICollection<Product>> GetAllProducts(ProductQueryDto pqdto)
+        {
+            var query = _context.Products
+            .Include(p => p.Variations)
+            .Include(p => p.Images)
+            .Include(p => p.ProductReviews)
+            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(pqdto.Search))
+            {
+                query = query.Where(p => p.Title.ToLower().Contains(pqdto.Search.ToLower()));
+            }
+
+            var isAscending = pqdto.OrderBy.ToLower().Equals("asc", StringComparison.OrdinalIgnoreCase);
+
+            query = pqdto.OrderWith.ToLower() switch
+            {
+                "price" => isAscending ? query.OrderBy(p => p.Variations.Min(a => a.Price)) : query.OrderByDescending(v => v.Variations.Max(a => a.Price)),
+                "title" => isAscending ? query.OrderBy(p => p.Title) : query.OrderByDescending(p => p.Title),
+                "inventory" => isAscending ? query.OrderBy(p => p.Variations.Sum(v => v.Inventory)) : query.OrderByDescending(p => p.Variations.Sum(v => v.Inventory)),
+                _ => query.OrderBy(p => p.Title)
+            };
+
+            var products = await query.ToListAsync();
+            return products;
+
+        }
     }
 }

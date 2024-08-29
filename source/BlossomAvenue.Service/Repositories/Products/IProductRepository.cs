@@ -14,5 +14,7 @@ namespace BlossomAvenue.Service.Repositories.Products
         public Task<Product?> GetProductById(Guid productId);
 
         public Task<bool> DeleteProductById(Guid productId);
+
+        public Task<ICollection<Product>> GetAllProducts(ProductQueryDto pqdto);
     }
 }
