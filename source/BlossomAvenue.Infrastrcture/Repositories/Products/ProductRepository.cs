@@ -80,7 +80,7 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Products
                 query = query.Where(p => p.Title.ToLower().Contains(pqdto.Search.ToLower()));
             }
 
-            var isAscending = pqdto.OrderBy.ToLower().Equals("asc", StringComparison.OrdinalIgnoreCase);
+            var isAscending = pqdto.OrderBy.ToString().ToLower().Equals("asc", StringComparison.OrdinalIgnoreCase);
 
             query = pqdto.OrderWith.ToLower() switch
             {

@@ -62,7 +62,7 @@ namespace BlossomAvenue.Presentation.Controller
                 pqdto.OrderWith.ToLower() == "inventory"))
                 throw new ArgumentException("Invalid orderWith parameter");
 
-            if (!string.IsNullOrEmpty(pqdto.OrderWith) && !(pqdto.OrderBy.ToLower() == "asc" || pqdto.OrderBy.ToLower() == "desc"))
+            if (!string.IsNullOrEmpty(pqdto.OrderWith) && !(pqdto.OrderBy.ToString().ToLower() == "asc" || pqdto.OrderBy.ToString().ToLower() == "desc"))
                 throw new ArgumentException("Invalid orderBy parameter");
 
             if (pqdto.PageNo < 1) throw new ArgumentException("Invalid pageNo parameter");
