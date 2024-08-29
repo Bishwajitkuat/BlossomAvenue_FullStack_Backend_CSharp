@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlossomAvenue.Service.AuthenticationService
 {
-    public interface IAuthenticationService
+    public interface IAuthManagement
     {
         Task<AuthenticationResultDto> Authenticate(string username, string password);
         public void Logout(string token);

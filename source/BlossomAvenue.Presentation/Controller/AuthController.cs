@@ -13,9 +13,9 @@ namespace BlossomAvenue.Presentation.Controller
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthenticationService _authService;
+        private readonly IAuthManagement _authService;
 
-        public AuthController(IAuthenticationService authService)
+        public AuthController(IAuthManagement authService)
         {
             this._authService = authService;
         }

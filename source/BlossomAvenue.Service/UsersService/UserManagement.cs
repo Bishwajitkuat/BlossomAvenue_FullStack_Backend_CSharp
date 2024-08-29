@@ -152,17 +152,7 @@ namespace BlossomAvenue.Service.UsersService
                 return userRole is null ? throw new RecordNotFoundException("User Role") : userRole;
             }
 
-        public async Task<User?> GetUserByUsernameAndPassword(string username, string password)
-        {
-
-            var user = await _userRepository.GetUserByUsernameAndPassword(username);
-
-            if (user is null) return null;
-
-            var isValidated = _passwordHasher.VerifyPassword(user.UserCredential.Password, password);
-
-            return isValidated ? user : null;
-        }
+        
     }
     }
 

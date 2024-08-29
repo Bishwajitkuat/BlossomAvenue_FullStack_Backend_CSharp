@@ -48,8 +48,8 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 builder.Services.AddSingleton<IInMemoryDB, InMemoryDB>();
 
-builder.Services.AddTransient<IJwtService, JwtService>();
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddTransient<IJwtManagement, JwtManagement>();
+builder.Services.AddScoped<IAuthManagement, AuthManagement>();
 
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtConfiguration"));
 

@@ -10,12 +10,12 @@ using System.Text;
 
 namespace BlossomAvenue.Infrastrcture.Repositories.Jwt
 {
-    public class JwtService : IJwtService
+    public class JwtManagement : IJwtManagement
     {
         private readonly JwtConfiguration _jwtConfigurations;
         private readonly IInMemoryDB _inMemoryDB;
 
-        public JwtService(IOptions<JwtConfiguration> jwtSettings, IInMemoryDB inMemoryDB)
+        public JwtManagement(IOptions<JwtConfiguration> jwtSettings, IInMemoryDB inMemoryDB)
         {
             _jwtConfigurations = jwtSettings.Value;
             this._inMemoryDB = inMemoryDB;

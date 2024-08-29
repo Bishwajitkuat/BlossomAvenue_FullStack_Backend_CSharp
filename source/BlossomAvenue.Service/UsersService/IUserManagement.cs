@@ -16,6 +16,5 @@ namespace BlossomAvenue.Service.UsersService
         public void DeleteUser(Guid userId);
         public Task ActiveInactiveUser(Guid userId, bool status);
         public Task<CreateDetailedUserResponseDto> CreateProfile(CreateDetailedUserDto profile);
-        public Task<User?> GetUserByUsernameAndPassword(string username, string password);
     }
 }

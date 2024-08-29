@@ -11,9 +11,9 @@ namespace BlossomAvenue.Presentation.Middleware
     public class TokenValidationMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IJwtService _jwtService;
+        private readonly IJwtManagement _jwtService;
 
-        public TokenValidationMiddleware(RequestDelegate next, IJwtService jwtService)
+        public TokenValidationMiddleware(RequestDelegate next, IJwtManagement jwtService)
         {
             _next = next;
             _jwtService = jwtService;

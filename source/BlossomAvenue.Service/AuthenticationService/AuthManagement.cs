@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace BlossomAvenue.Service.AuthenticationService
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthManagement : IAuthManagement
     {
         private readonly IUserRepository _userRepository;
-        private readonly IJwtService _jwtService;
+        private readonly IJwtManagement _jwtService;
 
-        public AuthenticationService(IUserRepository userRepository, IJwtService jwtService)
+        public AuthManagement(IUserRepository userRepository, IJwtManagement jwtService)
         {
             _userRepository = userRepository;
             _jwtService = jwtService;
         }
         public async Task<AuthenticationResultDto> Authenticate(string username, string password)
         {
-            var user = await _userRepository.GetUserByUsernameAndPassword(username);
+            var user = await _userRepository.GetUserByUsername(username);
 
             if (user == null)
             {
