@@ -8,8 +8,14 @@ using BlossomAvenue.Infrastrcture.Repositories.Categories;
 using BlossomAvenue.Service.CategoriesService;
 using BlossomAvenue.Service.Repositories.Cities;
 using BlossomAvenue.Infrastrcture.Repositories.Cities;
+using BlossomAvenue.Service.Repositories.Carts;
+using BlossomAvenue.Infrastrcture.Repositories.Carts;
+using BlossomAvenue.Service.CartsService;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Infrastrcture.Cryptography;
+using BlossomAvenue.Service.Repositories.Orders;
+using BlossomAvenue.Infrastrcture.Repositories.Orders;
+using BlossomAvenue.Service.OrdersService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -38,6 +44,22 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserManagement, UserManagement>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryManagement, CategoryManagement>();
+
+// DI cart repository
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+// DI cart management service
+builder.Services.AddScoped<ICartManagement, CartManagement>();
+
+// DI cart items repository
+builder.Services.AddScoped<ICartItemsRepository, CartItemsRepository>();
+// DI cart items management service
+builder.Services.AddScoped<ICartItemsManagement, CartItemsManagement>();
+
+// DI Order repository
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+// DI order management service
+builder.Services.AddScoped<IOrderManagement, OrderManagement>();
+
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
@@ -112,6 +134,9 @@ builder.Services.AddControllers(options =>
 }).ConfigureApiBehaviorOptions(options => 
 {
     options.SuppressModelStateInvalidFilter = true;
+}).AddJsonOptions(options => 
+{
+    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -150,6 +175,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseMiddleware<TokenValidationMiddleware>();

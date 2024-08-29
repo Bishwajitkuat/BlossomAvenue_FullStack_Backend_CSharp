@@ -14,6 +14,8 @@ public partial class Order
 
     public decimal? TotalAmount { get; set; }
 
+    public string OrderStatus { get; set; }
+
     public DateTime? CreatedAt { get; set; }
 
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
