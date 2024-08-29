@@ -58,15 +58,15 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Products
         public async Task GetProductById_ValidData_ReturnGetProductByIdDto()
         {
             // Arrange
-            var mockGetProductByIdDto = new Mock<GetProductByIdReadDto>().Object;
+            var mockProduct = new Mock<Product>().Object;
             var id = Guid.NewGuid();
-            _mockProductRepo.Setup(x => x.GetProductById(It.IsAny<Guid>())).ReturnsAsync(mockGetProductByIdDto);
+            _mockProductRepo.Setup(x => x.GetProductById(It.IsAny<Guid>())).ReturnsAsync(mockProduct);
 
             // Act
             var result = await _productMg.GetProductById(id);
 
             //Assert
-            Assert.Equal(result, mockGetProductByIdDto);
+            Assert.Equal(result, mockProduct);
         }
 
 
@@ -74,14 +74,47 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Products
         public async Task GetProductById_InValidData_RiseException()
         {
             // Arrange
-            GetProductByIdReadDto? mockGetProductByIdDto = null;
+            Product? mockProduct = null;
             var id = Guid.NewGuid();
-            _mockProductRepo.Setup(x => x.GetProductById(It.IsAny<Guid>())).ReturnsAsync(mockGetProductByIdDto);
+            _mockProductRepo.Setup(x => x.GetProductById(It.IsAny<Guid>())).ReturnsAsync(mockProduct);
 
             // Act and Assert
             await Assert.ThrowsAsync<RecordNotFoundException>(() =>
             _productMg.GetProductById(id)
             );
         }
+
+        [Fact]
+        public async Task UpdateProduct_ValidData_ReturnTrue()
+        {
+            // Arrange
+            var mockProduct = new Mock<Product>().Object;
+            _mockProductRepo.Setup(x => x.UpdateProduct(It.IsAny<Guid>(), It.IsAny<Product>())).ReturnsAsync(true);
+
+            // Act
+            var result = await _productMg.UpdateProduct(Guid.NewGuid(), mockProduct);
+
+            //Assert
+            Assert.True(result);
+        }
+
+
+        [Fact]
+        public async Task UpdateProduct_InValidData_RiseException()
+        {
+            // Arrange
+            var mockProduct = new Mock<Product>().Object;
+            _mockProductRepo.Setup(x => x.UpdateProduct(It.IsAny<Guid>(), It.IsAny<Product>())).ReturnsAsync(false);
+
+            // Act and Assert
+            await Assert.ThrowsAsync<RecordNotFoundException>(() =>
+            _productMg.UpdateProduct(Guid.NewGuid(), mockProduct)
+            );
+        }
+
+
+
+
+
     }
 }
