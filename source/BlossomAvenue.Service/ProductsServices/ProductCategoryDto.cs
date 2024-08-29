@@ -19,4 +19,24 @@ namespace BlossomAvenue.Service.ProductsServices
         }
 
     }
+
+
+    public class UpdateProductCategoryDto
+    {
+        public Guid ProductCategoryId { get; set; }
+        public Guid CategoryId { get; set; }
+        public Guid ProductId { get; set; }
+
+        public ProductCategory ConvertToProductCategory()
+        {
+            return new ProductCategory
+            {
+                ProductCategoryId = this.ProductCategoryId,
+                CategoryId = this.CategoryId,
+                ProductId = this.ProductId
+
+            };
+        }
+
+    }
 }
