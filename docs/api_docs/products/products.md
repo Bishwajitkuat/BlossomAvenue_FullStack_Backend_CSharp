@@ -5,7 +5,7 @@
 #### Authentication Required: `False`
 
 ```
-base_url/api/v1/products?page=1&items_per_page=10&search_by=a&sort_by=title&sort_order=ASC
+base_url/api/v1/products?pageNo=1&PageSize=10&search=a&OrderWith=price&OrderBy=asc
 ```
 
 ### Response on success
@@ -18,21 +18,55 @@ base_url/api/v1/products?page=1&items_per_page=10&search_by=a&sort_by=title&sort
 
 ```json
 HTTP status 200 with
-{
-  "product_count": 111, // int
-  "page": 1, // int
-  "items_per_page": 10 // int
-  "products": [
+
+  [
   {
-    "product_id" : "9722b5b6-27a3-4990-9b21-5aa71c47418d", // guid
-    "title": "White rose", // string
-    "description": "product description", // test
-    "min_price": 26.56, // decimal
-    "avg_star": 3.5, // decimal (10,1)
-    "image_url": "https://images.unsplash.com/photo-1509449764226-63afec1c342a?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // text
+    "productId": "d942e61a-6ebc-42c3-8af3-f6f559ba3a3c",
+    "title": "Red Roses",
+    "description": "Red Roses description",
+    "imageUrl": "img1",
+    "minPrice": 10,
+    "avgStar": 0,
+    "inventory": 16
+  },
+  {
+    "productId": "a623c8e6-1deb-4527-81d8-e119a6cbbcc3",
+    "title": "Test2 update Roses",
+    "description": "White Roses description",
+    "imageUrl": "img1",
+    "minPrice": 10,
+    "avgStar": 0,
+    "inventory": 38
+  },
+  {
+    "productId": "935583f5-78a8-4fea-acc7-f3a080446776",
+    "title": "Test3 Roses",
+    "description": "White Roses description",
+    "imageUrl": "img1",
+    "minPrice": 15,
+    "avgStar": 0,
+    "inventory": 8
+  },
+  {
+    "productId": "5811c1ac-1136-4753-9285-698d861a3ff2",
+    "title": "Test Roses",
+    "description": "White Roses description",
+    "imageUrl": "img1",
+    "minPrice": 15,
+    "avgStar": 0,
+    "inventory": 8
+  },
+  {
+    "productId": "5c14efe0-ec0b-4298-9961-78802a69f9e1",
+    "title": "White Roses",
+    "description": "White Roses description",
+    "imageUrl": "img1",
+    "minPrice": 15,
+    "avgStar": 0,
+    "inventory": 8
   }
 ]
-}
+
 ```
 
 ### Responses on fail
