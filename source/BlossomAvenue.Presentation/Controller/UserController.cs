@@ -1,4 +1,5 @@
 using BlossomAvenue.Service.UsersService;
+using BlossomAvenue.Service.UsersService.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -38,7 +39,7 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize(Policy = "AdminOrUserIdPolicy")]
         [HttpGet("profile/{userId}")]
-        public async Task<IActionResult> GetUser(Guid userId)
+        public async Task<IActionResult> GetUser([FromRoute] Guid userId)
         {
             var user = await _userManagement.GetUser(userId);
             return Ok(user);
@@ -54,10 +55,10 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto user)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUpdateUserDto user)
         {
             //Validate user model
-            if (!ModelState.IsValid) throw new ArgumentException(String.Join(" | ",ModelState.Values.SelectMany(e => e.Errors)));
+            if (!ModelState.IsValid) throw new ArgumentException(String.Join(" | ", ModelState.Values.SelectMany(e => e.Errors)));
 
             var createdUser = await _userManagement.CreateUser(user);
             return CreatedAtAction(nameof(GetUser), new { profileId = createdUser.UserId }, createdUser);
@@ -69,6 +70,14 @@ namespace BlossomAvenue.Presentation.Controller
             var createdProfile = await _userManagement.CreateProfile(profile);
             createdProfile.Password = String.Empty;
             return CreatedAtAction(nameof(GetUser), new { profileId = createdProfile.UserId }, createdProfile);
+        }
+
+        [Authorize(Policy = "UserIdPolicy")]
+        [HttpPatch("{userId}")]
+        public async Task<IActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] CreateUpdateUserDto user)
+        {
+            await _userManagement.UpdateUser(userId, user);
+            return NoContent();
         }
     }
 }

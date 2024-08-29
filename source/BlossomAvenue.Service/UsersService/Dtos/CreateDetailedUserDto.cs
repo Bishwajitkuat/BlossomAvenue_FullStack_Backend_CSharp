@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using BlossomAvenue.Service.CustomAttributes;
 
-namespace BlossomAvenue.Service.UsersService
+namespace BlossomAvenue.Service.UsersService.Dtos
 {
     public class CreateDetailedUserDto
     {
@@ -17,10 +17,10 @@ namespace BlossomAvenue.Service.UsersService
 
         [ContactNumbersValidation]
         public string[] ContactNumbers { get; set; } = [];
-        
+
         [Required]
         public string AddressLine1 { get; set; } = null!;
-        
+
         public string AddressLine2 { get; set; } = null!;
         [Required]
         public Guid CityId { get; set; }
