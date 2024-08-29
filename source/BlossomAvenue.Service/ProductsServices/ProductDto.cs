@@ -65,8 +65,24 @@ namespace BlossomAvenue.Service.ProductsServices
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public decimal MinPrice { get; set; }
+        public int Inventory { get; set; }
         public decimal AvgStar { get; set; }
 
+        public GetAllProductReadDto(Product product)
+        {
+            ProductId = product.ProductId;
+            Title = product.Title;
+            Description = product.Description;
+            ImageUrl = product.Images.FirstOrDefault().ImageUrl;
+            MinPrice = product.Variations.Select(v => v.Price).Min();
+            Inventory = product.Variations.Select(v => v.Inventory).Sum();
+
+            var stars = product.ProductReviews.Where(r => r.Star != null).Select(r => r.Star);
+            if (stars.Count() > 0)
+            {
+                AvgStar = (decimal)stars.Average();
+            }
+        }
     }
 
 
