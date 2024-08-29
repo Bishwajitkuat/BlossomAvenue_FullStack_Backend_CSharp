@@ -178,6 +178,8 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseMiddleware<TokenValidationMiddleware>();
 
 app.UseHttpsRedirection();
