@@ -8,7 +8,7 @@ namespace BlossomAvenue.Service.OrdersService
 {
     public interface IOrderManagement
     {
-        public Task<bool> CreateOrder(Guid cartId, Guid userId, decimal amount);
+        public Task<bool> CreateOrder(Guid cartId, Guid userId);
         public Task <Order> GetCart(Guid cartId);
         
     }

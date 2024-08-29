@@ -17,11 +17,11 @@ namespace BlossomAvenue.Presentation.Controller
             _orderManagement = orderManagement;
         }
         [HttpPost()]
-        public async Task<IActionResult> CreateOrder( Guid cartId,  Guid userId,  decimal amount)
+        public async Task<IActionResult> CreateOrder( Guid cartId,  Guid userId)
         {
             try
             {
-                var success = await _orderManagement.CreateOrder(cartId, userId, amount);
+                var success = await _orderManagement.CreateOrder(cartId, userId);
 
                 if (success)
                 {

@@ -17,7 +17,7 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Orders
         {
             _context = context;
         }
-        public async Task<bool> CreateOrder(Guid cartId, Guid userId, decimal amount)
+        public async Task<bool> CreateOrder(Guid cartId, Guid userId)
         {
             var cart = await _context.Carts
                                      .Include(c => c.CartItems)
@@ -33,24 +33,41 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Orders
                 OrderId = Guid.NewGuid(),
                 UserId = userId,
                 AddressId = null,
-                TotalAmount = amount,
                 CreatedAt = DateTime.UtcNow
             };
 
+            decimal? totalAmount = 0;
+
             foreach (var cartItem in cart.CartItems)
             {
+                var variation = await _context.Variations
+                                      .FirstOrDefaultAsync(v => v.VariationId == cartItem.Variationid);
+
+                if (variation == null)
+                {
+                    throw new InvalidOperationException("Invalid variation for a cart item.");
+                }
+
+                // Calculate the total price
+                decimal itemPrice = variation.Price; // Assuming Variation has a Price property
+                decimal? totalPrice = itemPrice * cartItem.Quantity;
+                
+                totalAmount += totalPrice;
+
                 var orderItem = new OrderItem
                 {
                     OrderItemsId = Guid.NewGuid(),
                     OrderId = order.OrderId,
                     ProductId = cartItem.ProductId,
                     VariationId = cartItem.Variationid,
-                    Quantity = cartItem.Quantity
+                    Quantity = cartItem.Quantity,
+                    Price = totalPrice
                 };
 
                 order.OrderItems.Add(orderItem);
             }
 
+            order.TotalAmount = totalAmount;
             _context.Orders.Add(order);
 
             _context.CartItems.RemoveRange(cart.CartItems);

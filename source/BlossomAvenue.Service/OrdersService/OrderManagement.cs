@@ -15,9 +15,9 @@ namespace BlossomAvenue.Service.OrdersService
         {
             _orderRepository = orderRepository;
         }
-        public async Task<bool> CreateOrder(Guid cartId, Guid userId, decimal amount)
+        public async Task<bool> CreateOrder(Guid cartId, Guid userId)
         {
-            return await _orderRepository.CreateOrder(cartId, userId, amount);
+            return await _orderRepository.CreateOrder(cartId, userId);
         }
 
         public Task<Order> GetCart(Guid cartId)
