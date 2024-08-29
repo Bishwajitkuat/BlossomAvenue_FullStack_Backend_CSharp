@@ -16,6 +16,16 @@ using BlossomAvenue.Infrastrcture.Cryptography;
 using BlossomAvenue.Service.Repositories.Orders;
 using BlossomAvenue.Infrastrcture.Repositories.Orders;
 using BlossomAvenue.Service.OrdersService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using BlossomAvenue.Core.Authentication;
+using BlossomAvenue.Infrastrcture.Repositories.Jwt;
+using BlossomAvenue.Service.AuthenticationService;
+using Microsoft.OpenApi.Models;
+using BlossomAvenue.Service.Repositories.InMemory;
+using BlossomAvenue.Presentation.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +36,8 @@ builder.Services.AddDbContext<BlossomAvenueDbContext>(options =>
     );
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+/** Domain DI Container */
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserManagement, UserManagement>();
@@ -55,6 +67,35 @@ builder.Services.AddScoped<ICityRepository, CityRepository>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
+builder.Services.AddSingleton<IInMemoryDB, InMemoryDB>();
+
+builder.Services.AddTransient<IJwtManagement, JwtManagement>();
+builder.Services.AddScoped<IAuthManagement, AuthManagement>();
+
+builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtConfiguration"));
+
+
+/** Domain DI Container End */
+
+builder.Services.AddAuthentication(options => 
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options => 
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["JwtConfiguration:Issuer"],
+            ValidAudience = builder.Configuration["JwtConfiguration:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfiguration:Secret"]))
+        };
+    });
+
 builder.Services.AddControllers(options => 
 {
    
@@ -65,7 +106,33 @@ builder.Services.AddControllers(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options => {
+    // Add Bearer token configuration
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 
 var app = builder.Build();
 
@@ -75,6 +142,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<TokenValidationMiddleware>();
 
 app.UseHttpsRedirection();
 

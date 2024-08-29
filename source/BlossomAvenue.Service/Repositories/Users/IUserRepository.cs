@@ -15,5 +15,6 @@ namespace BlossomAvenue.Service.Repositories.Users
         public Task UpdateUser(User user);
         public void DeleteUser(Guid userId);
         public Task<bool> CheckUserExistsByEmail(string email);
+        public Task<User?> GetUserByUsername(string username);
     }
 }

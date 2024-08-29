@@ -84,5 +84,13 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
         {
             return _context.Users.Where(s => s.Email == email).AnyAsync();
         }
+
+        public Task<User?> GetUserByUsername(string username) 
+        {
+            return _context.Users
+                .Include(u => u.UserRole)
+                .Include(u => u.UserCredential)
+                .FirstOrDefaultAsync(u => u.UserCredential.UserName == username);
+        }
     }
 }
