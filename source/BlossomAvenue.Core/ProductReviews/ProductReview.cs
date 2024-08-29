@@ -1,4 +1,5 @@
 ﻿using BlossomAvenue.Core.Orders;
+using BlossomAvenue.Core.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,4 +22,6 @@ public partial class ProductReview
     public int? Star { get; set; }
 
     public virtual Order Order { get; set; } = null!;
+
+    public virtual User User { get; set; } = null!;
 }
