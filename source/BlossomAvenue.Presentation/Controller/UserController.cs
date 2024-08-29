@@ -1,4 +1,5 @@
 using BlossomAvenue.Service.UsersService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,40 +21,44 @@ namespace BlossomAvenue.Presentation.Controller
             _userManagement = userManagement;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers(
-            [FromQuery] Guid? userRoleId, 
-            [FromQuery] string? search, 
-            [FromQuery] int pageNo = 1, 
-            [FromQuery] int pageSize = 10, 
-            [FromQuery] string orderWith="lastName", 
-            [FromQuery] string orderBy="ASC")
+            [FromQuery] UsersQueryDto query)
         {
+            if (String.IsNullOrEmpty(query.OrderWith))
+            {
+                query.OrderWith = "lastName";
+            }
+
+
             if (!(
-                orderWith == "firstName" || 
-                orderWith == "lastName" || 
-                orderWith == "roleName")) 
+                query.OrderWith == "firstName" ||
+                query.OrderWith == "lastName" ||
+                query.OrderWith == "roleName")) 
                 throw new ArgumentException("Invalid orderWith parameter");
 
-            if (!(orderBy == "ASC" || orderBy == "DESC")) 
+            if (!(query.OrderBy == "ASC" || query.OrderBy == "DESC")) 
                 throw new ArgumentException("Invalid orderBy parameter");
 
-            if (pageNo == 0) throw new ArgumentException("Invalid pageNo parameter");
+            if (query.PageNo == 0) throw new ArgumentException("Invalid pageNo parameter");
 
-            if (pageSize == 0) throw new ArgumentException("Invalid pageSize parameter");
+            if (query.PageSize == 0) throw new ArgumentException("Invalid pageSize parameter");
 
-            var users = await _userManagement.GetUsers(pageNo, pageSize, userRoleId, orderWith, orderBy, search);
+            var users = await _userManagement.GetUsers(query);
 
             return Ok(users);
         }
 
+        
         [HttpGet("profile/{profileId}")]
         public async Task<IActionResult> GetUser(Guid profileId)
         {
             var user = await _userManagement.GetUser(profileId);
             return Ok(user);
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPatch("profileStatus")]
         public async Task<IActionResult> ActiveInactiveUser([FromQuery] Guid userId, [FromQuery] bool status)
         {
@@ -61,6 +66,7 @@ namespace BlossomAvenue.Presentation.Controller
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("user")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDto user)
         {
@@ -70,6 +76,7 @@ namespace BlossomAvenue.Presentation.Controller
             var createdUser = await _userManagement.CreateUser(user);
             return CreatedAtAction(nameof(GetUser), new { profileId = createdUser.UserId }, createdUser);
         }
+
         [HttpPost("profile")]
         public async Task<IActionResult> CreateProfile(CreateDetailedUserDto profile)
         {

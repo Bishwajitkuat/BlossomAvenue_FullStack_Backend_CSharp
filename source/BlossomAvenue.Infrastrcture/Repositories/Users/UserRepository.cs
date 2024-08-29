@@ -2,6 +2,8 @@
 using BlossomAvenue.Core.Users;
 using BlossomAvenue.Infrastrcture.Database;
 using Microsoft.EntityFrameworkCore;
+using BlossomAvenue.Service.UsersService;
+using System.Linq;
 
 namespace BlossomAvenue.Infrastrcture.Repositories.Users
 {
@@ -37,29 +39,29 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
                 .FirstOrDefaultAsync(u => u.UserId == userId);
         }
 
-        public async Task<List<User>> GetUsers(int pageNo, int pageSize, Guid? userRoleId, string orderWith, string orderBy, string? search)
+        public async Task<List<User>> GetUsers(UsersQueryDto userquery)
         {
 
             var query = _context.Users
                 .Include(u => u.UserRole)
                 .AsQueryable();
 
-            if (userRoleId.HasValue) 
+            if (userquery.UserRoleId.HasValue) 
             {
-                query.Where(u => u.UserRoleId == userRoleId);
+                query.Where(u => u.UserRoleId == userquery.UserRoleId);
             }
 
-            if (!string.IsNullOrEmpty(search)) 
+            if (!string.IsNullOrEmpty(userquery.Search)) 
             {
                 query = query.Where( u =>
-                    u.FirstName.Contains(search) || 
-                    u.LastName.Contains(search) ||
-                    u.Email.Contains(search));
+                    u.FirstName.Contains(userquery.Search) || 
+                    u.LastName.Contains(userquery.Search) ||
+                    u.Email.Contains(userquery.Search));
             }
 
-            var isAscending = orderBy.Equals("ASC", StringComparison.OrdinalIgnoreCase);
+            var isAscending = userquery.OrderBy.Equals("ASC", StringComparison.OrdinalIgnoreCase);
 
-            query = orderWith.ToLower() switch
+            query = userquery.OrderWith.ToLower() switch
             {
                 "firstName" => isAscending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName),
                 "roleName" => isAscending ? query.OrderBy(u => u.UserRole.UserRoleName) : query.OrderByDescending(u => u.UserRole.UserRoleName),
@@ -67,8 +69,8 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
             };
 
             var users = await query
-                .Skip((pageNo - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((userquery.PageNo - 1) * userquery.PageSize)
+                .Take(userquery.PageSize)
                 .ToListAsync();
 
             return users;
@@ -83,6 +85,14 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
         public Task<bool> CheckUserExistsByEmail(string email)
         {
             return _context.Users.Where(s => s.Email == email).AnyAsync();
+        }
+
+        public Task<User?> GetUserByUsername(string username) 
+        {
+            return _context.Users
+                .Include(u => u.UserRole)
+                .Include(u => u.UserCredential)
+                .FirstOrDefaultAsync(u => u.UserCredential.UserName == username);
         }
     }
 }

@@ -45,6 +45,9 @@ Thumbs.db
 # VS Code
 .vscode/
 
+# VS
+.vs/
+
 # User-specific files
 *.suo
 *.user
@@ -66,3 +69,4 @@ appsettings.Development.json
 # Migrations
 source/BlossomAvenue.Infrastrcture/Migrations
 
+/source/.vs/BlossomAvenue
