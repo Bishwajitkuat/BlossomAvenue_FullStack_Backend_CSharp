@@ -27,6 +27,8 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Products
             return newProduct;
         }
 
+
+
         public async Task<Product?> GetProductById(Guid productId)
         {
             var product = await _context.Products
@@ -43,7 +45,7 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Products
 
         public async Task<bool> UpdateProduct(Guid productId, Product productToUpdate)
         {
-            Product product = await _context.Products.Where(p => p.ProductId == productId).FirstOrDefaultAsync();
+            Product? product = await _context.Products.Where(p => p.ProductId == productId).FirstOrDefaultAsync();
             if (product == null) return false;
             // updating product
             product.Title = productToUpdate.Title;
@@ -52,6 +54,10 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Products
             product.Variations = productToUpdate.Variations;
             product.ProductCategories = productToUpdate.ProductCategories;
             // saving context
+            _context.Products.Update(product);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
             return await _context.SaveChangesAsync() > 0;
         }
     }
