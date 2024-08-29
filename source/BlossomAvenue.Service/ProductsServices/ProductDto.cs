@@ -66,8 +66,20 @@ namespace BlossomAvenue.Service.ProductsServices
         public ICollection<Image> Images { get; set; }
         public ICollection<Variation> Variations { get; set; }
         public ICollection<Category> Categories { get; set; }
-        public ICollection<ProductReview> ProductReviews { get; set; }
+        public ICollection<ReadProductReviewDto> ProductReviews { get; set; }
         public decimal AvgStar { get; set; }
+
+        public GetProductByIdReadDto(Product product)
+        {
+            ProductId = product.ProductId;
+            Title = product.Title;
+            Description = product.Description;
+            Images = product.Images;
+            Variations = product.Variations;
+            Categories = product.ProductCategories.Select(pc => pc.Category).ToList();
+            ProductReviews = product.ProductReviews.Select(pr => new ReadProductReviewDto(pr)).ToList();
+            AvgStar = (decimal)product.ProductReviews.Where(pr => pr.Star != null).Select(pr => pr.Star).Average();
+        }
 
     }
 
