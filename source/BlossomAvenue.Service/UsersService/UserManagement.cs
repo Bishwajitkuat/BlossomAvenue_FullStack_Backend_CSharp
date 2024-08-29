@@ -151,6 +151,8 @@ namespace BlossomAvenue.Service.UsersService
                 var userRole = await _userRoleRepository.GetUserRoleByName(roleName);
                 return userRole is null ? throw new RecordNotFoundException("User Role") : userRole;
             }
-        }
+
+        
+    }
     }
 

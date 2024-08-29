@@ -1,4 +1,5 @@
 using BlossomAvenue.Service.UsersService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace BlossomAvenue.Presentation.Controller
             _userManagement = userManagement;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers(
             [FromQuery] Guid? userRoleId, 
@@ -47,13 +49,15 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(users);
         }
 
+        
         [HttpGet("profile/{profileId}")]
         public async Task<IActionResult> GetUser(Guid profileId)
         {
             var user = await _userManagement.GetUser(profileId);
             return Ok(user);
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPatch("profileStatus")]
         public async Task<IActionResult> ActiveInactiveUser([FromQuery] Guid userId, [FromQuery] bool status)
         {
@@ -61,6 +65,7 @@ namespace BlossomAvenue.Presentation.Controller
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("user")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDto user)
         {
@@ -70,6 +75,7 @@ namespace BlossomAvenue.Presentation.Controller
             var createdUser = await _userManagement.CreateUser(user);
             return CreatedAtAction(nameof(GetUser), new { profileId = createdUser.UserId }, createdUser);
         }
+
         [HttpPost("profile")]
         public async Task<IActionResult> CreateProfile(CreateDetailedUserDto profile)
         {
