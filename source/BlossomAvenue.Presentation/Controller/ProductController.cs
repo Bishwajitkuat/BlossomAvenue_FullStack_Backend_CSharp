@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
 using BlossomAvenue.Service.ProductsServices;
 using BlossomAvenue.Service.Repositories.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlossomAvenue.Presentation.Controller
@@ -20,7 +21,7 @@ namespace BlossomAvenue.Presentation.Controller
             _productManagement = productManagement;
         }
 
-        // ADMIN USER
+        [Authorize(Roles = "Admin")]
         [HttpPost("")]
         public async Task<Product> CreateProduct(CreateProductDto createProductDto)
         {
@@ -38,6 +39,7 @@ namespace BlossomAvenue.Presentation.Controller
             return readProduct;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPatch("{id:Guid}")]
         public async Task<bool> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto)
         {
@@ -46,7 +48,7 @@ namespace BlossomAvenue.Presentation.Controller
             return await _productManagement.UpdateProduct(id, productToUpdate);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:Guid}")]
         public async Task<bool> DeleteProductById([FromRoute] Guid id)
         {
