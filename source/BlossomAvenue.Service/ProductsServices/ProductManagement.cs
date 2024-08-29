@@ -48,5 +48,10 @@ namespace BlossomAvenue.Service.ProductsServices
             if (result != true) throw new RecordNotFoundException("product");
             return result;
         }
+
+        public async Task<ICollection<Product>> GetAllProducts(ProductQueryDto pqdto)
+        {
+            return await _productRepository.GetAllProducts(pqdto);
+        }
     }
 }
