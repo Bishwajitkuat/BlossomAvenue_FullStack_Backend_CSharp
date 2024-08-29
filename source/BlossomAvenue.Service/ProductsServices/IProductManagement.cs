@@ -9,6 +9,6 @@ namespace BlossomAvenue.Service.ProductsServices
     public interface IProductManagement
     {
         public Task<Product> CreateProduct(Product product);
-        public Task<GetProductByIdReadDto> GetProductById(Guid productId);
+        public Task<Product> GetProductById(Guid productId);
     }
 }

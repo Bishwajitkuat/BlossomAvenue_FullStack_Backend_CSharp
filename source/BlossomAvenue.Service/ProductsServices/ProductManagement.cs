@@ -23,7 +23,7 @@ namespace BlossomAvenue.Service.ProductsServices
             return newProduct;
         }
 
-        public async Task<GetProductByIdReadDto> GetProductById(Guid productId)
+        public async Task<Product> GetProductById(Guid productId)
         {
             var product = await _productRepository.GetProductById(productId) ?? throw new RecordNotFoundException("product");
             return product;
