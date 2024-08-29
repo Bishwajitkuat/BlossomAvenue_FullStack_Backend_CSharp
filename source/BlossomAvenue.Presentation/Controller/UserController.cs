@@ -24,27 +24,28 @@ namespace BlossomAvenue.Presentation.Controller
         [Authorize(Roles = "Admin")]
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers(
-            [FromQuery] Guid? userRoleId, 
-            [FromQuery] string? search, 
-            [FromQuery] int pageNo = 1, 
-            [FromQuery] int pageSize = 10, 
-            [FromQuery] string orderWith="lastName", 
-            [FromQuery] string orderBy="ASC")
+            [FromQuery] UsersQueryDto query)
         {
+            if (String.IsNullOrEmpty(query.OrderWith))
+            {
+                query.OrderWith = "lastName";
+            }
+
+
             if (!(
-                orderWith == "firstName" || 
-                orderWith == "lastName" || 
-                orderWith == "roleName")) 
+                query.OrderWith == "firstName" ||
+                query.OrderWith == "lastName" ||
+                query.OrderWith == "roleName")) 
                 throw new ArgumentException("Invalid orderWith parameter");
 
-            if (!(orderBy == "ASC" || orderBy == "DESC")) 
+            if (!(query.OrderBy == "ASC" || query.OrderBy == "DESC")) 
                 throw new ArgumentException("Invalid orderBy parameter");
 
-            if (pageNo == 0) throw new ArgumentException("Invalid pageNo parameter");
+            if (query.PageNo == 0) throw new ArgumentException("Invalid pageNo parameter");
 
-            if (pageSize == 0) throw new ArgumentException("Invalid pageSize parameter");
+            if (query.PageSize == 0) throw new ArgumentException("Invalid pageSize parameter");
 
-            var users = await _userManagement.GetUsers(pageNo, pageSize, userRoleId, orderWith, orderBy, search);
+            var users = await _userManagement.GetUsers(query);
 
             return Ok(users);
         }
