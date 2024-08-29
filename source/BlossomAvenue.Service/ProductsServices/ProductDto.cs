@@ -42,7 +42,20 @@ namespace BlossomAvenue.Service.ProductsServices
         public string Description { get; set; }
         public ICollection<Image> Images { get; set; }
         public ICollection<Variation> Variations { get; set; }
-        public ICollection<ProductCategory> ProductCategories { get; set; }
+        public ICollection<UpdateProductCategoryDto> ProductCategories { get; set; }
+
+        public Product ConvertToProduct()
+        {
+            return new Product
+            {
+                Title = this.Title,
+                Description = this.Description,
+                Images = this.Images,
+                Variations = this.Variations,
+                ProductCategories = this.ProductCategories.Select(pc => pc.ConvertToProductCategory()).ToList(),
+
+            };
+        }
     }
 
     public class GetAllProductReadDto
