@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Orders;
 using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.Repositories.Orders;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,7 +34,8 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Orders
                 OrderId = Guid.NewGuid(),
                 UserId = userId,
                 AddressId = null,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                OrderStatus = "pending"
             };
 
             decimal? totalAmount = 0;
@@ -80,6 +82,23 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Orders
         public Task<Order> GetCart(Guid cartId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> UpdateOrder(Guid orderId, string orderStatus)
+        {
+            var order = await _context.Orders
+                                     .FindAsync(orderId);
+
+            if (order == null)
+            {
+                throw new RecordNotFoundException("order");
+            }
+
+            order.OrderStatus = orderStatus;
+
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

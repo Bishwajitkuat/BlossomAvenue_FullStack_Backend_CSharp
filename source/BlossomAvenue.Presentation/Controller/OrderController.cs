@@ -38,5 +38,27 @@ namespace BlossomAvenue.Presentation.Controller
             }
         }
 
+        [HttpPatch]
+        public async Task<IActionResult> UpdateOrder(Guid orderId, string orderStatus)
+        {
+            try
+            {
+                var success = await _orderManagement.UpdateOrder(orderId, orderStatus);
+
+                if (success)
+                {
+                    return Ok(new { Message = "Order updated successfully." });
+                }
+                else
+                {
+                    throw new Exception("Something went wrong!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = ex.Message });
+            }
+        }
+
     }
 }

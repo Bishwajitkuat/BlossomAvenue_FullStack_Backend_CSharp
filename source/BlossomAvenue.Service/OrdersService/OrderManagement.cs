@@ -24,5 +24,10 @@ namespace BlossomAvenue.Service.OrdersService
         {
             throw new NotImplementedException();
         }
+
+        public async Task<bool> UpdateOrder(Guid orderId, string orderStatus)
+        {
+            return await _orderRepository.UpdateOrder(orderId, orderStatus);
+        }
     }
 }

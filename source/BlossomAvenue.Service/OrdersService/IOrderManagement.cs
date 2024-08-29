@@ -10,6 +10,8 @@ namespace BlossomAvenue.Service.OrdersService
     {
         public Task<bool> CreateOrder(Guid cartId, Guid userId);
         public Task <Order> GetCart(Guid cartId);
+
+        public Task <bool> UpdateOrder(Guid orderId, string orderStatus); 
         
     }
 }
