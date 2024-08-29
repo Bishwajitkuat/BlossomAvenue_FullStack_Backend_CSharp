@@ -78,7 +78,11 @@ namespace BlossomAvenue.Service.ProductsServices
             Variations = product.Variations;
             Categories = product.ProductCategories.Select(pc => pc.Category).ToList();
             ProductReviews = product.ProductReviews.Select(pr => new ReadProductReviewDto(pr)).ToList();
-            AvgStar = (decimal)product.ProductReviews.Where(pr => pr.Star != null).Select(pr => pr.Star).Average();
+            var stars = product.ProductReviews.Where(pr => pr.Star != null).Select(pr => pr.Star);
+            if (stars.Count() > 0)
+            {
+                AvgStar = (decimal)stars.Average();
+            }
         }
 
     }
