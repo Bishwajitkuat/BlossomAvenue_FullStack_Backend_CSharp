@@ -23,6 +23,8 @@ namespace BlossomAvenue.Service.ProductsServices
             return newProduct;
         }
 
+
+
         public async Task<Product> GetProductById(Guid productId)
         {
             var product = await _productRepository.GetProductById(productId);
@@ -34,6 +36,15 @@ namespace BlossomAvenue.Service.ProductsServices
         {
             bool result = await _productRepository.UpdateProduct(productId, productToUpdate);
 
+            if (result != true) throw new RecordNotFoundException("product");
+            return result;
+        }
+
+
+        public async Task<bool> DeleteProductById(Guid productId)
+        {
+
+            var result = await _productRepository.DeleteProductById(productId);
             if (result != true) throw new RecordNotFoundException("product");
             return result;
         }
