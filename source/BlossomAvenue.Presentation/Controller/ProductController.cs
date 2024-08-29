@@ -47,6 +47,13 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
 
+        [HttpDelete("{id:Guid}")]
+        public async Task<bool> DeleteProductById([FromRoute] Guid id)
+        {
+            return await _productManagement.DeleteProductById(id);
+        }
+
+
 
 
 
