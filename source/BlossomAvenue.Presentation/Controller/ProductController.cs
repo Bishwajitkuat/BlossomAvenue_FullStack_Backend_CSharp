@@ -53,6 +53,27 @@ namespace BlossomAvenue.Presentation.Controller
             return await _productManagement.DeleteProductById(id);
         }
 
+        [HttpGet]
+        public async Task<ICollection<GetAllProductReadDto>> GetAllProducts([FromQuery] ProductQueryDto pqdto)
+        {
+            if (!string.IsNullOrEmpty(pqdto.OrderWith) && !(
+                pqdto.OrderWith.ToLower() == "price" ||
+                pqdto.OrderWith.ToLower() == "title" ||
+                pqdto.OrderWith.ToLower() == "inventory"))
+                throw new ArgumentException("Invalid orderWith parameter");
+
+            if (!string.IsNullOrEmpty(pqdto.OrderWith) && !(pqdto.OrderBy.ToLower() == "asc" || pqdto.OrderBy.ToLower() == "desc"))
+                throw new ArgumentException("Invalid orderBy parameter");
+
+            if (pqdto.PageNo < 1) throw new ArgumentException("Invalid pageNo parameter");
+
+            if (pqdto.PageSize < 1) throw new ArgumentException("Invalid pageSize parameter");
+
+            var products = await _productManagement.GetAllProducts(pqdto);
+            var readProducts = products.Select(p => new GetAllProductReadDto(p)).ToList();
+            return readProducts;
+        }
+
 
 
 
