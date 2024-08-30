@@ -142,7 +142,7 @@ builder.Services.AddControllers(options =>
 
 }).ConfigureApiBehaviorOptions(options =>
 {
-    options.SuppressModelStateInvalidFilter = true;
+    options.SuppressModelStateInvalidFilter = false;
 }).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
