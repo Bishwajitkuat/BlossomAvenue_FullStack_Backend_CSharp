@@ -90,7 +90,10 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Products
                 _ => query.OrderBy(p => p.Title)
             };
 
-            var products = await query.ToListAsync();
+            var products = await query
+            .Skip((pqdto.PageNo - 1) * pqdto.PageSize)
+            .Take(pqdto.PageSize)
+            .ToListAsync();
             return products;
 
         }
