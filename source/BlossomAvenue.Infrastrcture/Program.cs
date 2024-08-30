@@ -26,6 +26,9 @@ using BlossomAvenue.Service.AuthenticationService;
 using Microsoft.OpenApi.Models;
 using BlossomAvenue.Service.Repositories.InMemory;
 using BlossomAvenue.Presentation.Middleware;
+using BlossomAvenue.Service.Repositories.ProductReviews;
+using BlossomAvenue.Infrastrcture.Repositories.ProductReviews;
+using BlossomAvenue.Service.ProductReviewsService;
 using Microsoft.AspNetCore.Authorization;
 using BlossomAvenue.Service.Repositories.Products;
 using BlossomAvenue.Infrastrcture.Repositories.Products;
@@ -66,6 +69,11 @@ builder.Services.AddScoped<IOrderManagement, OrderManagement>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 // DI product management service
 builder.Services.AddScoped<IProductManagement, ProductManagement>();
+
+// DI Product review repository
+builder.Services.AddScoped<IProductReviewRepository, ProductReviewsRepository>();
+// DI order management service
+builder.Services.AddScoped<IProductReviewManagement, ProductReviewManagement>();
 
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
