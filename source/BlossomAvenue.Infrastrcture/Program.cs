@@ -26,6 +26,9 @@ using BlossomAvenue.Service.AuthenticationService;
 using Microsoft.OpenApi.Models;
 using BlossomAvenue.Service.Repositories.InMemory;
 using BlossomAvenue.Presentation.Middleware;
+using BlossomAvenue.Service.Repositories.ProductReviews;
+using BlossomAvenue.Infrastrcture.Repositories.ProductReviews;
+using BlossomAvenue.Service.ProductReviewsService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +64,11 @@ builder.Services.AddScoped<ICartItemsManagement, CartItemsManagement>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 // DI order management service
 builder.Services.AddScoped<IOrderManagement, OrderManagement>();
+
+// DI Product review repository
+builder.Services.AddScoped<IProductReviewRepository, ProductReviewsRepository>();
+// DI order management service
+builder.Services.AddScoped<IProductReviewManagement, ProductReviewManagement>();
 
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
