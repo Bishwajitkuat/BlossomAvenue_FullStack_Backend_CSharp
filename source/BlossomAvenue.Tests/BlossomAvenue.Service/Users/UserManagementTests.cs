@@ -34,10 +34,10 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             _mockCityRepository = new Mock<ICityRepository>();
             _passwordHasher = new Mock<IPasswordHasher>();
             _userManagement = new UserManagement(
-                _mockUserRepository.Object, 
-                _mockUserRoleRepository.Object, 
+                _mockUserRepository.Object,
+                _mockUserRoleRepository.Object,
                 _mockCityRepository.Object,
-                _mockMapper.Object, 
+                _mockMapper.Object,
                 _mockConfiguration.Object,
                 _passwordHasher.Object
                 );
@@ -63,7 +63,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             Assert.NotNull(getUsersMethod);
         }
         [Fact]
-        public async Task GetUsers_ShouldReturnUserDtoList() 
+        public async Task GetUsers_ShouldReturnUserDtoList()
         {
             //Arrange
 
@@ -80,21 +80,21 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
                 };
 
             var userSearch = new UsersQueryDto
-                {
-                    PageNo = 1,
-                    PageSize = 10,
-                    Search = null,
-                    OrderWith = UsersOrderWith.LastName,
-                    OrderBy = OrderBy.ASC,
-                    UserRoleId = null
-                };
+            {
+                PageNo = 1,
+                PageSize = 10,
+                Search = null,
+                OrderWith = UsersOrderWith.LastName.ToString(),
+                OrderBy = OrderBy.ASC,
+                UserRoleId = null
+            };
 
             _mockUserRepository.Setup(x => x.GetUsers(userSearch)).ReturnsAsync(users);
             _mockMapper.Setup(x => x.Map<List<global::BlossomAvenue.Service.UsersService.Dtos.UserDto>>(users)).Returns(usersDtos);
 
             //Act
             var result = await _userManagement.GetUsers(userSearch);
-            
+
 
             //Assert
             Assert.NotNull(result);
@@ -119,22 +119,22 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             //Arrange
             var guid = Guid.NewGuid();
             var usersDto = new UserDetailedDto
-                {
-                    UserId = Guid.NewGuid(), 
-                    FirstName = "John", 
-                    LastName="Doe", 
-                    Email="a.b@c.com", 
-                    UserRoleId= Guid.NewGuid()
-                };
+            {
+                UserId = Guid.NewGuid(),
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "a.b@c.com",
+                UserRoleId = Guid.NewGuid()
+            };
 
             var user = new User
-                { 
-                    UserId = Guid.NewGuid(), 
-                    FirstName = "John", 
-                    LastName="Doe", 
-                    Email="a.b@c.com", 
-                    UserRoleId= Guid.NewGuid()   
-                };
+            {
+                UserId = Guid.NewGuid(),
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "a.b@c.com",
+                UserRoleId = Guid.NewGuid()
+            };
 
             _mockUserRepository.Setup(x => x.GetUser(guid)).ReturnsAsync(user);
             _mockMapper.Setup(x => x.Map<UserDetailedDto>(user)).Returns(usersDto);
@@ -153,7 +153,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
 
         }
         [Fact]
-        public async Task UserManagement_GetUser_ShouldThrowRecrodNotFoundExceptionOnNoRecrods() 
+        public async Task UserManagement_GetUser_ShouldThrowRecrodNotFoundExceptionOnNoRecrods()
         {
             // Arrange
             var userId = Guid.NewGuid();
@@ -163,7 +163,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             await Assert.ThrowsAsync<RecordNotFoundException>(() => _userManagement.GetUser(userId));
         }
         [Fact]
-        public void UserManagement_ShouldHaveActiveInactiveUserMethod() 
+        public void UserManagement_ShouldHaveActiveInactiveUserMethod()
         {
             //Arrange
             var type = typeof(UserManagement);
@@ -174,7 +174,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             Assert.NotNull(activeInactiveUserMethod);
         }
         [Fact]
-        public async Task UserManagement_ActiveInacitve_ShouldThrowExceptionOnNoUser() 
+        public async Task UserManagement_ActiveInacitve_ShouldThrowExceptionOnNoUser()
         {
             //Arrange
             var userId = Guid.NewGuid();
@@ -183,8 +183,8 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             _mockUserRepository.Setup(x => x.GetUser(userId)).ReturnsAsync((User)null);
 
             //Act and Assert
-             await Assert.ThrowsAsync<RecordNotFoundException>(() => _userManagement.ActiveInactiveUser(userId, status));
-            
+            await Assert.ThrowsAsync<RecordNotFoundException>(() => _userManagement.ActiveInactiveUser(userId, status));
+
         }
         [Fact]
         public async Task UserManagement_ActiveInacitve_ShouldCallUpdateUserOnce()
@@ -209,7 +209,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
 
             //Assert
             _mockUserRepository.Verify(x => x.UpdateUser(It.IsAny<User>()), Times.Once);
-            
+
         }
         [Fact]
         public void UserManagement_ShouldHaveCreateUserMethod()
@@ -223,7 +223,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             Assert.NotNull(createUserMethod);
         }
         [Fact]
-        public async Task UserManagement_CreateUser_ShouldThrowExceptionOnEmailExist() 
+        public async Task UserManagement_CreateUser_ShouldThrowExceptionOnEmailExist()
         {
             //Arrange
             var newUserDto = new global::BlossomAvenue.Service.UsersService.Dtos.CreateUpdateUserDto
@@ -296,7 +296,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             Assert.NotNull(createProfileMethod);
         }
         [Fact]
-        public async Task UserManagement_CreateProfile_ShouldThrowExceptionIfEmailAlreadyExists() 
+        public async Task UserManagement_CreateProfile_ShouldThrowExceptionIfEmailAlreadyExists()
         {
             //Arrange
             var newUserDto = new CreateDetailedUserDto
@@ -360,14 +360,14 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             };
 
 
-            _mockUserRepository.Setup(x => x.CheckUserExistsByEmail(newUserDto.Email)).ReturnsAsync(false);            
+            _mockUserRepository.Setup(x => x.CheckUserExistsByEmail(newUserDto.Email)).ReturnsAsync(false);
             _mockConfiguration.Setup(c => c.GetSection("UserRoles").GetSection("User").Value).Returns("Customer");
             _mockCityRepository.Setup(x => x.IsCityExists(newUserDto.CityId)).ReturnsAsync(true);
             _mockUserRoleRepository.Setup(x => x.GetUserRoleByName(It.IsAny<string>())).ReturnsAsync(new UserRole { UserRoleName = "Customer" });
             _mockMapper.Setup(x => x.Map<CreateDetailedUserResponseDto>(newUserDto)).Returns(savedUserDto);
             _mockMapper.Setup(x => x.Map<User>(newUserDto)).Returns(newUserEntity);
             _mockUserRepository.Setup(x => x.CreateUser(newUserEntity)).ReturnsAsync(newUserEntity);
-            
+
             //Act
             var result = await _userManagement.CreateProfile(newUserDto);
             Assert.NotNull(result);
