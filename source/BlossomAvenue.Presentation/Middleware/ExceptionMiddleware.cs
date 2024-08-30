@@ -10,20 +10,14 @@ using System.Threading.Tasks;
 
 namespace BlossomAvenue.Presentation.Middleware
 {
-    public class ExceptionMiddleware
+    public class ExceptionMiddleware : IMiddleware
     {
-        private readonly RequestDelegate _next;
 
-        public ExceptionMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
-                await _next(context);
+                await next(context);
             }
             catch (Exception ex)
             {
@@ -37,8 +31,11 @@ namespace BlossomAvenue.Presentation.Middleware
             var (statusCode, message) = exception switch
             {
                 RecordAlreadyExistsException or ArgumentException => (HttpStatusCode.BadRequest, exception.Message),
+                RecordNotCreatedException => (HttpStatusCode.NotFound, exception.Message),
                 RecordNotFoundException => (HttpStatusCode.NotFound, exception.Message),
-                _ => (HttpStatusCode.InternalServerError, "Something unusual happened. Please try again or contact the system administrator")
+                RecordNotUpdatedException => (HttpStatusCode.NotModified, exception.Message),
+                NotImplementedException => (HttpStatusCode.NotImplemented, exception.Message),
+                _ => (HttpStatusCode.InternalServerError, $"Something unusual happened. Please try again or contact the system administrator\nError:{exception.Message}")
             };
 
             var response = new { error = message };
