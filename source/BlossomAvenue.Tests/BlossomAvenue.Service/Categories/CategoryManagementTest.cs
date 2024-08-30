@@ -20,17 +20,17 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Categories
         }
 
         [Fact]
-        public async Task CreateCategory_ValidData_ReturnTrue()
+        public async Task CreateCategory_ValidData_ReturnCategory()
         {
             // Arrange
             var mockCategory = new Mock<Category>().Object;
 
-            _mockCategoryRepository.Setup(x => x.CreateCategory(It.IsAny<Category>())).ReturnsAsync(true);
+            _mockCategoryRepository.Setup(x => x.CreateCategory(It.IsAny<Category>())).ReturnsAsync(mockCategory);
 
             // Act
             var result = await _categoryManagement.CreateCategory(mockCategory);
             // Assert
-            Assert.True(result);
+            Assert.Equal(result, mockCategory);
         }
 
 
@@ -39,7 +39,8 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Categories
         {
             // Arrange
             var mockCategory = new Mock<Category>().Object;
-            _mockCategoryRepository.Setup(x => x.CreateCategory(It.IsAny<Category>())).ReturnsAsync(false);
+            Category? nullMockcategory = null;
+            _mockCategoryRepository.Setup(x => x.CreateCategory(It.IsAny<Category>())).ReturnsAsync(nullMockcategory);
 
             // Act & Assert
             await Assert.ThrowsAsync<RecordNotCreatedException>(
