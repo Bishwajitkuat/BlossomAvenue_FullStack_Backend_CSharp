@@ -6,7 +6,7 @@ namespace BlossomAvenue.Service.UsersService.Dtos
     {
         public Guid? UserRoleId { get; set; }
 
-        public new UsersOrderWith OrderWith { get; set; } = UsersOrderWith.LastName;
+        public new UsersOrderWith OrderUserWith { get; set; } = UsersOrderWith.LastName;
 
     }
 }
