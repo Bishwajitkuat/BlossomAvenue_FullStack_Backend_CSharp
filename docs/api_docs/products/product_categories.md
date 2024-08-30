@@ -53,8 +53,12 @@ POST base_url/api/v1/categories
 ### Response on success
 
 ```json
-HTTP status 204 with
-{}
+HTTP status 201 with
+{
+    "categoryId": "8e2dbb47-c7df-459d-a3ea-d5244f47a74d",
+    "categoryName": "Test 10",
+    "parentId": "ce7b1fb0-1c3d-4813-a993-6c2950bd129a"
+}
 ```
 
 ### Response on fail
