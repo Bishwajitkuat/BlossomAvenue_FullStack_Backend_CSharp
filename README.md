@@ -49,7 +49,6 @@ Detailed API documentation is available, which includes all the endpoints, reque
 
 1. **Install Dependencies**:
    ```bash
-   git clone https://github.com/yourusername/flowershop-backend.git
    dotnet restore
 
 2. **Set up database**:
