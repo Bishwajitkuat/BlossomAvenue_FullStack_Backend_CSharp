@@ -18,11 +18,11 @@ namespace BlossomAvenue.Service.CategoriesService
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<bool> CreateCategory(Category category)
+        public async Task<Category> CreateCategory(Category category)
         {
-            var result = await _categoryRepository.CreateCategory(category);
-            if (result == false) throw new RecordNotCreatedException("category");
-            return result;
+            var newCategory = await _categoryRepository.CreateCategory(category);
+            if (newCategory == null) throw new RecordNotCreatedException("category");
+            return newCategory;
         }
 
         public async Task<bool> DeleteCategory(Guid categoryId)
