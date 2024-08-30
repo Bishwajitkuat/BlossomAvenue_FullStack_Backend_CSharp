@@ -1,5 +1,6 @@
 ﻿using BlossomAvenue.Core.Users;
 using BlossomAvenue.Service.AuthenticationService;
+using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Service.Repositories.Users;
 using Moq;
 using System;
@@ -15,10 +16,13 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Authentication
         private readonly Mock<IUserRepository> _userRepository;
         private readonly Mock<IJwtManagement> _jwtService;
 
+        private readonly Mock<IPasswordHasher> _passwordHasher;
+
         public AuthManagementTests()
         {
             _userRepository = new Mock<IUserRepository>();
             _jwtService = new Mock<IJwtManagement>();
+            _passwordHasher = new Mock<IPasswordHasher>();
         }
 
         [Fact]
@@ -26,7 +30,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Authentication
         {
             // Arrange
             _userRepository.Setup(x => x.GetUserByUsername(It.IsAny<string>())).ReturnsAsync((User)null);
-            var authManagement = new AuthManagement(_userRepository.Object, _jwtService.Object);
+            var authManagement = new AuthManagement(_userRepository.Object, _jwtService.Object, _passwordHasher.Object);
 
             // Act
             var result = await authManagement.Authenticate("username", "password");
@@ -39,9 +43,12 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Authentication
         public async Task Authenticate_WhenUserExists_ReturnsTrue()
         {
             // Arrange
-            _userRepository.Setup(x => x.GetUserByUsername(It.IsAny<string>())).ReturnsAsync(new User());
+            //_passwordHasher.VerifyPassword(user.UserCredential.Password, password)
+            var mockUser = new Mock<User>().Object;
+            _userRepository.Setup(x => x.GetUserByUsername(It.IsAny<string>())).ReturnsAsync(mockUser);
             _jwtService.Setup(x => x.GenerateToken(It.IsAny<User>())).Returns("token");
-            var authManagement = new AuthManagement(_userRepository.Object, _jwtService.Object);
+            _passwordHasher.Setup(x => x.VerifyPassword(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+            var authManagement = new AuthManagement(_userRepository.Object, _jwtService.Object, _passwordHasher.Object);
 
             // Act
             var result = await authManagement.Authenticate("username", "password");
@@ -55,7 +62,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Authentication
         public void Logout_InvalidatesToken()
         {
             // Arrange
-            var authManagement = new AuthManagement(_userRepository.Object, _jwtService.Object);
+            var authManagement = new AuthManagement(_userRepository.Object, _jwtService.Object, _passwordHasher.Object);
 
             // Act
             authManagement.Logout("token");
