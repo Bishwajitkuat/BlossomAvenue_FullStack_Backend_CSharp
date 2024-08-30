@@ -48,22 +48,22 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
                 .Include(u => u.UserRole)
                 .AsQueryable();
 
-            if (userquery.UserRoleId.HasValue) 
+            if (userquery.UserRoleId.HasValue)
             {
                 query.Where(u => u.UserRoleId == userquery.UserRoleId);
             }
 
-            if (!string.IsNullOrEmpty(userquery.Search)) 
+            if (!string.IsNullOrEmpty(userquery.Search))
             {
-                query = query.Where( u =>
-                    u.FirstName.Contains(userquery.Search) || 
+                query = query.Where(u =>
+                    u.FirstName.Contains(userquery.Search) ||
                     u.LastName.Contains(userquery.Search) ||
                     u.Email.Contains(userquery.Search));
             }
 
             var isAscending = userquery.OrderBy == OrderBy.ASC;
 
-            query = userquery.OrderWith switch
+            query = userquery.OrderUserWith switch
             {
                 UsersOrderWith.FirstName => isAscending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName),
                 UsersOrderWith.LastName => isAscending ? query.OrderBy(u => u.UserRole.UserRoleName) : query.OrderByDescending(u => u.UserRole.UserRoleName),
@@ -89,7 +89,7 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
             return _context.Users.Where(s => s.Email == email).AnyAsync();
         }
 
-        public Task<User?> GetUserByUsername(string username) 
+        public Task<User?> GetUserByUsername(string username)
         {
             return _context.Users
                 .Include(u => u.UserRole)
@@ -97,7 +97,7 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
                 .FirstOrDefaultAsync(u => (u.UserCredential.UserName == username) && (u.IsUserActive ?? false));
         }
 
-        public Task<bool> CheckEmailExistsWithOtherUsers(Guid userId, string email) 
+        public Task<bool> CheckEmailExistsWithOtherUsers(Guid userId, string email)
         {
             //Check if email exists in the database and the email is not the same as the user's email
             return _context.Users.Where(s => s.Email == email && s.UserId != userId).AnyAsync();
