@@ -1,4 +1,5 @@
 using BlossomAvenue.Service.UsersService;
+using BlossomAvenue.Service.UsersService.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,24 +23,10 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("users")]
+        [HttpGet]
         public async Task<IActionResult> GetUsers(
             [FromQuery] UsersQueryDto query)
         {
-            if (String.IsNullOrEmpty(query.OrderWith))
-            {
-                query.OrderWith = "lastName";
-            }
-
-
-            if (!(
-                query.OrderWith == "firstName" ||
-                query.OrderWith == "lastName" ||
-                query.OrderWith == "roleName")) 
-                throw new ArgumentException("Invalid orderWith parameter");
-
-            if (!(query.OrderBy == "ASC" || query.OrderBy == "DESC")) 
-                throw new ArgumentException("Invalid orderBy parameter");
 
             if (query.PageNo == 0) throw new ArgumentException("Invalid pageNo parameter");
 
@@ -50,11 +37,11 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(users);
         }
 
-        
-        [HttpGet("profile/{profileId}")]
-        public async Task<IActionResult> GetUser(Guid profileId)
+        [Authorize(Policy = "AdminOrUserIdPolicy")]
+        [HttpGet("profile/{userId}")]
+        public async Task<IActionResult> GetUser([FromRoute] Guid userId)
         {
-            var user = await _userManagement.GetUser(profileId);
+            var user = await _userManagement.GetUser(userId);
             return Ok(user);
         }
 
@@ -67,11 +54,11 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("user")]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto user)
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUpdateUserDto user)
         {
             //Validate user model
-            if (!ModelState.IsValid) throw new ArgumentException(String.Join(" | ",ModelState.Values.SelectMany(e => e.Errors)));
+            if (!ModelState.IsValid) throw new ArgumentException(String.Join(" | ", ModelState.Values.SelectMany(e => e.Errors)));
 
             var createdUser = await _userManagement.CreateUser(user);
             return CreatedAtAction(nameof(GetUser), new { profileId = createdUser.UserId }, createdUser);
@@ -83,6 +70,14 @@ namespace BlossomAvenue.Presentation.Controller
             var createdProfile = await _userManagement.CreateProfile(profile);
             createdProfile.Password = String.Empty;
             return CreatedAtAction(nameof(GetUser), new { profileId = createdProfile.UserId }, createdProfile);
+        }
+
+        [Authorize(Policy = "UserIdPolicy")]
+        [HttpPatch("{userId}")]
+        public async Task<IActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] CreateUpdateUserDto user)
+        {
+            await _userManagement.UpdateUser(userId, user);
+            return NoContent();
         }
     }
 }

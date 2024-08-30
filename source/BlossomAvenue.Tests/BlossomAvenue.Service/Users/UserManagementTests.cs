@@ -7,6 +7,9 @@ using Moq;
 using Microsoft.Extensions.Configuration;
 using BlossomAvenue.Service.Repositories.Cities;
 using BlossomAvenue.Service.Cryptography;
+using BlossomAvenue.Core.Orders;
+using BlossomAvenue.Service.Shared_Dtos;
+using BlossomAvenue.Service.UsersService.Dtos;
 
 namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
 {
@@ -64,7 +67,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
         {
             //Arrange
 
-            var usersDtos = new List<UserDto>
+            var usersDtos = new List<global::BlossomAvenue.Service.UsersService.Dtos.UserDto>
                 {
                     new() { UserId = Guid.NewGuid(), FirstName = "John", LastName="Doe", Email="a.b@c.com", UserRoleId= Guid.NewGuid()},
                     new() { UserId = Guid.NewGuid(), FirstName = "Jane", LastName="Smith", Email="c.d@e.com", UserRoleId= Guid.NewGuid()}
@@ -81,13 +84,13 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
                     PageNo = 1,
                     PageSize = 10,
                     Search = null,
-                    OrderWith = "lastName",
-                    OrderBy = "ASC",
+                    OrderWith = UsersOrderWith.LastName,
+                    OrderBy = OrderBy.ASC,
                     UserRoleId = null
                 };
 
             _mockUserRepository.Setup(x => x.GetUsers(userSearch)).ReturnsAsync(users);
-            _mockMapper.Setup(x => x.Map<List<UserDto>>(users)).Returns(usersDtos);
+            _mockMapper.Setup(x => x.Map<List<global::BlossomAvenue.Service.UsersService.Dtos.UserDto>>(users)).Returns(usersDtos);
 
             //Act
             var result = await _userManagement.GetUsers(userSearch);
@@ -95,7 +98,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
 
             //Assert
             Assert.NotNull(result);
-            Assert.IsType<List<UserDto>>(result);
+            Assert.IsType<List<global::BlossomAvenue.Service.UsersService.Dtos.UserDto>>(result);
             Assert.Equal(users.Count, result.Count);
 
         }
@@ -223,7 +226,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
         public async Task UserManagement_CreateUser_ShouldThrowExceptionOnEmailExist() 
         {
             //Arrange
-            var newUserDto = new CreateUserDto
+            var newUserDto = new global::BlossomAvenue.Service.UsersService.Dtos.CreateUpdateUserDto
             {
                 FirstName = "John",
                 LastName = "Doe",
@@ -239,7 +242,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
         public async Task UserManagement_CreateUser_ShouldCallCreateUserOnceAndValidReturn()
         {
             //Arrange
-            var newUserDto = new CreateUserDto
+            var newUserDto = new CreateUpdateUserDto
             {
                 FirstName = "John",
                 LastName = "Doe",
@@ -268,7 +271,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             _mockUserRoleRepository.Setup(x => x.GetUserRoleByName(It.IsAny<string>())).ReturnsAsync(new UserRole { UserRoleName = "Admin" });
             _mockMapper.Setup(x => x.Map<User>(newUserDto)).Returns(newUserEntity);
             _mockUserRepository.Setup(x => x.CreateUser(newUserEntity)).ReturnsAsync(newUserEntity);
-            _mockMapper.Setup(x => x.Map<UserDto>(newUserEntity)).Returns(savedUserDto);
+            _mockMapper.Setup(x => x.Map<global::BlossomAvenue.Service.UsersService.Dtos.UserDto>(newUserEntity)).Returns(savedUserDto);
 
             //Act
             var result = await _userManagement.CreateUser(newUserDto);
@@ -276,7 +279,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
             //Assert
             _mockUserRepository.Verify(x => x.CreateUser(newUserEntity), Times.Once);
             Assert.NotNull(result);
-            Assert.IsType<UserDto>(result);
+            Assert.IsType<global::BlossomAvenue.Service.UsersService.Dtos.UserDto>(result);
             Assert.Equal(Guid.Empty, newUserEntity.UserId);
             Assert.Equal("Admin", newUserEntity.UserRole.UserRoleName);
             Assert.True(newUserEntity.IsUserActive);

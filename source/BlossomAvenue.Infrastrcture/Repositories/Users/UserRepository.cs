@@ -4,6 +4,8 @@ using BlossomAvenue.Infrastrcture.Database;
 using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.UsersService;
 using System.Linq;
+using BlossomAvenue.Service.Shared_Dtos;
+using BlossomAvenue.Service.UsersService.Dtos;
 
 namespace BlossomAvenue.Infrastrcture.Repositories.Users
 {
@@ -59,12 +61,12 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
                     u.Email.Contains(userquery.Search));
             }
 
-            var isAscending = userquery.OrderBy.Equals("ASC", StringComparison.OrdinalIgnoreCase);
+            var isAscending = userquery.OrderBy == OrderBy.ASC;
 
-            query = userquery.OrderWith.ToLower() switch
+            query = userquery.OrderWith switch
             {
-                "firstName" => isAscending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName),
-                "roleName" => isAscending ? query.OrderBy(u => u.UserRole.UserRoleName) : query.OrderByDescending(u => u.UserRole.UserRoleName),
+                UsersOrderWith.FirstName => isAscending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName),
+                UsersOrderWith.LastName => isAscending ? query.OrderBy(u => u.UserRole.UserRoleName) : query.OrderByDescending(u => u.UserRole.UserRoleName),
                 _ => isAscending ? query.OrderBy(u => u.LastName) : query.OrderByDescending(u => u.LastName)
             };
 
@@ -92,7 +94,13 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Users
             return _context.Users
                 .Include(u => u.UserRole)
                 .Include(u => u.UserCredential)
-                .FirstOrDefaultAsync(u => u.UserCredential.UserName == username);
+                .FirstOrDefaultAsync(u => (u.UserCredential.UserName == username) && (u.IsUserActive ?? false));
+        }
+
+        public Task<bool> CheckEmailExistsWithOtherUsers(Guid userId, string email) 
+        {
+            //Check if email exists in the database and the email is not the same as the user's email
+            return _context.Users.Where(s => s.Email == email && s.UserId != userId).AnyAsync();
         }
     }
 }
