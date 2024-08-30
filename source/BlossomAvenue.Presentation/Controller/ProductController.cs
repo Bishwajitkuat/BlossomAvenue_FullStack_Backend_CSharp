@@ -23,40 +23,42 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize(Roles = "Admin")]
         [HttpPost("")]
-        public async Task<Product> CreateProduct(CreateProductDto createProductDto)
+        public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
         {
             var product = createProductDto.ConvertToProduct();
             var newProduct = await _productManagement.CreateProduct(product);
-            return newProduct;
-
+            Response.StatusCode = 201;
+            return Created(nameof(CreateProduct), newProduct);
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<GetProductByIdReadDto> GetProductById([FromRoute] Guid id)
+        public async Task<IActionResult> GetProductById([FromRoute] Guid id)
         {
             var product = await _productManagement.GetProductById(id);
             var readProduct = new GetProductByIdReadDto(product);
-            return readProduct;
+            return Ok(readProduct);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPatch("{id:Guid}")]
-        public async Task<bool> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto)
+        public async Task<IActionResult> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto)
         {
 
             var productToUpdate = updateProductDto.ConvertToProduct();
-            return await _productManagement.UpdateProduct(id, productToUpdate);
+            await _productManagement.UpdateProduct(id, productToUpdate);
+            return NoContent();
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id:Guid}")]
-        public async Task<bool> DeleteProductById([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteProductById([FromRoute] Guid id)
         {
-            return await _productManagement.DeleteProductById(id);
+            await _productManagement.DeleteProductById(id);
+            return NoContent();
         }
 
         [HttpGet]
-        public async Task<ICollection<GetAllProductReadDto>> GetAllProducts([FromQuery] ProductQueryDto pqdto)
+        public async Task<IActionResult> GetAllProducts([FromQuery] ProductQueryDto pqdto)
         {
             if (!string.IsNullOrEmpty(pqdto.OrderWith) && !(
                 pqdto.OrderWith.ToLower() == "price" ||
@@ -73,7 +75,7 @@ namespace BlossomAvenue.Presentation.Controller
 
             var products = await _productManagement.GetAllProducts(pqdto);
             var readProducts = products.Select(p => new GetAllProductReadDto(p)).ToList();
-            return readProducts;
+            return Ok(readProducts);
         }
 
 
