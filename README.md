@@ -1,62 +1,89 @@
-# Teamwork
+# Blossom Avenue
 
-- Designing REST API endpoints
-- Database schema
-- Raw SQL queries/procedures/functions
-- Workable backend server with ASP.NET Core & Entity Framework
+## Overview
 
-## Topic
+This project is the backend service for Blossom Avenue which is a flower shop application, developed using C# and the .NET Core framework. The backend manages various functionalities including user management, product management, and order processing. The system supports two types of users: **Admin** and **Customer**.
 
-E-commerce backend API
+### Key Features
 
----
+- **User Management**:
+  - Admins can manage products, categories, and product variations.
+  - Customers can browse products, place orders, and leave reviews.
 
-## Requirements
+- **Product & Category Management**:
+  - Admins can create, update, delete, and view categories and products.
+  - Supports product variations such as different sizes, colors, etc.
 
-_For team assignment, only 1 member in the team should fork the repo. Then, admin can invite other members to contribute in the same repo (and all the members, including admin should fork again from common repo, making PRs when changes are needed). Remember to have develop branch before merging to main. Each feature/schema/bug/issue should have it's own branch, and 1 branch/file edition should be taken by only 1 member at a time. Before making any new branch, make sure you sync the fork and run `git pull` to avoid the conflicts with the common team repo. If neccessary, check the Git lecture again._
+- **Product Reviews**:
+  - Customers can create, update, delete, and view reviews for products.
 
-1. Create ERD diagram with proper entities, attributes, and relationship. The ERD can be added to the project as image.
-2. Design the API endpoints, following REST API architecture. The endpoints can be displayed as text with detail explaination. You can use `.md` to write the API endpoints. It is necessary to describe all the possible queries, parameters, request body, authentication (if needed), and sample response , status code for each endpoint.
-3. Basic entities (Could have more if needed):
+### Technologies Used
 
-- User
-- Product
-- Order
-- Category
-- Review
+- **.NET Core**: A cross-platform framework for building the backend API.
+- **Entity Framework Core**: ORM for database interactions.
+- **XUnit**: Unit testing framework for ensuring the reliability of the application.
 
-4. Provide the PostgreSQL queries for the these operations:
+## Project Structure
 
-- Functions to create one/gell all/get one/update one/delete one from products. Functions to get the most `x` purchased products (`x` would come from function parameter)
-- Functions to create one/gell all/get one/update one/delete one from users
-- Functions to create one/gell all/get one/update one/delete one from reviews (of all products, of a certain product, and of a certain user)
-- Functions to create one/gell all/get one/update status/delete from orders
-- Functions to create one/gell all/get one/update one/delete one from categories.
+The project follows a clean architecture pattern, making it easy to maintain and scale.
 
-5. Based on your ERD and features design, continue to develop minimal backend server with CLEAN Architecture
+- **Presentation**: Handle incoming HTTP requests and route them to the appropriate service.
+- **Services**: Contain business logic for managing users, products, and orders.
+- **Infrastructure**: Interact with the database using Entity Framework Core.
+- **Core**: Define the data structure for users, products, orders, and reviews.
+- **Tests**: Unit tests written using XUnit to ensure code quality and functionality.
 
-- Consider using authentication & authorization properly
-- Exception handler should be used to return meaningful response to users
-- Unit testing must be done, for at least Domain and Service layers
-- No deployment needed for teamwork project
-- README file should descibe your teamwork with sufficient details and readable structure
+## API Documentation
 
-## Getting started
+Detailed API documentation is available, which includes all the endpoints, request/response formats, and examples. You can access the API documentation [here](/docs/api_docs/).
 
-Here is the recommended order:
+## Setup and Installation
 
-- Plan Your Database Schema before start coding
+### Prerequisites
 
-- Set Up the Project Structure
+- [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) (or any compatible database)
+- [Entity Framework Core Tools](https://docs.microsoft.com/en-us/ef/core/cli/dotnet)
 
-- Build the models
+### Steps to Run the Project
 
-- Create the Repositories
+1. **Install Dependencies**:
+   ```bash
+   git clone https://github.com/yourusername/flowershop-backend.git
+   dotnet restore
 
-- Build the Services
+2. **Set up database**:
+    Update the connection string in appsettings.Development.json to match your database configuration.
+    Run the following command to apply migrations
+   ```bash
+    {
+        "Logging": {
+            "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+            }
+        },
+        "AllowedHosts": "*",
+        "ConnectionStrings": {
+            "DefaultConnection": "Host=you_host; Port=your_port;Database=db_name;Username=user_name;Password=db_pass"
+        },
+        "UserRoles": {
+            "Admin": "Admin",
+            "User": "Customer"
+        },
+        "JwtConfiguration": {
+            "Secret": "myuR@HG95y*NQq^Jute5DHLBleb2EFsW",
+            "Issuer": "http://localhost:5000",
+            "Audience": "http://localhost:5000",
+            "ExpiryMinutes": 15
+        }
+    }
+    
+3. **Run application**:
+   ```bash
+   cd source/BlossomAvenue.Ingrastructure
+   dotnet run
 
-- Set Up Authentication & Authorization
-
-- Build the Controllers
-
-- Implement Error Handling Middleware
+4. **Run test**:
+   ```bash
+   dotnet test
