@@ -74,6 +74,8 @@ builder.Services.AddScoped<IAuthManagement, AuthManagement>();
 builder.Services.AddSingleton<IInMemoryDB, InMemoryDB>();
 builder.Services.AddTransient<IJwtManagement, JwtManagement>();
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtConfiguration"));
+// DI Exception middleware
+builder.Services.AddScoped<ExceptionMiddleware>();
 
 /** Domain DI Container End */
 
