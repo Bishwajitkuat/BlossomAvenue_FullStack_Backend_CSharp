@@ -190,9 +190,45 @@ POST base_url/api/v1/products
 ### Response on success
 
 ```json
-HTTP status 204 with
+HTTP status 201 with
 
-{}
+{
+    "productId": "18416587-65d5-47c3-8d7f-6986fb2456c2",
+    "title": "Test7 Roses",
+    "description": "White Roses description",
+    "images": [
+        {
+            "imageId": "12dfe949-767b-45fc-a1ad-6d2ef4c2827e",
+            "imageUrl": "img1",
+            "productId": "18416587-65d5-47c3-8d7f-6986fb2456c2"
+        }
+    ],
+    "variations": [
+        {
+            "variationId": "c2cc5fc6-3dfe-47ac-931a-68ab47a32b7b",
+            "variationName": "10 Test7 Roses",
+            "price": 15,
+            "inventory": 3,
+            "productId": "18416587-65d5-47c3-8d7f-6986fb2456c2"
+        },
+        {
+            "variationId": "e5e2044c-40d4-4475-970f-6fc81162337b",
+            "variationName": "25 Test7 Roses",
+            "price": 24.99,
+            "inventory": 5,
+            "productId": "18416587-65d5-47c3-8d7f-6986fb2456c2"
+        }
+    ],
+    "productCategories": [
+        {
+            "productCategoryId": "4117b731-6489-43a2-a02c-b98b91e0539c",
+            "categoryId": "ac24cb4d-d431-47b8-a106-8ffd1fe88c88",
+            "productId": "18416587-65d5-47c3-8d7f-6986fb2456c2",
+            "category": null
+        }
+    ],
+    "productReviews": null
+}
 ```
 
 ### Response on fail
@@ -230,48 +266,36 @@ PATCH base_url/api/v1/products/{id}
 
 ```json
 {
-  "title": "White rose special", // string
-  "description": "product description", // test
-  "variations": [
-    {
-      "variation_id": "798e5283-f46f-47c2-891f-6fdf80b367eb", // guid
-      "variation_name": "50 white rose special", // string
-      "price": 36.5, // decimal
-      "inventory": 12, // int
-      "product_id": "9722b5b6-27a3-4990-9b21-5aa71c47418d" // guid
-    },
-    {
-      "variation_id": "ac833de7-1c42-49a6-850c-041be666991a", // guid
-      "variation_name": "100 white rose special", // string
-      "price": 54.99, // decimal
-      "inventory": 5, // int
-      "product_id": "9722b5b6-27a3-4990-9b21-5aa71c47418d" // guid
-    }
-  ],
+  "title": "Test Roses",
+  "description": "White Roses description",
   "images": [
     {
-      "image_id": "1ff53c9b-4489-4258-8a32-0dea3710f205", // guid
-      "image_url": "https://images.unsplash.com/photo-1509449764226-63afec1c342a?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // text
-
-      "product_id": "9722b5b6-27a3-4990-9b21-5aa71c47418d" // guid
-    },
-    {
-      "image_id": "27e84fc1-402d-4621-83e5-23cc42d13abd", // guid
-      "image_url": "https://images.unsplash.com/photo-1525258946800-98cfd641d0de?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // text
-
-      "product_id": "9722b5b6-27a3-4990-9b21-5aa71c47418d" // guid
+      "imageId": "cbf028d7-03f0-49ca-8597-1faa527a542a",
+      "imageUrl": "img1",
+      "productId": "5811c1ac-1136-4753-9285-698d861a3ff2"
     }
   ],
-  "categories": [
+  "variations": [
     {
-      "category_id": "1ff53c9b-4489-4258-8a32-0dea3710f205", // guid
-      "category_name": "Rose", // string
-      "parent_id": "798e5283-f46f-47c2-891f-6fdf80b367eb" // guid
+      "variationId": "170084c9-b31f-448f-aed8-873f6d236a6b",
+      "variationName": "25 Test Roses",
+      "price": 19.99,
+      "inventory": 5,
+      "productId": "5811c1ac-1136-4753-9285-698d861a3ff2"
     },
     {
-      "category_id": "1f7593d5-2a5d-4138-a9d3-dcd47f8811bd", // guid
-      "category_name": "Season",
-      "parent_id": "d455fc4c-ceeb-478f-a830-0e38b4e08434" //null or guid
+      "variationId": "4eceac89-19de-482b-891d-5a08b310e186",
+      "variationName": "10 Test Roses",
+      "price": 15,
+      "inventory": 3,
+      "productId": "5811c1ac-1136-4753-9285-698d861a3ff2"
+    }
+  ],
+  "productcategories": [
+    {
+      "categoryId": "ac24cb4d-d431-47b8-a106-8ffd1fe88c88",
+      "categoryName": "Rose",
+      "parentId": "a9ca6749-b518-4db4-8f65-9bc07d7e938e"
     }
   ]
 }

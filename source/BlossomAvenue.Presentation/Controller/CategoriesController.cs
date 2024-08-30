@@ -22,35 +22,38 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Category>> GetAllCategories()
+        public async Task<IActionResult> GetAllCategories()
         {
-            return await _categoryManagement.GetAllCategories();
+            var categories = await _categoryManagement.GetAllCategories();
+            return Ok(categories);
 
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<bool> CreateCategory(CreateCategoryDto createCategoryDto)
+        public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
         {
             var category = createCategoryDto.ConvertToCategory();
-            return await _categoryManagement.CreateCategory(category);
+            var newCategory = await _categoryManagement.CreateCategory(category);
+            return Created(nameof(CreateCategory), newCategory);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPatch("{id}")]
-        public async Task<bool> UpdateCategory([FromRoute] Guid id, [FromBody] UpdateCategoryDto updateCategoryDto)
+        public async Task<IActionResult> UpdateCategory([FromRoute] Guid id, [FromBody] UpdateCategoryDto updateCategoryDto)
         {
-            Console.WriteLine($"id");
 
-            return await _categoryManagement.UpdateCategory(id, updateCategoryDto);
+            await _categoryManagement.UpdateCategory(id, updateCategoryDto);
+            return NoContent();
 
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public async Task<bool> DeleteCategory([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
 
-            return await _categoryManagement.DeleteCategory(id);
+            await _categoryManagement.DeleteCategory(id);
+            return NoContent();
 
         }
     }

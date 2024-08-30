@@ -74,6 +74,8 @@ builder.Services.AddScoped<IAuthManagement, AuthManagement>();
 builder.Services.AddSingleton<IInMemoryDB, InMemoryDB>();
 builder.Services.AddTransient<IJwtManagement, JwtManagement>();
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtConfiguration"));
+// DI Exception middleware
+builder.Services.AddScoped<ExceptionMiddleware>();
 
 /** Domain DI Container End */
 
@@ -140,7 +142,7 @@ builder.Services.AddControllers(options =>
 
 }).ConfigureApiBehaviorOptions(options =>
 {
-    options.SuppressModelStateInvalidFilter = true;
+    options.SuppressModelStateInvalidFilter = false;
 }).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());

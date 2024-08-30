@@ -18,14 +18,11 @@ namespace BlossomAvenue.Infrastrcture.Repositories.Categories
         {
             _context = context;
         }
-        public async Task<bool> CreateCategory(Category category)
+        public async Task<Category?> CreateCategory(Category category)
         {
-            _context.Categories.Add(category);
-            if (await _context.SaveChangesAsync() == 1)
-            {
-                return true;
-            }
-            else return false;
+            var newCategory = (await _context.Categories.AddAsync(category)).Entity;
+            _context.SaveChanges();
+            return newCategory;
         }
 
         public async Task<IEnumerable<Category>> GetAllCategories()
