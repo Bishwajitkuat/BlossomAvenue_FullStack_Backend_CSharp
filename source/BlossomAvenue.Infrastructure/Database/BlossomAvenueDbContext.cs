@@ -8,7 +8,7 @@ using BlossomAvenue.Core.Carts;
 using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Core.Products;
 
-namespace BlossomAvenue.Infrastrcture.Database;
+namespace BlossomAvenue.Infrastructure.Database;
 
 public partial class BlossomAvenueDbContext : DbContext
 {

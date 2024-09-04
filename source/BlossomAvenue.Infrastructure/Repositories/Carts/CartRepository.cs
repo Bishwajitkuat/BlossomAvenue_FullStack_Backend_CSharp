@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Carts;
 using BlossomAvenue.Service.Repositories.Carts;
-using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.CartsService;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.Carts
+namespace BlossomAvenue.Infrastructure.Repositories.Carts
 {
     public class CartRepository : ICartRepository
     {

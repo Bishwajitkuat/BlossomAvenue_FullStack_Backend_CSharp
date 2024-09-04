@@ -4,12 +4,12 @@ using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
-using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.ProductsServices;
 using BlossomAvenue.Service.Repositories.Products;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.Products
+namespace BlossomAvenue.Infrastructure.Repositories.Products
 {
     public class ProductRepository : IProductRepository
     {

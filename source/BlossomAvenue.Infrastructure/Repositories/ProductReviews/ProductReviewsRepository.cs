@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.ProductReviews;
-using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.ProductReviewsService;
 using BlossomAvenue.Service.Repositories.ProductReviews;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.ProductReviews
+namespace BlossomAvenue.Infrastructure.Repositories.ProductReviews
 {
     public class ProductReviewsRepository : IProductReviewRepository
     {
@@ -26,7 +26,7 @@ namespace BlossomAvenue.Infrastrcture.Repositories.ProductReviews
                                       .Include(o => o.OrderItems)
                                       .FirstOrDefaultAsync(o => o.OrderId == reviewCreateDto.OrderId && o.UserId == reviewCreateDto.UserId);
 
-            if(0 >= reviewCreateDto.Star && reviewCreateDto.Star > 5)
+            if (0 >= reviewCreateDto.Star && reviewCreateDto.Star > 5)
             {
                 throw new ArgumentException("Rating should be 0 - 5");
             }

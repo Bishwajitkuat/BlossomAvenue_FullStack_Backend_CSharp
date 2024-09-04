@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.Jwt
+namespace BlossomAvenue.Infrastructure.Repositories.Jwt
 {
     public class JwtManagement : IJwtManagement
     {

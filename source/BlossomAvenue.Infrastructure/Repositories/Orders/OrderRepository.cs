@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Orders;
-using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.Repositories.Orders;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.Orders
+namespace BlossomAvenue.Infrastructure.Repositories.Orders
 {
     public class OrderRepository : IOrderRepository
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Orders;
-using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.Repositories.Orders;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.Orders
+namespace BlossomAvenue.Infrastructure.Repositories.Orders
 {
     public class OrderItemsRepository : IOrderItemsRepository
     {

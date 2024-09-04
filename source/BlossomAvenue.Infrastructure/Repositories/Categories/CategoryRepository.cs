@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
-using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.CategoriesService;
 using BlossomAvenue.Service.Repositories.Categories;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.Categories
+namespace BlossomAvenue.Infrastructure.Repositories.Categories
 {
     public class CategoryRepository : ICategoryRepository
     {

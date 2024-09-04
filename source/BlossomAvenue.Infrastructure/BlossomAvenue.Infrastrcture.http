@@ -1,0 +1,6 @@
+@BlossomAvenue.Infrastructure_HostAddress = http://localhost:5212
+
+GET {{BlossomAvenue.Infrastructure_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

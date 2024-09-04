@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Carts;
-using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.Repositories.Carts;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.Carts
+namespace BlossomAvenue.Infrastructure.Repositories.Carts
 {
     public class CartItemsRepository : ICartItemsRepository
     {

@@ -1,13 +1,13 @@
 ﻿using BlossomAvenue.Service.Repositories.Users;
 using BlossomAvenue.Core.Users;
-using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.UsersService;
 using System.Linq;
 using BlossomAvenue.Service.Shared_Dtos;
 using BlossomAvenue.Service.UsersService.Dtos;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.Users
+namespace BlossomAvenue.Infrastructure.Repositories.Users
 {
     public class UserRepository : IUserRepository
     {

@@ -1,6 +1,6 @@
 ﻿using BlossomAvenue.Service.Repositories.InMemory;
 
-namespace BlossomAvenue.Infrastrcture.Database
+namespace BlossomAvenue.Infrastructure.Database
 {
     public class InMemoryDB : IInMemoryDB
     {

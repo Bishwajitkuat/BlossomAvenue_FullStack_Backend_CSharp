@@ -1,9 +1,9 @@
 ﻿using BlossomAvenue.Core.Users;
-using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.Users
+namespace BlossomAvenue.Infrastructure.Repositories.Users
 {
     public class UserRoleRepository : IUserRoleRepository
     {

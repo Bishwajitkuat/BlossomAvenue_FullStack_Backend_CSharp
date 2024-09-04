@@ -1,8 +1,8 @@
-﻿using BlossomAvenue.Infrastrcture.Database;
+﻿using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.UnitOfWork;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace BlossomAvenue.Infrastrcture.UnitOfWork
+namespace BlossomAvenue.Infrastructure.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {

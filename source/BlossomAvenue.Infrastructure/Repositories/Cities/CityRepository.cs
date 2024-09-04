@@ -1,9 +1,9 @@
 ﻿using BlossomAvenue.Core.Users;
-using BlossomAvenue.Infrastrcture.Database;
+using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.Repositories.Cities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlossomAvenue.Infrastrcture.Repositories.Cities
+namespace BlossomAvenue.Infrastructure.Repositories.Cities
 {
     public class CityRepository : ICityRepository
     {

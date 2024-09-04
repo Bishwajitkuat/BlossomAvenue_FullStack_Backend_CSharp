@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlossomAvenue.Presentation"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlossomAvenue.Service", "BlossomAvenue.Service\BlossomAvenue.Service.csproj", "{41526BF5-CBBA-4E8A-979E-1E5B261503E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlossomAvenue.Infrastrcture", "BlossomAvenue.Infrastrcture\BlossomAvenue.Infrastrcture.csproj", "{37951990-25B7-4C95-98FB-20FA4952302E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlossomAvenue.Infrastructure", "BlossomAvenue.Infrastructure\BlossomAvenue.Infrastructure.csproj", "{37951990-25B7-4C95-98FB-20FA4952302E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlossomAvenue.Tests", "BlossomAvenue.Tests\BlossomAvenue.Tests.csproj", "{4B4B32C0-2976-49C9-B284-33D4DC3348F9}"
 EndProject

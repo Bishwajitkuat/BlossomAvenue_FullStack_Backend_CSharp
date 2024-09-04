@@ -3,7 +3,7 @@
 using BlossomAvenue.Service.Cryptography;
 using System.Security.Cryptography;
 
-namespace BlossomAvenue.Infrastrcture.Cryptography
+namespace BlossomAvenue.Infrastructure.Cryptography
 {
     public class PasswordHasher : IPasswordHasher
     {

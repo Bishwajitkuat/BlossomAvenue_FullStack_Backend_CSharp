@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <Folder Include="BlossomAvenue.Presentation\" />
-    <Folder Include="BlossomAvenue.Infrastrcture\" />
+    <Folder Include="BlossomAvenue.Infrastructure\" />
   </ItemGroup>
 
   <ItemGroup>
