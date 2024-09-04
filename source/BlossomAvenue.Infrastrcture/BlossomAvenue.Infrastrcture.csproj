@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Database\AddressDetail.cs" />
+    <Compile Remove="Database\City.cs" />
+    <Compile Remove="Database\User.cs" />
+    <Compile Remove="Database\UserAddress.cs" />
+    <Compile Remove="Database\UserContactNumber.cs" />
+    <Compile Remove="Database\UserCredential.cs" />
+    <Compile Remove="Database\UserRole.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFrameworkCore.NamingConventions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlossomAvenue.Core\BlossomAvenue.Core.csproj" />
+    <ProjectReference Include="..\BlossomAvenue.Presentation\BlossomAvenue.Presentation.csproj" />
+    <ProjectReference Include="..\BlossomAvenue.Service\BlossomAvenue.Service.csproj" />
+  </ItemGroup>
+
+</Project>
