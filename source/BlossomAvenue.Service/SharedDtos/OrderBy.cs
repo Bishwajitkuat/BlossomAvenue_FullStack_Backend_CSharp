@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlossomAvenue.Service.Shared_Dtos
+namespace BlossomAvenue.Service.SharedDtos
 {
     public enum OrderBy
     {

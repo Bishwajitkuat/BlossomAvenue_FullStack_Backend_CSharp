@@ -1,4 +1,4 @@
-﻿using BlossomAvenue.Service.Shared_Dtos;
+﻿using BlossomAvenue.Service.SharedDtos;
 
 namespace BlossomAvenue.Service.UsersService.Dtos
 {

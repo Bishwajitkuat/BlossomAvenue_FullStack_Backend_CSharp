@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlossomAvenue.Service.Shared_Dtos
+namespace BlossomAvenue.Service.SharedDtos
 {
     public abstract class SharedPagination
     {

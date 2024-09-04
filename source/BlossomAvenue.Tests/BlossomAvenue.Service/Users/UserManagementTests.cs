@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using BlossomAvenue.Service.Repositories.Cities;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Core.Orders;
-using BlossomAvenue.Service.Shared_Dtos;
+using BlossomAvenue.Service.SharedDtos;
 using BlossomAvenue.Service.UsersService.Dtos;
 
 namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users

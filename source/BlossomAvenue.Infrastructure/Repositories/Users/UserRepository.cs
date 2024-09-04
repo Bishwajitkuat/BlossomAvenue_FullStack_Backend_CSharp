@@ -4,7 +4,7 @@ using BlossomAvenue.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.UsersService;
 using System.Linq;
-using BlossomAvenue.Service.Shared_Dtos;
+using BlossomAvenue.Service.SharedDtos;
 using BlossomAvenue.Service.UsersService.Dtos;
 
 namespace BlossomAvenue.Infrastructure.Repositories.Users
