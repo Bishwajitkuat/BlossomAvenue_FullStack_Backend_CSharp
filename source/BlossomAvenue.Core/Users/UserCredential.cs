@@ -10,6 +10,7 @@ public partial class UserCredential
     public string UserName { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+    public byte[] Salt { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
 }
