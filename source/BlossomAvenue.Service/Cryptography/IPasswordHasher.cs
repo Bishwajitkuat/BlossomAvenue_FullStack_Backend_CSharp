@@ -8,7 +8,7 @@ namespace BlossomAvenue.Service.Cryptography
 {
     public interface IPasswordHasher
     {
-        string HashPassword(string password);
-        bool VerifyPassword(string hashedPassword, string password);
+        void HashPassword(string originalPassword, out string hashedPassword, out byte[] salt);
+        bool VerifyPassword(string inputPassword, string storedPassword, byte[] salt);
     }
 }

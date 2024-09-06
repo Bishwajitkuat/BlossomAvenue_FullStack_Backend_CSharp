@@ -100,3 +100,7 @@ frontend/package-*.json
 .DS_Store
 .AppleDouble
 .LSOverride
+
+
+# Migrations files
+source/BlossomAvenue.Infrastructure/Migrations

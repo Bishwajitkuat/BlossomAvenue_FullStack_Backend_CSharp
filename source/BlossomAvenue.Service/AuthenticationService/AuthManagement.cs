@@ -33,15 +33,12 @@ namespace BlossomAvenue.Service.AuthenticationService
 
             }
 
-            if (_passwordHasher.VerifyPassword(user.UserCredential.Password, password))
+            if (_passwordHasher.VerifyPassword(password, user.UserCredential.Password, user.UserCredential.Salt))
             {
                 var token = _jwtService.GenerateToken(user);
                 return new AuthenticationResultDto { IsAuthenticated = true, Token = token };
             }
             return new AuthenticationResultDto() { IsAuthenticated = false };
-
-
-
         }
 
         public void Logout(string token)

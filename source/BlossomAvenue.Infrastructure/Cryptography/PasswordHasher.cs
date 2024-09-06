@@ -1,32 +1,41 @@
 ﻿
 
 using BlossomAvenue.Service.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 
 namespace BlossomAvenue.Infrastructure.Cryptography
 {
     public class PasswordHasher : IPasswordHasher
     {
-        public string HashPassword(string password)
+        public void HashPassword(string originalPassword, out string hashedPassword, out byte[] salt)
         {
-            // PBKDF2 hashing logic
-            using var rng = new Rfc2898DeriveBytes(password, 16, 10000, HashAlgorithmName.SHA256);
-            var salt = rng.Salt;
-            var hash = rng.GetBytes(32);
-
-            return Convert.ToBase64String(salt.Concat(hash).ToArray());
+            salt = RandomNumberGenerator.GetBytes(16);
+            // hashing password
+            hashedPassword = Convert.ToBase64String(
+                KeyDerivation.Pbkdf2(
+                    password: originalPassword,
+                    salt: salt,
+                    prf: KeyDerivationPrf.HMACSHA256,
+                    iterationCount: 3000,
+                    numBytesRequested: 32
+                )
+            );
         }
 
-        public bool VerifyPassword(string hashedPassword, string password)
+        public bool VerifyPassword(string inputPassword, string storedPassword, byte[] salt)
         {
-            var bytes = Convert.FromBase64String(hashedPassword);
-            var salt = bytes[..16];
-            var hash = bytes[16..];
+            var inputHashPassword = Convert.ToBase64String(
+                                                            KeyDerivation.Pbkdf2(
+                                                            password: inputPassword,
+                                                            salt: salt,
+                                                            prf: KeyDerivationPrf.HMACSHA256,
+                                                            iterationCount: 3000,
+                                                            numBytesRequested: 32
+                                                                                )
+                                                            );
+            return inputHashPassword == storedPassword;
 
-            using var rng = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256);
-            var computedHash = rng.GetBytes(32);
-
-            return hash.SequenceEqual(computedHash);
         }
     }
 }
