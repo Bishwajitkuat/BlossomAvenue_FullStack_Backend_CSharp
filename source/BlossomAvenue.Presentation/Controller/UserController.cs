@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,8 +38,8 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(users);
         }
 
-        [Authorize(Policy = "AdminOrUserIdPolicy")]
-        [HttpGet("profile/{userId}")]
+        [Authorize(Policy = "Admin")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetUser([FromRoute] Guid userId)
         {
             var user = await _userManagement.GetUser(userId);
@@ -63,6 +64,15 @@ namespace BlossomAvenue.Presentation.Controller
             var createdUser = await _userManagement.CreateUser(user);
             return Created(nameof(GetUser), createdUser);
         }
+        [Authorize(Policy = "UserIdPolicy")]
+        [HttpPatch("{userId}")]
+        public async Task<IActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] CreateUpdateUserDto user)
+        {
+            await _userManagement.UpdateUser(userId, user);
+            return NoContent();
+        }
+
+        // PROFILE
 
         [HttpPost("profile")]
         public async Task<ActionResult<ReadDetailedUserDto>> CreateProfile(CreateDetailedUserDto profile)
@@ -73,12 +83,18 @@ namespace BlossomAvenue.Presentation.Controller
             return Created(nameof(GetUser), readProfile);
         }
 
-        [Authorize(Policy = "UserIdPolicy")]
-        [HttpPatch("{userId}")]
-        public async Task<IActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] CreateUpdateUserDto user)
+        [Authorize]
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetUserProfile()
         {
-            await _userManagement.UpdateUser(userId, user);
-            return NoContent();
+            var claims = HttpContext.User;
+            var userId = claims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
+            if (userId is null) return Unauthorized();
+            var user = await _userManagement.GetUser(new Guid(userId.Value));
+            var userReadDto = new ReadDetailedUserDto(user);
+            return Ok(userReadDto);
         }
+
+
     }
 }
