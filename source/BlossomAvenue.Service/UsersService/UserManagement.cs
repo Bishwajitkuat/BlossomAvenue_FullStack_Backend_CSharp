@@ -58,9 +58,11 @@ namespace BlossomAvenue.Service.UsersService
             return savedUser;
         }
 
-        public void DeleteUser(Guid userId)
+        public async Task<bool> DeleteUser(Guid userId)
         {
-            throw new NotImplementedException();
+            var DelStatus = await _userRepository.DeleteUser(userId);
+            if (!DelStatus) throw new RecordNotFoundException(typeof(User).Name);
+            return DelStatus;
         }
 
         public async Task<User> GetUser(Guid userId)

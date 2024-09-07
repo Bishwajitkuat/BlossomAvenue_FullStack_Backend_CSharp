@@ -25,9 +25,12 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
             return savedUser;
         }
 
-        public void DeleteUser(Guid userId)
+        public async Task<bool> DeleteUser(Guid userId)
         {
-            throw new NotImplementedException();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user == null) return false;
+            _context.Remove(user);
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<User?> GetUser(Guid userId)
