@@ -30,11 +30,11 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
             throw new NotImplementedException();
         }
 
-        public Task<User?> GetUser(Guid userId)
+        public async Task<User?> GetUser(Guid userId)
         {
-            return _context.Users
-                .Include(u => u.UserRole)
+            return await _context.Users
                 .Include(u => u.UserContactNumbers)
+                .Include(u => u.UserCredential)
                 .Include(u => u.UserAddresses)
                 .ThenInclude(ua => ua.Address)
                 .ThenInclude(a => a.City)
