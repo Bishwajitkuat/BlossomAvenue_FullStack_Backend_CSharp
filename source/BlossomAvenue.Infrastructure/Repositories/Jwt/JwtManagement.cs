@@ -26,7 +26,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Jwt
             var claims = new[]
             {
                 new Claim(ClaimTypes.GivenName, String.Concat(user.FirstName, " ", user.LastName)),
-                new Claim(ClaimTypes.Role, user.UserRole.UserRoleName),
+                new Claim(ClaimTypes.Role, user.UserRole.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };

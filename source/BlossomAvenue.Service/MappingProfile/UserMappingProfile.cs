@@ -8,12 +8,12 @@ namespace BlossomAvenue.Service.MappingProfile
     {
         public UserMappingProfile()
         {
-            CreateMap<User, UserDto>().ForMember(dest => dest.UserRoleName, opt => opt.MapFrom(src => src.UserRole.UserRoleName));
+            CreateMap<User, UserDto>().ForMember(dest => dest.UserRoleName, opt => opt.MapFrom(src => src.UserRole));
 
             CreateMap<UserDto, User>();
 
             CreateMap<User, UserDetailedDto>()
-                .ForMember(dest => dest.UserRoleName, opt => opt.MapFrom(src => src.UserRole.UserRoleName))
+                .ForMember(dest => dest.UserRoleName, opt => opt.MapFrom(src => src.UserRole))
                 .ForMember(dest => dest.ContactNumbers, opt => opt.MapFrom(src => src.UserContactNumbers.Select(e => e.ContactNumber).ToArray()))
                 .ForMember(dest => dest.Addresses, opt => opt.MapFrom(src => src.UserAddresses.Select(e => new AddressDto
                 {
@@ -45,7 +45,7 @@ namespace BlossomAvenue.Service.MappingProfile
                 ContactNumber = cn
             }).ToList()));
 
-            CreateMap<CreateDetailedUserDto , CreateDetailedUserResponseDto> ();
+            CreateMap<CreateDetailedUserDto, CreateDetailedUserResponseDto>();
         }
     }
 }
