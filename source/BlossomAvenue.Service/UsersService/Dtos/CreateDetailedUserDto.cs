@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BlossomAvenue.Core.Users;
 using BlossomAvenue.Service.CustomAttributes;
 
 namespace BlossomAvenue.Service.UsersService.Dtos
@@ -30,5 +31,33 @@ namespace BlossomAvenue.Service.UsersService.Dtos
 
         [Required, MinLength(5)]
         public string UserName { get; set; } = null!;
+
+        public User ConvertToUser()
+        {
+            return new User
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                Email = Email,
+                UserCredential = new UserCredential
+                {
+                    UserName = UserName,
+                    Password = Password,
+                },
+                IsUserActive = true,
+                UserContactNumbers = ContactNumbers.Select(c => new UserContactNumber { ContactNumber = c }).ToList(),
+                UserAddresses = new List<UserAddress>
+                {
+                    new UserAddress{
+                        DefaultAddress = true,
+                        Address = new AddressDetail{
+                            AddressLine1 = AddressLine1,
+                            AddressLine2 = AddressLine2,
+                            CityId = CityId,
+                        }
+                    }
+                },
+            };
+        }
     }
 }
