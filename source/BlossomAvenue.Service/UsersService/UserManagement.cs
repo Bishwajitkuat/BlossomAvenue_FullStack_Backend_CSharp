@@ -47,33 +47,6 @@ namespace BlossomAvenue.Service.UsersService
             _mapper = mapper;
         }
 
-        public async Task ActiveInactiveUser(Guid userId, bool status)
-        {
-
-            var user = await _userRepository.GetUser(userId) ?? throw new RecordNotFoundException(typeof(User).Name);
-
-            user.IsUserActive = status;
-            await _userRepository.UpdateUser(user);
-        }
-
-
-        public async Task<UserDto> CreateUser(Dtos.CreateUpdateUserDto user)
-        {
-            if (await _userRepository.CheckUserExistsByEmail(user.Email!)) throw new RecordAlreadyExistsException(typeof(User).Name);
-
-            var adminUserRole = await GetAdminRole();
-
-            var userEntity = _mapper.Map<User>(user);
-            userEntity.UserId = Guid.Empty;
-            // userEntity.UserRole = adminUserRole;
-            userEntity.IsUserActive = true;
-
-            var createdUser = await _userRepository.CreateUser(userEntity);
-
-            //TODO: Send email to user with password
-
-            return _mapper.Map<UserDto>(createdUser);
-        }
 
         public async Task<User> CreateProfile(User profile)
         {
@@ -102,17 +75,14 @@ namespace BlossomAvenue.Service.UsersService
             return _mapper.Map<List<UserDto>>(users);
         }
 
-        public async Task UpdateUser(Guid userId, CreateUpdateUserDto user)
+        public async Task<bool> UpdateUser(Guid userId, UpdateUserDto updateUserDto)
         {
             var existing = await _userRepository.GetUser(userId) ?? throw new RecordNotFoundException(typeof(User).Name);
+            var updatedUser = updateUserDto.UpdateUser(existing);
+            var updateStatus = await _userRepository.UpdateUser(updatedUser);
+            if (!updateStatus) throw new RecordNotUpdatedException("User");
+            return updateStatus;
 
-            if (await _userRepository.CheckEmailExistsWithOtherUsers(userId, user.Email!)) throw new RecordAlreadyExistsException("Email");
-
-            existing.FirstName = user.FirstName;
-            existing.LastName = user.LastName;
-            existing.Email = user.Email;
-
-            await _userRepository.UpdateUser(existing);
         }
 
         public async Task<bool> UpdateUserProfile(UpdateDetailedUserDto updateDetailedUserDto)
@@ -122,35 +92,6 @@ namespace BlossomAvenue.Service.UsersService
             var updateStatus = await _userRepository.UpdateUser(updatedUser);
             if (!updateStatus) throw new RecordNotUpdatedException("profile");
             return updateStatus;
-        }
-
-        private async Task<UserRole> GetAdminRole()
-        {
-            var adminRoleName = _configuration.GetSection("UserRoles").GetSection("Admin").Value;
-
-            if (string.IsNullOrEmpty(adminRoleName))
-            {
-                throw new RecordNotFoundException("Admin Role in config");
-            }
-
-            return await GetRole(adminRoleName);
-        }
-
-        private async Task<UserRole> GetUserRole()
-        {
-            var adminRoleName = _configuration.GetSection("UserRoles").GetSection("User").Value;
-            if (string.IsNullOrEmpty(adminRoleName))
-            {
-                throw new RecordNotFoundException("User Role in config");
-            }
-
-            return await GetRole(adminRoleName);
-        }
-
-        private async Task<UserRole> GetRole(string roleName)
-        {
-            var userRole = await _userRoleRepository.GetUserRoleByName(roleName);
-            return userRole is null ? throw new RecordNotFoundException("User Role") : userRole;
         }
 
 

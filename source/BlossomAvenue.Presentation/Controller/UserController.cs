@@ -47,28 +47,10 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPatch("profileStatus")]
-        public async Task<IActionResult> ActiveInactiveUser([FromQuery] Guid userId, [FromQuery] bool status)
-        {
-            await _userManagement.ActiveInactiveUser(userId, status);
-            return NoContent();
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUpdateUserDto user)
-        {
-            //Validate user model
-            if (!ModelState.IsValid) throw new ArgumentException(String.Join(" | ", ModelState.Values.SelectMany(e => e.Errors)));
-
-            var createdUser = await _userManagement.CreateUser(user);
-            return Created(nameof(GetUser), createdUser);
-        }
-        [Authorize(Policy = "UserIdPolicy")]
         [HttpPatch("{userId}")]
-        public async Task<IActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] CreateUpdateUserDto user)
+        public async Task<IActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] UpdateUserDto updateUserDto)
         {
-            await _userManagement.UpdateUser(userId, user);
+            await _userManagement.UpdateUser(userId, updateUserDto);
             return NoContent();
         }
 
