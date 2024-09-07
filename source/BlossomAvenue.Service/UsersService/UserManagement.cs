@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using BlossomAvenue.Service.Repositories.Users;
 using BlossomAvenue.Service.CustomExceptions;
 using System;
@@ -102,17 +102,14 @@ namespace BlossomAvenue.Service.UsersService
             return _mapper.Map<List<UserDto>>(users);
         }
 
-        public async Task UpdateUser(Guid userId, CreateUpdateUserDto user)
+        public async Task<bool> UpdateUser(Guid userId, UpdateUserDto updateUserDto)
         {
             var existing = await _userRepository.GetUser(userId) ?? throw new RecordNotFoundException(typeof(User).Name);
+            var updatedUser = updateUserDto.UpdateUser(existing);
+            var updateStatus = await _userRepository.UpdateUser(updatedUser);
+            if (!updateStatus) throw new RecordNotUpdatedException("User");
+            return updateStatus;
 
-            if (await _userRepository.CheckEmailExistsWithOtherUsers(userId, user.Email!)) throw new RecordAlreadyExistsException("Email");
-
-            existing.FirstName = user.FirstName;
-            existing.LastName = user.LastName;
-            existing.Email = user.Email;
-
-            await _userRepository.UpdateUser(existing);
         }
 
         public async Task<bool> UpdateUserProfile(UpdateDetailedUserDto updateDetailedUserDto)

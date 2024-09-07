@@ -1,4 +1,4 @@
-﻿using BlossomAvenue.Core.Users;
+using BlossomAvenue.Core.Users;
 using BlossomAvenue.Service.UsersService.Dtos;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace BlossomAvenue.Service.UsersService
         public Task<UserDto> CreateUser(Dtos.CreateUpdateUserDto user);
         public Task<List<UserDto>> GetUsers(UsersQueryDto query);
         public Task<User> GetUser(Guid userId);
-        public Task UpdateUser(Guid userId, CreateUpdateUserDto user);
+        public Task<bool> UpdateUser(Guid userId, UpdateUserDto updateUserDto);
         public Task<bool> UpdateUserProfile(UpdateDetailedUserDto updateDetailedUserDto);
         public void DeleteUser(Guid userId);
         public Task ActiveInactiveUser(Guid userId, bool status);
