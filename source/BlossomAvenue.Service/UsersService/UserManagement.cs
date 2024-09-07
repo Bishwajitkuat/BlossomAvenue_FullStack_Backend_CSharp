@@ -18,34 +18,17 @@ namespace BlossomAvenue.Service.UsersService
     public class UserManagement : IUserManagement
     {
         private readonly IUserRepository _userRepository;
-        private readonly IUserRoleRepository _userRoleRepository;
-        private readonly ICityRepository _cityRepository;
-        private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
         private readonly IPasswordHasher _passwordHasher;
 
         public UserManagement(
             IUserRepository userRepository,
-            IUserRoleRepository userRoleRepository,
-            ICityRepository cityRepository,
-            IMapper mapper,
-            IConfiguration configuration,
             IPasswordHasher passwordHasher
             )
         {
             _userRepository = userRepository;
-            _userRoleRepository = userRoleRepository;
-            _cityRepository = cityRepository;
-            _mapper = mapper;
-            _configuration = configuration;
-            this._passwordHasher = passwordHasher;
+            _passwordHasher = passwordHasher;
         }
 
-        public UserManagement(IUserRepository userRepository, IMapper mapper)
-        {
-            _userRepository = userRepository;
-            _mapper = mapper;
-        }
 
 
         public async Task<User> CreateProfile(User profile)
@@ -71,10 +54,11 @@ namespace BlossomAvenue.Service.UsersService
             return user is null ? throw new RecordNotFoundException("User") : user;
         }
 
-        public async Task<List<UserDto>> GetUsers(UsersQueryDto query)
+        public async Task<List<User>> GetUsers(UsersQueryDto query)
         {
             var users = await _userRepository.GetUsers(query);
-            return _mapper.Map<List<UserDto>>(users);
+            // return _mapper.Map<List<UserDto>>(users);
+            return users;
         }
 
         public async Task<bool> UpdateUser(Guid userId, UpdateUserDto updateUserDto)

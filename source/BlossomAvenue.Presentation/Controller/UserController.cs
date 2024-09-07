@@ -40,7 +40,7 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("{id}")]
+        [HttpGet("{userId}")]
         public async Task<IActionResult> GetUser([FromRoute] Guid userId)
         {
             var user = await _userManagement.GetUser(userId);

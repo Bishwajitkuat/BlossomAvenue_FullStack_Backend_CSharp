@@ -10,7 +10,7 @@ namespace BlossomAvenue.Service.UsersService
 {
     public interface IUserManagement
     {
-        public Task<List<UserDto>> GetUsers(UsersQueryDto query);
+        public Task<List<User>> GetUsers(UsersQueryDto query);
         public Task<User> GetUser(Guid userId);
         public Task<bool> UpdateUser(Guid userId, UpdateUserDto updateUserDto);
         public Task<bool> UpdateUserProfile(UpdateDetailedUserDto updateDetailedUserDto);
