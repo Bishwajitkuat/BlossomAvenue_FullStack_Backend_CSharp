@@ -75,8 +75,6 @@ builder.Services.AddScoped<IProductManagement, ProductManagement>();
 builder.Services.AddScoped<IProductReviewRepository, ProductReviewsRepository>();
 // DI order management service
 builder.Services.AddScoped<IProductReviewManagement, ProductReviewManagement>();
-
-builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthManagement, AuthManagement>();
