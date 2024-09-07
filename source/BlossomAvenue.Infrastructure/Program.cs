@@ -33,6 +33,7 @@ using Microsoft.AspNetCore.Authorization;
 using BlossomAvenue.Service.Repositories.Products;
 using BlossomAvenue.Infrastructure.Repositories.Products;
 using BlossomAvenue.Service.ProductsServices;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -153,6 +154,7 @@ builder.Services.AddControllers(options =>
     options.SuppressModelStateInvalidFilter = false;
 }).AddJsonOptions(options =>
 {
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
 });
 
