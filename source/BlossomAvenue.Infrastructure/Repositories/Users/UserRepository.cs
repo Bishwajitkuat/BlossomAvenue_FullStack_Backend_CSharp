@@ -48,10 +48,10 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
                 .Include(u => u.UserRole)
                 .AsQueryable();
 
-            if (userquery.UserRoleId.HasValue)
-            {
-                query.Where(u => u.UserRoleId == userquery.UserRoleId);
-            }
+            // if (userquery.UserRoleId.HasValue)
+            // {
+            //     query.Where(u => u.UserRoleId == userquery.UserRoleId);
+            // }
 
             if (!string.IsNullOrEmpty(userquery.Search))
             {
@@ -66,7 +66,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
             query = userquery.OrderUserWith switch
             {
                 UsersOrderWith.FirstName => isAscending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName),
-                UsersOrderWith.LastName => isAscending ? query.OrderBy(u => u.UserRole.UserRoleName) : query.OrderByDescending(u => u.UserRole.UserRoleName),
+                UsersOrderWith.LastName => isAscending ? query.OrderBy(u => u.LastName) : query.OrderByDescending(u => u.LastName),
                 _ => isAscending ? query.OrderBy(u => u.LastName) : query.OrderByDescending(u => u.LastName)
             };
 
@@ -92,7 +92,6 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
         public Task<User?> GetUserByUsername(string username)
         {
             return _context.Users
-                .Include(u => u.UserRole)
                 .Include(u => u.UserCredential)
                 .FirstOrDefaultAsync(u => (u.UserCredential.UserName == username) && (u.IsUserActive ?? false));
         }
