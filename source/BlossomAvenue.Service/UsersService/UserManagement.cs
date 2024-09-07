@@ -65,7 +65,7 @@ namespace BlossomAvenue.Service.UsersService
 
             var userEntity = _mapper.Map<User>(user);
             userEntity.UserId = Guid.Empty;
-            userEntity.UserRole = adminUserRole;
+            // userEntity.UserRole = adminUserRole;
             userEntity.IsUserActive = true;
 
             var createdUser = await _userRepository.CreateUser(userEntity);
@@ -75,33 +75,14 @@ namespace BlossomAvenue.Service.UsersService
             return _mapper.Map<UserDto>(createdUser);
         }
 
-        public async Task<CreateDetailedUserResponseDto> CreateProfile(CreateDetailedUserDto profile)
+        public async Task<User> CreateProfile(User profile)
         {
             if (await _userRepository.CheckUserExistsByEmail(profile.Email!)) throw new RecordAlreadyExistsException(typeof(User).Name);
-
-            if (!(await _cityRepository.IsCityExists(profile.CityId))) throw new RecordNotFoundException(typeof(City).Name);
-
-            var userRole = await GetUserRole();
-
-            var userEntity = _mapper.Map<User>(profile);
-
-            userEntity.UserRole = userRole;
-            _passwordHasher.HashPassword(profile.Password, out string hashedPassword, out byte[] salt);
-
-            userEntity.UserCredential = new UserCredential()
-            {
-                UserName = profile.UserName,
-                Password = hashedPassword,
-                Salt = salt
-            };
-
-            var savedUser = await _userRepository.CreateUser(userEntity);
-
-            var returnProfile = _mapper.Map<CreateDetailedUserResponseDto>(profile);
-            returnProfile.UserId = savedUser.UserId;
-            returnProfile.Password = String.Empty;
-
-            return returnProfile;
+            _passwordHasher.HashPassword(profile.UserCredential.Password, out string hashedPassword, out byte[] salt);
+            profile.UserCredential.Password = hashedPassword;
+            profile.UserCredential.Salt = salt;
+            var savedUser = await _userRepository.CreateUser(profile);
+            return savedUser;
         }
 
         public void DeleteUser(Guid userId)
