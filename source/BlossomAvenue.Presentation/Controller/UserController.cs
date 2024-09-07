@@ -65,11 +65,12 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [HttpPost("profile")]
-        public async Task<IActionResult> CreateProfile(CreateDetailedUserDto profile)
+        public async Task<ActionResult<ReadDetailedUserDto>> CreateProfile(CreateDetailedUserDto profile)
         {
-            var createdProfile = await _userManagement.CreateProfile(profile);
-            createdProfile.Password = String.Empty;
-            return Created(nameof(GetUser), createdProfile);
+            var newUser = profile.ConvertToUser();
+            var createdProfile = await _userManagement.CreateProfile(newUser);
+            var readProfile = new ReadDetailedUserDto(createdProfile);
+            return Created(nameof(GetUser), readProfile);
         }
 
         [Authorize(Policy = "UserIdPolicy")]
