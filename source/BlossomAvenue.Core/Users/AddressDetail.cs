@@ -11,9 +11,9 @@ public partial class AddressDetail
 
     public string? AddressLine2 { get; set; }
 
-    public Guid? CityId { get; set; }
+    public Guid CityId { get; set; }
 
-    public virtual City? City { get; set; }
+    public virtual City City { get; set; } = null!;
 
-    public virtual ICollection<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
+    // public virtual ICollection<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
 }
