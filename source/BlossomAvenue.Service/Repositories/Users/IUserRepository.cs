@@ -13,7 +13,7 @@ namespace BlossomAvenue.Service.Repositories.Users
         public Task<User> CreateUser(User user);
         public Task<List<User>> GetUsers(UsersQueryDto userquery);
         public Task<User?> GetUser(Guid userId);
-        public Task UpdateUser(User user);
+        public Task<bool> UpdateUser(User user);
         public void DeleteUser(Guid userId);
         public Task<bool> CheckUserExistsByEmail(string email);
         public Task<bool> CheckEmailExistsWithOtherUsers(Guid userId, string email);

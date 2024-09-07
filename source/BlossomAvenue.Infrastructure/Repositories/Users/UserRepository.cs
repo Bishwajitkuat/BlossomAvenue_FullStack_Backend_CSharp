@@ -78,10 +78,10 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
             return users;
         }
 
-        public async Task UpdateUser(User user)
+        public async Task<bool> UpdateUser(User user)
         {
             _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            return (await _context.SaveChangesAsync()) > 0;
         }
 
         public Task<bool> CheckUserExistsByEmail(string email)

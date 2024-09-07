@@ -115,6 +115,15 @@ namespace BlossomAvenue.Service.UsersService
             await _userRepository.UpdateUser(existing);
         }
 
+        public async Task<bool> UpdateUserProfile(UpdateDetailedUserDto updateDetailedUserDto)
+        {
+            var existing = await _userRepository.GetUser(updateDetailedUserDto.UserId) ?? throw new RecordNotFoundException(typeof(User).Name);
+            var updatedUser = updateDetailedUserDto.UpdateUser(existing);
+            var updateStatus = await _userRepository.UpdateUser(updatedUser);
+            if (!updateStatus) throw new RecordNotUpdatedException("profile");
+            return updateStatus;
+        }
+
         private async Task<UserRole> GetAdminRole()
         {
             var adminRoleName = _configuration.GetSection("UserRoles").GetSection("Admin").Value;

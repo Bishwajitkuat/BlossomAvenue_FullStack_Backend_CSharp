@@ -95,6 +95,18 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(userReadDto);
         }
 
+        [Authorize]
+        [HttpPatch("profile")]
+        public async Task<IActionResult> UpdateUserProfile(UpdateDetailedUserDto updateDetailedUserDto)
+        {
+            var claims = HttpContext.User;
+            var userId = claims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
+            if (userId is null || new Guid(userId.Value) != updateDetailedUserDto.UserId) return Unauthorized();
+            await _userManagement.UpdateUserProfile(updateDetailedUserDto);
+            return NoContent();
+
+        }
+
 
     }
 }
