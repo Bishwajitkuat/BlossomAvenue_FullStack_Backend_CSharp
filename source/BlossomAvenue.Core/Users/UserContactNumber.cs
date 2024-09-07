@@ -5,6 +5,7 @@ namespace BlossomAvenue.Core.Users;
 
 public partial class UserContactNumber
 {
+    public Guid ContactNumberId { get; set; }
     public Guid UserId { get; set; }
 
     public string ContactNumber { get; set; } = null!;
