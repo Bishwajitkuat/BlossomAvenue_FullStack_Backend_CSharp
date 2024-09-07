@@ -23,6 +23,7 @@ namespace BlossomAvenue.Presentation.Controller
             _userManagement = userManagement;
         }
 
+        // ADMIN
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetUsers(
@@ -38,7 +39,7 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(users);
         }
 
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser([FromRoute] Guid userId)
         {
@@ -53,6 +54,15 @@ namespace BlossomAvenue.Presentation.Controller
             await _userManagement.UpdateUser(userId, updateUserDto);
             return NoContent();
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] Guid userId)
+        {
+            await _userManagement.DeleteUser(userId);
+            return NoContent();
+        }
+
 
         // PROFILE
 
