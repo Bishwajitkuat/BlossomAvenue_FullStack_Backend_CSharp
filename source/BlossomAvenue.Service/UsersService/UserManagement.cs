@@ -90,10 +90,10 @@ namespace BlossomAvenue.Service.UsersService
             throw new NotImplementedException();
         }
 
-        public async Task<UserDetailedDto> GetUser(Guid userId)
+        public async Task<User> GetUser(Guid userId)
         {
             var user = await _userRepository.GetUser(userId);
-            return user is null ? throw new RecordNotFoundException("User") : _mapper.Map<UserDetailedDto>(user);
+            return user is null ? throw new RecordNotFoundException("User") : user;
         }
 
         public async Task<List<UserDto>> GetUsers(UsersQueryDto query)

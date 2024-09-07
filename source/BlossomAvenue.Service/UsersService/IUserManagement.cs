@@ -12,7 +12,7 @@ namespace BlossomAvenue.Service.UsersService
     {
         public Task<UserDto> CreateUser(Dtos.CreateUpdateUserDto user);
         public Task<List<UserDto>> GetUsers(UsersQueryDto query);
-        public Task<UserDetailedDto> GetUser(Guid userId);
+        public Task<User> GetUser(Guid userId);
         public Task UpdateUser(Guid userId, CreateUpdateUserDto user);
         public void DeleteUser(Guid userId);
         public Task ActiveInactiveUser(Guid userId, bool status);
