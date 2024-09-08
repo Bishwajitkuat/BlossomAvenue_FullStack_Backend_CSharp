@@ -6,6 +6,7 @@ using BlossomAvenue.Service.UsersService;
 using System.Linq;
 using BlossomAvenue.Service.SharedDtos;
 using BlossomAvenue.Service.UsersService.Dtos;
+using BlossomAvenue.Core.ValueTypes;
 
 namespace BlossomAvenue.Infrastructure.Repositories.Users
 {
@@ -48,20 +49,25 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
         {
 
             var query = _context.Users
-                .Include(u => u.UserRole)
                 .AsQueryable();
 
-            // if (userquery.UserRoleId.HasValue)
-            // {
-            //     query.Where(u => u.UserRoleId == userquery.UserRoleId);
-            // }
-
+            // filter by user role
+            if (userquery.UserRole.HasValue)
+            {
+                query = query.Where(u => u.UserRole == userquery.UserRole);
+            }
+            // filter by active status
+            if (userquery.IsActive.HasValue)
+            {
+                query = query.Where(u => u.IsUserActive == userquery.IsActive);
+            }
+            // filter by search word
             if (!string.IsNullOrEmpty(userquery.Search))
             {
                 query = query.Where(u =>
-                    u.FirstName.Contains(userquery.Search) ||
-                    u.LastName.Contains(userquery.Search) ||
-                    u.Email.Contains(userquery.Search));
+                    u.FirstName.ToLower().Contains(userquery.Search.ToLower()) ||
+                    u.LastName.ToLower().Contains(userquery.Search.ToLower()) ||
+                    u.Email.ToLower().Contains(userquery.Search.ToLower()));
             }
 
             var isAscending = userquery.OrderBy == OrderBy.ASC;
@@ -70,7 +76,8 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
             {
                 UsersOrderWith.FirstName => isAscending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName),
                 UsersOrderWith.LastName => isAscending ? query.OrderBy(u => u.LastName) : query.OrderByDescending(u => u.LastName),
-                _ => isAscending ? query.OrderBy(u => u.LastName) : query.OrderByDescending(u => u.LastName)
+                UsersOrderWith.CreatedAt => isAscending ? query.OrderBy(u => u.CreatedAt) : query.OrderByDescending(u => u.CreatedAt),
+                _ => isAscending ? query.OrderBy(u => u.CreatedAt) : query.OrderByDescending(u => u.CreatedAt)
             };
 
             var users = await query

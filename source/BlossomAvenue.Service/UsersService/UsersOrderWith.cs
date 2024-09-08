@@ -10,6 +10,7 @@ namespace BlossomAvenue.Service.UsersService
     {
         FirstName = 1,
         LastName = 2,
-        RoleName = 3
+        CreatedAt = 3
+
     }
 }

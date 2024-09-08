@@ -1,12 +1,15 @@
-﻿using BlossomAvenue.Service.SharedDtos;
+﻿using BlossomAvenue.Core.ValueTypes;
+using BlossomAvenue.Service.SharedDtos;
 
 namespace BlossomAvenue.Service.UsersService.Dtos
 {
     public class UsersQueryDto : SharedPagination
     {
-        public Guid? UserRoleId { get; set; }
+        public UserRole? UserRole { get; set; }
 
-        public new UsersOrderWith OrderUserWith { get; set; } = UsersOrderWith.LastName;
+        public UsersOrderWith? OrderUserWith { get; set; } = UsersOrderWith.CreatedAt;
+
+        public bool? IsActive { get; set; }
 
     }
 }

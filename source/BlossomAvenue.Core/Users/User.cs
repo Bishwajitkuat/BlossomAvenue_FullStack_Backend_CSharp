@@ -14,8 +14,7 @@ public partial class User
 
     public string? Email { get; set; }
 
-    public virtual BlossomAvenue.Core.ValueTypes.UserRole UserRole { get; set; } = BlossomAvenue.Core.ValueTypes.UserRole.Customer;
-    // public Guid UserRoleId { get; set; }
+    public UserRole UserRole { get; set; } = UserRole.Customer;
 
     public DateTime? LastLogin { get; set; }
 
