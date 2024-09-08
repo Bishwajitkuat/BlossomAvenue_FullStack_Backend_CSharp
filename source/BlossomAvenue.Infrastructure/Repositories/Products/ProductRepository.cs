@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
+using BlossomAvenue.Core.ValueTypes;
 using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.ProductsServices;
 using BlossomAvenue.Service.Repositories.Products;
@@ -82,11 +83,11 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
 
             var isAscending = pqdto.OrderBy.ToString().ToLower().Equals("asc", StringComparison.OrdinalIgnoreCase);
 
-            query = pqdto.OrderWith.ToLower() switch
+            query = pqdto.ProductOrderWith switch
             {
-                "price" => isAscending ? query.OrderBy(p => p.Variations.Min(a => a.Price)) : query.OrderByDescending(v => v.Variations.Max(a => a.Price)),
-                "title" => isAscending ? query.OrderBy(p => p.Title) : query.OrderByDescending(p => p.Title),
-                "inventory" => isAscending ? query.OrderBy(p => p.Variations.Sum(v => v.Inventory)) : query.OrderByDescending(p => p.Variations.Sum(v => v.Inventory)),
+                ProductOrderWith.Price => isAscending ? query.OrderBy(p => p.Variations.Min(a => a.Price)) : query.OrderByDescending(v => v.Variations.Max(a => a.Price)),
+                ProductOrderWith.Title => isAscending ? query.OrderBy(p => p.Title) : query.OrderByDescending(p => p.Title),
+                ProductOrderWith.Inventory => isAscending ? query.OrderBy(p => p.Variations.Sum(v => v.Inventory)) : query.OrderByDescending(p => p.Variations.Sum(v => v.Inventory)),
                 _ => query.OrderBy(p => p.Title)
             };
 
