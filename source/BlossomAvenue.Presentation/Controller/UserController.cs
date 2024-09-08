@@ -29,11 +29,6 @@ namespace BlossomAvenue.Presentation.Controller
         public async Task<IActionResult> GetUsers(
             [FromQuery] UsersQueryDto query)
         {
-
-            if (query.PageNo == 0) throw new ArgumentException("Invalid pageNo parameter");
-
-            if (query.PageSize == 0) throw new ArgumentException("Invalid pageSize parameter");
-
             var users = await _userManagement.GetUsers(query);
 
             return Ok(users);
