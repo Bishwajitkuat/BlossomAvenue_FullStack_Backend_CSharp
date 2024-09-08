@@ -299,7 +299,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
         public async Task UserManagement_CreateProfile_ShouldThrowExceptionIfEmailAlreadyExists()
         {
             //Arrange
-            var newUserDto = new CreateDetailedUserDto
+            var newUserDto = new CreateUserProfileDto
             {
                 FirstName = "John",
                 LastName = "Doe",
@@ -315,7 +315,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
         public async Task UserManagement_CreateProfile_ShouldThrowExceptionIfCityDoesNotExist()
         {
             //Arrange
-            var newUserDto = new CreateDetailedUserDto
+            var newUserDto = new CreateUserProfileDto
             {
                 FirstName = "John",
                 LastName = "Doe",
@@ -335,7 +335,7 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Users
         public async Task UserManagement_CreateProfile_ShouldCallCreateUserOnceAndValidReturn()
         {
             //Arrange
-            var newUserDto = new CreateDetailedUserDto
+            var newUserDto = new CreateUserProfileDto
             {
                 FirstName = "John",
                 LastName = "Doe",

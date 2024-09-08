@@ -71,10 +71,10 @@ namespace BlossomAvenue.Service.UsersService
 
         }
 
-        public async Task<bool> UpdateUserProfile(UpdateDetailedUserDto updateDetailedUserDto)
+        public async Task<bool> UpdateUserProfile(UpdateUserProfileDto updateUserProfileDto)
         {
-            var existing = await _userRepository.GetUser(updateDetailedUserDto.UserId) ?? throw new RecordNotFoundException(typeof(User).Name);
-            var updatedUser = updateDetailedUserDto.UpdateUser(existing);
+            var existing = await _userRepository.GetUser(updateUserProfileDto.UserId) ?? throw new RecordNotFoundException(typeof(User).Name);
+            var updatedUser = updateUserProfileDto.UpdateUser(existing);
             var updateStatus = await _userRepository.UpdateUser(updatedUser);
             if (!updateStatus) throw new RecordNotUpdatedException("profile");
             return updateStatus;

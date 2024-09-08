@@ -2,7 +2,7 @@ using BlossomAvenue.Core.Users;
 
 namespace BlossomAvenue.Service.UsersService.Dtos
 {
-    public class ReadDetailedUserDto
+    public class ReadUserProfileDto
     {
         public Guid UserId { get; set; }
         public string FirstName { get; set; }
@@ -12,7 +12,7 @@ namespace BlossomAvenue.Service.UsersService.Dtos
         public ICollection<ReadUserContactNumberDto> UserContactNumbers { get; set; }
         public ICollection<ReadUserAddressDto> UserAddresses { get; set; }
 
-        public ReadDetailedUserDto(User user)
+        public ReadUserProfileDto(User user)
         {
             UserId = user.UserId;
             FirstName = user.FirstName;

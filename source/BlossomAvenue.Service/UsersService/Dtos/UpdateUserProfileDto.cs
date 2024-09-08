@@ -5,7 +5,7 @@ using BlossomAvenue.Core.Users;
 
 namespace BlossomAvenue.Service.UsersService.Dtos
 {
-    public class UpdateDetailedUserDto
+    public class UpdateUserProfileDto
     {
         public Guid UserId { get; set; }
         public string? FirstName { get; set; }

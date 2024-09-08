@@ -13,7 +13,7 @@ namespace BlossomAvenue.Service.UsersService
         public Task<List<User>> GetUsers(UsersQueryDto query);
         public Task<User> GetUser(Guid userId);
         public Task<bool> UpdateUser(Guid userId, UpdateUserDto updateUserDto);
-        public Task<bool> UpdateUserProfile(UpdateDetailedUserDto updateDetailedUserDto);
+        public Task<bool> UpdateUserProfile(UpdateUserProfileDto updateUserProfileDto);
         public Task<bool> DeleteUser(Guid userId);
         public Task<User> CreateProfile(User profile);
     }

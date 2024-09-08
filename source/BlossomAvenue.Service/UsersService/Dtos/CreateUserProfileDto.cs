@@ -4,7 +4,7 @@ using BlossomAvenue.Service.CustomAttributes;
 
 namespace BlossomAvenue.Service.UsersService.Dtos
 {
-    public class CreateDetailedUserDto
+    public class CreateUserProfileDto
     {
 
         [Required, NameValidation]
