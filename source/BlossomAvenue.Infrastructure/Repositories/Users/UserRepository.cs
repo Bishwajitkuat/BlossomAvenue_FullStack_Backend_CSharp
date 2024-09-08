@@ -49,6 +49,11 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
         {
 
             var query = _context.Users
+                .Include(u => u.UserContactNumbers)
+                .Include(u => u.UserCredential)
+                .Include(u => u.UserAddresses)
+                .ThenInclude(ua => ua.Address)
+                .ThenInclude(a => a.City)
                 .AsQueryable();
 
             // filter by user role

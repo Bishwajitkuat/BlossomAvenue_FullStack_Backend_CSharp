@@ -26,20 +26,21 @@ namespace BlossomAvenue.Presentation.Controller
         // ADMIN
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> GetUsers(
+        public async Task<ActionResult<List<ReadUserDto>>> GetUsers(
             [FromQuery] UsersQueryDto query)
         {
             var users = await _userManagement.GetUsers(query);
-
-            return Ok(users);
+            var readUsers = users.Select(u => new ReadUserDto(u));
+            return Ok(readUsers);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("{userId}")]
-        public async Task<IActionResult> GetUser([FromRoute] Guid userId)
+        public async Task<ActionResult<ReadUserDto>> GetUser([FromRoute] Guid userId)
         {
             var user = await _userManagement.GetUser(userId);
-            return Ok(user);
+            var readUser = new ReadUserDto(user);
+            return Ok(readUser);
         }
 
         [Authorize(Roles = "Admin")]
