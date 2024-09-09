@@ -12,23 +12,20 @@ namespace BlossomAvenue.Service.ProductsServices
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public ICollection<CreateImageDto> Images { get; set; }
-        public ICollection<CreateVariationDto> Variations { get; set; }
-        public ICollection<CreateProductCategoryDto> ProductCategories { get; set; }
+        public ICollection<Image> Images { get; set; }
+        public ICollection<Variation> Variations { get; set; }
+        public ICollection<CreateUpdateProductCategoryDto> ProductCategories { get; set; }
 
         public Product ConvertToProduct()
         {
-            ICollection<Image> images = Images.Select(i => i.ConvertToImage()).ToArray();
-            ICollection<Variation> variations = Variations.Select(v => v.ConvertToVariation()).ToArray();
-            ICollection<ProductCategory> productCategories = ProductCategories.Select(pc => pc.ConvertToProductCategory()).ToArray();
 
             return new Product
             {
-                Title = this.Title,
-                Description = this.Description,
-                Images = images,
-                Variations = variations,
-                ProductCategories = productCategories,
+                Title = Title,
+                Description = Description,
+                Images = Images,
+                Variations = Variations,
+                ProductCategories = ProductCategories.Select(pc => pc.ConvertToProductCategory()).ToList(),
             };
 
 
@@ -42,19 +39,16 @@ namespace BlossomAvenue.Service.ProductsServices
         public string Description { get; set; }
         public ICollection<Image> Images { get; set; }
         public ICollection<Variation> Variations { get; set; }
-        public ICollection<UpdateProductCategoryDto> ProductCategories { get; set; }
+        public ICollection<CreateUpdateProductCategoryDto> ProductCategories { get; set; }
 
-        public Product ConvertToProduct()
+        public Product UpdateProduct(Product product)
         {
-            return new Product
-            {
-                Title = this.Title,
-                Description = this.Description,
-                Images = this.Images,
-                Variations = this.Variations,
-                ProductCategories = this.ProductCategories.Select(pc => pc.ConvertToProductCategory()).ToList(),
-
-            };
+            product.Title = Title;
+            product.Description = Description;
+            product.Images = Images;
+            product.Variations = Variations;
+            product.ProductCategories = ProductCategories.Select(pc => pc.ConvertToProductCategory()).ToList();
+            return product;
         }
     }
 
@@ -94,7 +88,7 @@ namespace BlossomAvenue.Service.ProductsServices
         public string Description { get; set; }
         public ICollection<Image> Images { get; set; }
         public ICollection<Variation> Variations { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        public ICollection<ReadProductCategoryDto> ProductCategories { get; set; }
         public ICollection<ReadProductReviewDto> ProductReviews { get; set; }
         public decimal AvgStar { get; set; }
 
@@ -105,7 +99,7 @@ namespace BlossomAvenue.Service.ProductsServices
             Description = product.Description;
             Images = product.Images;
             Variations = product.Variations;
-            Categories = product.ProductCategories.Select(pc => pc.Category).ToList();
+            ProductCategories = product.ProductCategories.Select(pc => new ReadProductCategoryDto(pc)).ToList();
             ProductReviews = product.ProductReviews.Select(pr => new ReadProductReviewDto(pr)).ToList();
             var stars = product.ProductReviews.Where(pr => pr.Star != null).Select(pr => pr.Star);
             if (stars.Count() > 0)

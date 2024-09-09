@@ -11,7 +11,7 @@ namespace BlossomAvenue.Service.ProductsServices
         public Task<Product> CreateProduct(Product product);
         public Task<Product> GetProductById(Guid productId);
 
-        public Task<bool> UpdateProduct(Guid productId, Product productToUpdate);
+        public Task<bool> UpdateProduct(Guid productId, UpdateProductDto productToUpdate);
         public Task<bool> DeleteProductById(Guid productId);
 
         public Task<ICollection<Product>> GetAllProducts(ProductQueryDto pqdto);

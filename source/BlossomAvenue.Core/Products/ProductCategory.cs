@@ -12,5 +12,6 @@ namespace BlossomAvenue.Core.Products
         public Guid ProductId { get; set; }
 
         public Category Category { get; set; }
+        public Product Product { get; set; }
     }
 }

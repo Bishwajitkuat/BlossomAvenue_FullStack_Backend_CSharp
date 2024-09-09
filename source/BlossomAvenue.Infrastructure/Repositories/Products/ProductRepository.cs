@@ -24,8 +24,11 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
         public async Task<Product?> CreateProduct(Product product)
         {
             var newProduct = (await _context.Products.AddAsync(product)).Entity;
-            _context.SaveChanges();
-            return newProduct;
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                return newProduct;
+            }
+            return null;
         }
 
 
@@ -36,7 +39,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
             .Include(p => p.Images)
             .Include(p => p.Variations)
             .Include(p => p.ProductCategories)
-            .ThenInclude(pc => pc.Category)
+            .ThenInclude(p => p.Category)
             .Include(p => p.ProductReviews)
             .FirstOrDefaultAsync(p => p.ProductId == productId);
 
@@ -44,18 +47,9 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
             return product;
         }
 
-        public async Task<bool> UpdateProduct(Guid productId, Product productToUpdate)
+        public async Task<bool> UpdateProduct(Product updatedProduct)
         {
-            Product? product = await _context.Products.Where(p => p.ProductId == productId).FirstOrDefaultAsync();
-            if (product == null) return false;
-            // updating product
-            product.Title = productToUpdate.Title;
-            product.Description = productToUpdate.Description;
-            product.Images = productToUpdate.Images;
-            product.Variations = productToUpdate.Variations;
-            product.ProductCategories = productToUpdate.ProductCategories;
-            // saving context
-            _context.Products.Update(product);
+            _context.Products.Update(updatedProduct);
             return await _context.SaveChangesAsync() > 0;
         }
 

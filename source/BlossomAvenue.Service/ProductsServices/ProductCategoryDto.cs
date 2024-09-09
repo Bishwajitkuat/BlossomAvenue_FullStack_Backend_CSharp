@@ -6,22 +6,24 @@ using BlossomAvenue.Core.Products;
 
 namespace BlossomAvenue.Service.ProductsServices
 {
-    public class CreateProductCategoryDto
+    public class ReadProductCategoryDto
     {
+        public Guid ProductCategoryId { get; set; }
         public Guid CategoryId { get; set; }
+        public Guid ProductId { get; set; }
+        public string CategoryName { get; set; }
 
-        public ProductCategory ConvertToProductCategory()
+        public ReadProductCategoryDto(ProductCategory pc)
         {
-            return new ProductCategory
-            {
-                CategoryId = this.CategoryId,
-            };
+            ProductCategoryId = pc.ProductCategoryId;
+            CategoryId = pc.CategoryId;
+            ProductId = pc.ProductId;
+            CategoryName = pc.Category.CategoryName;
         }
-
     }
 
 
-    public class UpdateProductCategoryDto
+    public class CreateUpdateProductCategoryDto
     {
         public Guid ProductCategoryId { get; set; }
         public Guid CategoryId { get; set; }

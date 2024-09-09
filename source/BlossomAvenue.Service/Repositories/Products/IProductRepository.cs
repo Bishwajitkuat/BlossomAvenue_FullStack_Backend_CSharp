@@ -10,7 +10,7 @@ namespace BlossomAvenue.Service.Repositories.Products
     public interface IProductRepository
     {
         public Task<Product?> CreateProduct(Product product);
-        public Task<bool> UpdateProduct(Guid productId, Product productToUpdate);
+        public Task<bool> UpdateProduct(Product productToUpdate);
         public Task<Product?> GetProductById(Guid productId);
 
         public Task<bool> DeleteProductById(Guid productId);

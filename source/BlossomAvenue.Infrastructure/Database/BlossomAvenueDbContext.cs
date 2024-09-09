@@ -37,7 +37,7 @@ public partial class BlossomAvenueDbContext : DbContext
     public virtual DbSet<Image> Images { get; set; }
     public virtual DbSet<Product> Products { get; set; }
     public virtual DbSet<Variation> Variations { get; set; }
-    public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+    public virtual DbSet<ProductCategory> ProductCategory { get; set; }
 
     // order related tables
     public virtual DbSet<Order> Orders { get; set; }

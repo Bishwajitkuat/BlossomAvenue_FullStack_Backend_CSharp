@@ -21,7 +21,7 @@ namespace BlossomAvenue.Presentation.Controller
             _productManagement = productManagement;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost("")]
         public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
         {
@@ -32,24 +32,23 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> GetProductById([FromRoute] Guid id)
+        public async Task<ActionResult<GetProductByIdReadDto>> GetProductById([FromRoute] Guid id)
         {
             var product = await _productManagement.GetProductById(id);
             var readProduct = new GetProductByIdReadDto(product);
             return Ok(readProduct);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPatch("{id:Guid}")]
         public async Task<IActionResult> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto)
         {
 
-            var productToUpdate = updateProductDto.ConvertToProduct();
-            await _productManagement.UpdateProduct(id, productToUpdate);
+            await _productManagement.UpdateProduct(id, updateProductDto);
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Employee")]
         [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> DeleteProductById([FromRoute] Guid id)
         {

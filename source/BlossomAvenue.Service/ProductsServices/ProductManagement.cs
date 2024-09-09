@@ -32,9 +32,12 @@ namespace BlossomAvenue.Service.ProductsServices
             return product;
         }
 
-        public async Task<bool> UpdateProduct(Guid productId, Product productToUpdate)
+        public async Task<bool> UpdateProduct(Guid productId, UpdateProductDto productToUpdate)
         {
-            bool result = await _productRepository.UpdateProduct(productId, productToUpdate);
+            var oldProduct = await _productRepository.GetProductById(productId);
+            if (oldProduct == null) throw new RecordNotFoundException("product");
+            var updatedProduct = productToUpdate.UpdateProduct(oldProduct);
+            bool result = await _productRepository.UpdateProduct(updatedProduct);
 
             if (result != true) throw new RecordNotFoundException("product");
             return result;
