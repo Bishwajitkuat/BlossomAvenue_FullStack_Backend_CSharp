@@ -82,7 +82,8 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
                 ProductOrderWith.Price => isAscending ? query.OrderBy(p => p.Variations.Min(a => a.Price)) : query.OrderByDescending(v => v.Variations.Max(a => a.Price)),
                 ProductOrderWith.Title => isAscending ? query.OrderBy(p => p.Title) : query.OrderByDescending(p => p.Title),
                 ProductOrderWith.Inventory => isAscending ? query.OrderBy(p => p.Variations.Sum(v => v.Inventory)) : query.OrderByDescending(p => p.Variations.Sum(v => v.Inventory)),
-                _ => query.OrderBy(p => p.Title)
+                ProductOrderWith.CreatedAt => isAscending ? query.OrderBy(p => p.CreatedAt) : query.OrderByDescending(p => p.CreatedAt),
+                _ => isAscending ? query.OrderByDescending(p => p.CreatedAt) : query.OrderBy(p => p.CreatedAt)
             };
 
             var products = await query

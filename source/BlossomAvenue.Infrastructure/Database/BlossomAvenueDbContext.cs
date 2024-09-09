@@ -91,6 +91,14 @@ public partial class BlossomAvenueDbContext : DbContext
 
         });
 
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.Property(e => e.CreatedAt)
+    .HasDefaultValueSql("CURRENT_TIMESTAMP")
+    .HasColumnType("timestamp without time zone")
+    .HasColumnName("created_at");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 

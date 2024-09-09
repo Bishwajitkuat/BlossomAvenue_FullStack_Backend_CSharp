@@ -9,6 +9,7 @@ namespace BlossomAvenue.Core.Products
         public Guid ProductId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public virtual ICollection<Image> Images { get; set; }
         public virtual ICollection<Variation> Variations { get; set; }
         public virtual ICollection<ProductCategory> ProductCategories { get; set; }
