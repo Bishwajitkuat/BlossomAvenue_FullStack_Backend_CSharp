@@ -23,7 +23,7 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize(Roles = "Admin, Employee")]
         [HttpPost("")]
-        public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
+        public async Task<ActionResult<Product>> CreateProduct(CreateProductDto createProductDto)
         {
             var product = createProductDto.ConvertToProduct();
             var newProduct = await _productManagement.CreateProduct(product);
@@ -41,7 +41,7 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize(Roles = "Admin, Employee")]
         [HttpPatch("{id:Guid}")]
-        public async Task<IActionResult> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto)
+        public async Task<ActionResult> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto)
         {
 
             await _productManagement.UpdateProduct(id, updateProductDto);
