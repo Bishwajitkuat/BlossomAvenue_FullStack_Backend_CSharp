@@ -18,7 +18,6 @@ public partial class Order
 
     public DateTime? CreatedAt { get; set; }
 
-    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public ICollection<OrderItem> OrderItems { get; set; }
 
-    public virtual ICollection<ProductReview> ProductReviews { get; set; } = new List<ProductReview>();
 }
