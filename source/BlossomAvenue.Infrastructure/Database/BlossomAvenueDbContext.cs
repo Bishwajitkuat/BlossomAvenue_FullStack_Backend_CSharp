@@ -94,9 +94,24 @@ public partial class BlossomAvenueDbContext : DbContext
         modelBuilder.Entity<Product>(entity =>
         {
             entity.Property(e => e.CreatedAt)
-    .HasDefaultValueSql("CURRENT_TIMESTAMP")
-    .HasColumnType("timestamp without time zone")
-    .HasColumnName("created_at");
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            .HasColumnType("timestamp without time zone")
+            .HasColumnName("created_at");
+
+        });
+
+        modelBuilder.Entity<CartItem>(entity =>
+        {
+            entity.HasKey(ci => ci.CartItemsId);
+        });
+        modelBuilder.Entity<OrderItem>(entity =>
+        {
+            entity.HasKey(oi => oi.OrderItemsId);
+        });
+
+        modelBuilder.Entity<ProductReview>(entity =>
+        {
+            entity.HasKey(pr => pr.ReviewId);
         });
 
         OnModelCreatingPartial(modelBuilder);
