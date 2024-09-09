@@ -19,11 +19,16 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
             _context = context;
         }
 
-        public async Task<User> CreateUser(User user)
+        public async Task<User>? CreateUser(User user)
         {
             var savedUser = (await _context.Users.AddAsync(user)).Entity;
-            _context.SaveChanges();
-            return savedUser;
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                // saved entity does not includes nested relationship data particularly from 2nd level.
+                var newUser = await GetUser(savedUser.UserId);
+                return newUser;
+            }
+            return null;
         }
 
         public async Task<bool> DeleteUser(Guid userId)
