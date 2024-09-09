@@ -47,7 +47,6 @@ namespace BlossomAvenue.Infrastructure.Repositories.ProductReviews
                 ReviewId = Guid.NewGuid(),
                 ProductId = reviewCreateDto.ProductId,
                 UserId = reviewCreateDto.UserId,
-                OrderId = reviewCreateDto.OrderId,
                 Review = reviewCreateDto.Review,
                 Star = reviewCreateDto.Star,
             };

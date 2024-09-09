@@ -15,7 +15,7 @@ namespace BlossomAvenue.Service.CartsService
 
         public CartItem ConvertToCartitems()
         {
-            return new CartItem { CartItemsId = Guid.NewGuid(), CartId = this.CartId, ProductId = this.ProductId, Quantity = this.Quantity, Variationid = this.VariationId };
+            return new CartItem { CartItemsId = Guid.NewGuid(), CartId = this.CartId, ProductId = this.ProductId, Quantity = this.Quantity, VariationId = this.VariationId };
         }
 
     }

@@ -55,7 +55,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Carts
             }
 
             cartItem.ProductId = productId;
-            cartItem.Variationid = variantId;
+            cartItem.VariationId = variantId;
             cartItem.Quantity = quantity;
 
             _context.CartItems.Update(cartItem);
