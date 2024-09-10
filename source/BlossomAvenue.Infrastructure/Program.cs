@@ -57,11 +57,6 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 // DI cart management service
 builder.Services.AddScoped<ICartManagement, CartManagement>();
 
-// DI cart items repository
-builder.Services.AddScoped<ICartItemsRepository, CartItemsRepository>();
-// DI cart items management service
-builder.Services.AddScoped<ICartItemsManagement, CartItemsManagement>();
-
 // DI Order repository
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 // DI order management service
