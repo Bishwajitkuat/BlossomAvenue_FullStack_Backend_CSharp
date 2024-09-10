@@ -21,13 +21,14 @@ namespace BlossomAvenue.Presentation.Controller
 
 
         [HttpPost]
-        public async Task<ActionResult<Order>> CreateOrder([FromBody] CreateOrderDto createOrderDto)
+        public async Task<ActionResult<ReadOrderDto>> CreateOrder([FromBody] CreateOrderDto createOrderDto)
         {
             // should get from claim
             var cartId = new Guid("dde2c6dc-3c14-4ce8-bb02-c81f3e2a59c1");
             var userId = new Guid("fbfbcb7c-32f0-42d4-b5b8-862f8f7105ff");
             var order = await _orderManagement.CreateOrder(cartId, createOrderDto, userId);
-            return Created(nameof(CreateOrder), order);
+            var readOrder = new ReadOrderDto(order);
+            return Created(nameof(CreateOrder), readOrder);
         }
 
         [HttpPatch]
@@ -52,16 +53,12 @@ namespace BlossomAvenue.Presentation.Controller
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetOrder(Guid orderId)
+        [HttpGet("{orderId}")]
+        public async Task<ActionResult<ReadOrderDto>> GetOrder([FromRoute] Guid orderId)
         {
             var order = await _orderManagement.GetOrder(orderId);
-            if (order == null)
-            {
-                throw new RecordNotFoundException("order");
-            }
-
-            return Ok(order);
+            var readOrder = new ReadOrderDto(order);
+            return Ok(readOrder);
         }
 
     }
