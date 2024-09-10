@@ -13,7 +13,5 @@ public partial class AddressDetail
 
     public Guid CityId { get; set; }
 
-    public virtual City City { get; set; } = null!;
-
-    // public virtual ICollection<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
+    public virtual City City { get; set; }
 }

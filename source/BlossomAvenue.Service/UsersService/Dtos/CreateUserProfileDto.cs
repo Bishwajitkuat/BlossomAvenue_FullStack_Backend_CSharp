@@ -23,8 +23,9 @@ namespace BlossomAvenue.Service.UsersService.Dtos
         public string AddressLine1 { get; set; } = null!;
 
         public string AddressLine2 { get; set; } = null!;
+        public Guid? CityId { get; set; }
         [Required]
-        public Guid CityId { get; set; }
+        public string CityName { get; set; }
 
         [Required, PasswordValidation]
         public string Password { get; set; } = null!;
@@ -34,7 +35,7 @@ namespace BlossomAvenue.Service.UsersService.Dtos
 
         public User ConvertToUser()
         {
-            return new User
+            var newUser = new User
             {
                 FirstName = FirstName,
                 LastName = LastName,
@@ -53,11 +54,23 @@ namespace BlossomAvenue.Service.UsersService.Dtos
                         Address = new AddressDetail{
                             AddressLine1 = AddressLine1,
                             AddressLine2 = AddressLine2,
-                            CityId = CityId,
+                            //CityId = CityId,
                         }
                     }
                 },
             };
+
+            if (CityId != null)
+            {
+                newUser.UserAddresses.ToList()[0].Address.CityId = (Guid)CityId;
+            }
+            else
+            {
+                newUser.UserAddresses.ToList()[0].Address.City = new City { CityName = CityName };
+            }
+
+            return newUser;
+
         }
     }
 }
