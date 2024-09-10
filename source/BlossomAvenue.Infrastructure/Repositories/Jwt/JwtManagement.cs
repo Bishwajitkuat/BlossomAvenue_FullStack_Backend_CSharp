@@ -27,7 +27,8 @@ namespace BlossomAvenue.Infrastructure.Repositories.Jwt
             {
                 new Claim(ClaimTypes.GivenName, String.Concat(user.FirstName, " ", user.LastName)),
                 new Claim(ClaimTypes.Role, user.UserRole.ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim("CartId", user.Cart.CartId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

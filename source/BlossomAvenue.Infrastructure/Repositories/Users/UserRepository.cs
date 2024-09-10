@@ -113,6 +113,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
         {
             return _context.Users
                 .Include(u => u.UserCredential)
+                .Include(u => u.Cart)
                 .FirstOrDefaultAsync(u => (u.UserCredential.UserName == username) && (u.IsUserActive ?? false));
         }
 
