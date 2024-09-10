@@ -35,7 +35,8 @@ namespace BlossomAvenue.Presentation.Middleware
                 RecordNotFoundException => (HttpStatusCode.NotFound, exception.Message),
                 RecordNotUpdatedException => (HttpStatusCode.NotModified, exception.Message),
                 NotImplementedException => (HttpStatusCode.NotImplemented, exception.Message),
-                _ => (HttpStatusCode.InternalServerError, $"Something unusual happened. Please try again or contact the system administrator\nError:{exception.Message}")
+                ProductOutOfStockException => (HttpStatusCode.BadRequest, exception.Message),
+                _ => (HttpStatusCode.InternalServerError, $"Something unusual happened. Please try again or contact the system administrator. Error:{exception.Message}")
             };
 
             var response = new { error = message };

@@ -32,7 +32,7 @@ namespace BlossomAvenue.Service.CartsService
             // if oldCartItem is null and qty more than stock
             if (oldCartItem == null)
             {
-                if (variation.Inventory - cartItem.Quantity < 0) throw new ArgumentException("Sorry! the product is out of stock.");
+                if (variation.Inventory - cartItem.Quantity < 0) throw new ProductOutOfStockException(variation.VariationName, variation.Inventory);
                 var cart = await _cartRepository.CreateCartItem(cartItem) ?? throw new RecordNotCreatedException("cart items");
                 return cart;
             }
@@ -40,7 +40,7 @@ namespace BlossomAvenue.Service.CartsService
             {
 
                 oldCartItem.Quantity += 1;
-                if (variation.Inventory - oldCartItem.Quantity < 0) throw new ArgumentException("Sorry! the product is out of stock.");
+                if (variation.Inventory - oldCartItem.Quantity < 0) throw new ProductOutOfStockException(variation.VariationName, variation.Inventory);
                 var cart = await _cartRepository.UpdateCartItem(oldCartItem) ?? throw new RecordNotFoundException("cart item");
                 return cart;
             }
