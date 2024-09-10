@@ -43,7 +43,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Orders
             foreach (var cartItem in cart.CartItems)
             {
                 var variation = await _context.Variations
-                                      .FirstOrDefaultAsync(v => v.VariationId == cartItem.Variationid);
+                                      .FirstOrDefaultAsync(v => v.VariationId == cartItem.VariationId);
 
                 if (variation == null)
                 {
@@ -52,7 +52,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Orders
 
                 // Calculate the total price
                 decimal itemPrice = variation.Price; // Assuming Variation has a Price property
-                decimal? totalPrice = itemPrice * cartItem.Quantity;
+                decimal totalPrice = itemPrice * cartItem.Quantity;
 
                 totalAmount += totalPrice;
 
@@ -61,7 +61,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Orders
                     OrderItemsId = Guid.NewGuid(),
                     OrderId = order.OrderId,
                     ProductId = cartItem.ProductId,
-                    VariationId = cartItem.Variationid,
+                    VariationId = cartItem.VariationId,
                     Quantity = cartItem.Quantity,
                     Price = totalPrice
                 };

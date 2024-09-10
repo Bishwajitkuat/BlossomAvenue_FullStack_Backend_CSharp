@@ -10,7 +10,7 @@ namespace BlossomAvenue.Service.Repositories.Users
 {
     public interface IUserRepository
     {
-        public Task<User> CreateUser(User user);
+        public Task<User>? CreateUser(User user);
         public Task<List<User>> GetUsers(UsersQueryDto userquery);
         public Task<User?> GetUser(Guid userId);
         public Task<bool> UpdateUser(User user);

@@ -13,8 +13,8 @@ namespace BlossomAvenue.Service.ProductReviewsService
 
         public Guid OrderId { get; set; }
 
-        public string? Review { get; set; }
+        public string Review { get; set; }
 
-        public int? Star { get; set; }
+        public int Star { get; set; }
     }
 }

@@ -8,6 +8,10 @@ namespace BlossomAvenue.Service.CartsService
 {
     public interface ICartManagement
     {
-        public Task <CartDto> GetCart(Guid cartId);
+        public Task<Cart> GetCart(Guid cartId);
+        public Task<Cart> AddItemToCart(CartItem cartItem);
+        public Task<Cart> DeleteCartItem(Guid cartId, Guid cartItemId);
+        public Task<Cart> ReduceItemQtyFromCartItem(CartItem cartItem);
+        public Task<Cart> EmptyCart(Guid cartId);
     }
 }
