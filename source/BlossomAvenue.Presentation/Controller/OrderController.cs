@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlossomAvenue.Core.Orders;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.OrdersService;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlossomAvenue.Presentation.Controller
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class OrderController : ControllerBase
     {
         private IOrderManagement _orderManagement;
@@ -17,26 +18,16 @@ namespace BlossomAvenue.Presentation.Controller
         {
             _orderManagement = orderManagement;
         }
-        [HttpPost()]
-        public async Task<IActionResult> CreateOrder(Guid cartId, Guid userId)
-        {
-            try
-            {
-                var success = await _orderManagement.CreateOrder(cartId, userId);
 
-                if (success)
-                {
-                    return Ok(new { Message = "Order created successfully." });
-                }
-                else
-                {
-                    throw new Exception("Something went wrong!");
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Message = ex.Message });
-            }
+
+        [HttpPost]
+        public async Task<ActionResult<Order>> CreateOrder([FromBody] CreateOrderDto createOrderDto)
+        {
+            // should get from claim
+            var cartId = new Guid("dde2c6dc-3c14-4ce8-bb02-c81f3e2a59c1");
+            var userId = new Guid("fbfbcb7c-32f0-42d4-b5b8-862f8f7105ff");
+            var order = await _orderManagement.CreateOrder(cartId, createOrderDto, userId);
+            return Created(nameof(CreateOrder), order);
         }
 
         [HttpPatch]
