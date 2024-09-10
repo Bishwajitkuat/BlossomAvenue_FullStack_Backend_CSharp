@@ -113,6 +113,10 @@ public partial class BlossomAvenueDbContext : DbContext
         {
             entity.HasKey(pr => pr.ReviewId);
         });
+        modelBuilder.Entity<Cart>(entity =>
+        {
+            entity.HasKey(c => c.CartId);
+        });
 
         OnModelCreatingPartial(modelBuilder);
     }
