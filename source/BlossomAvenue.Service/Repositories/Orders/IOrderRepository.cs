@@ -10,7 +10,7 @@ namespace BlossomAvenue.Service.Repositories.Orders
     public interface IOrderRepository
     {
         public Task<Order> CreateOrder(Cart cart, Order order);
-        public Task<Order> GetOrder(Guid orderId);
+        public Task<Order>? GetOrder(Guid orderId);
         public Task<bool> UpdateOrder(Guid orderId, string orderStatus);
     }
 }

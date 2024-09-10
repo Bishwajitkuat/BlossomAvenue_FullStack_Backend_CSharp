@@ -15,7 +15,7 @@ public partial class Order
     [ForeignKey("AddressDetail")]
     public Guid AddressId { get; set; }
 
-    public decimal? TotalAmount { get; set; }
+    public decimal TotalAmount { get; set; }
 
     public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
 

@@ -43,7 +43,8 @@ namespace BlossomAvenue.Service.OrdersService
 
         public async Task<Order> GetOrder(Guid orderId)
         {
-            return await _orderRepository.GetOrder(orderId);
+            var order = await _orderRepository.GetOrder(orderId) ?? throw new RecordNotFoundException("order");
+            return order;
         }
 
         public async Task<bool> UpdateOrder(Guid orderId, string orderStatus)

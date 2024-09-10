@@ -35,17 +35,28 @@ namespace BlossomAvenue.Infrastructure.Repositories.Orders
                     }
                 }
             }
-            if (await _context.SaveChangesAsync() > 0) return newOrder;
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                // return entity does not include the 2nd level relationship data
+                // so fetching it again.
+                var orderWithRelationData = await GetOrder(newOrder.OrderId);
+                return orderWithRelationData;
+            }
             return null;
         }
 
-        public async Task<Order> GetOrder(Guid orderId)
+        public async Task<Order>? GetOrder(Guid orderId)
         {
-            return await _context.Orders
-                        .Include(o => o.OrderItems)
-                        .Include(o => o.AddressDetail)
-                        .ThenInclude(o => o.City)
-                        .FirstOrDefaultAsync(o => o.OrderId == orderId);
+            var order = await _context.Orders
+            .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Variation)
+            .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Product)
+                    .ThenInclude(o => o.Images)
+            .Include(o => o.AddressDetail)
+                .ThenInclude(o => o.City)
+            .FirstOrDefaultAsync(o => o.OrderId == orderId);
+            return order;
         }
 
         public async Task<bool> UpdateOrder(Guid orderId, string orderStatus)
