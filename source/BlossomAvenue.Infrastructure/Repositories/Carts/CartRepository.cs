@@ -7,6 +7,8 @@ using BlossomAvenue.Service.Repositories.Carts;
 using BlossomAvenue.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.CartsService;
+using BlossomAvenue.Service.CustomExceptions;
+using BlossomAvenue.Core.Products;
 
 namespace BlossomAvenue.Infrastructure.Repositories.Carts
 {
@@ -18,31 +20,78 @@ namespace BlossomAvenue.Infrastructure.Repositories.Carts
         {
             _context = context;
         }
-        public async Task<CartDto> GetCart(Guid cartId)
+        public async Task<Cart>? GetCart(Guid cartId)
         {
             var cart = await _context.Carts
-                         .Include(c => c.CartItems)
-                            .ThenInclude(ci => ci.Variation)
+                        .Include(c => c.CartItems)
+                        .ThenInclude(ci => ci.Variation)
                          .FirstOrDefaultAsync(c => c.CartId == cartId);
-
-            if (cart == null)
-            {
-                return null;
-            }
-
-            // Map the Cart entity to CartDto
-            var cartDto = new CartDto
-            {
-                Id = cart.CartId,
-                CartItems = cart.CartItems.Select(ci => new CartItemDto
-                {
-                    CartId = ci.CartId,
-                    ProductId = ci.ProductId,
-                    Quantity = ci.Quantity
-                }).ToList()
-            };
-
-            return cartDto;
+            return cart;
         }
+
+        public async Task<Cart>? CreateCartItem(CartItem cartItem)
+        {
+            await _context.CartItems.AddAsync(cartItem);
+            if (await _context.SaveChangesAsync() > 0) return await GetCart(cartItem.CartId);
+            else return null;
+
+        }
+
+        public async Task<Cart>? UpdateCartItem(CartItem cartItem)
+        {
+            _context.CartItems.Update(cartItem);
+            if (await _context.SaveChangesAsync() > 0) return await GetCart(cartItem.CartId);
+            else return null;
+
+        }
+
+
+        public async Task<Cart>? DeleteCartItem(Guid cartId, Guid cartItemId)
+        {
+            var cartItem = await _context.CartItems.FirstOrDefaultAsync(ci => ci.CartId == cartId && ci.CartItemsId == cartItemId);
+            if (cartItem == null) return null;
+            _context.Remove(cartItem);
+            if (await _context.SaveChangesAsync() > 0) return await GetCart(cartId);
+
+            return null;
+        }
+
+
+        public async Task<CartItem>? GetCartItemByCartAndVariationId(Guid cartId, Guid variationId)
+        {
+            var cartItem = await _context.CartItems.FirstOrDefaultAsync(ci => ci.CartId == cartId && ci.Variation.VariationId == variationId);
+            return cartItem;
+        }
+
+        // should be in product repo
+        // deal with lather after completing order
+        public async Task<Variation>? GetVariationById(Guid variationId)
+        {
+            var variation = await _context.Variations.FirstOrDefaultAsync(v => v.VariationId == variationId);
+            return variation;
+        }
+
+
+        public async Task<Cart>? EmptyCart(Guid cartId)
+        {
+            var cartItems = _context.CartItems.Where(ci => ci.CartId == cartId);
+            _context.CartItems.RemoveRange(cartItems);
+            await _context.SaveChangesAsync();
+            return await GetCart(cartId);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
