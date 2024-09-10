@@ -14,11 +14,7 @@ public partial class CartItem
     public Guid ProductId { get; set; }
 
     public int Quantity { get; set; }
-
-    public DateTime? CreatedAt { get; set; }
-
     public Guid VariationId { get; set; }
-
-    public Cart Cart { get; set; }
-    public Variation Variation { get; set; }
+    public virtual Product Product { get; set; }
+    public virtual Variation Variation { get; set; }
 }
