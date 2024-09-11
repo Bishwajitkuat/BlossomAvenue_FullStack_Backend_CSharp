@@ -109,21 +109,11 @@ namespace BlossomAvenue.Infrastructure.Repositories.Orders
             return await GetAllOrders(oqdto, userId);
         }
 
-        public async Task<bool> UpdateOrder(Guid orderId, string orderStatus)
+        public async Task<Order> UpdateOrder(Order order)
         {
-            var order = await _context.Orders
-                                     .FindAsync(orderId);
-
-            if (order == null)
-            {
-                throw new RecordNotFoundException("order");
-            }
-
-            //order.OrderStatus = orderStatus;
-
             _context.Orders.Update(order);
-            await _context.SaveChangesAsync();
-            return true;
+            if (await _context.SaveChangesAsync() > 0) return order;
+            throw new RecordNotUpdatedException("order");
         }
     }
 }

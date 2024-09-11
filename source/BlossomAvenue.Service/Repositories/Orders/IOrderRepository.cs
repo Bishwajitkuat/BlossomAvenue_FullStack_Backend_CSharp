@@ -12,7 +12,7 @@ namespace BlossomAvenue.Service.Repositories.Orders
     {
         public Task<Order> CreateOrder(Cart cart, Order order);
         public Task<Order>? GetOrder(Guid orderId);
-        public Task<bool> UpdateOrder(Guid orderId, string orderStatus);
+        public Task<Order> UpdateOrder(Order order);
         public Task<ICollection<Order>> GetAllOrdersByUser(OrderQueryDto oqdto, Guid userId);
         public Task<ICollection<Order>> GetAllOrdersByAdmin(OrderQueryDto oqdto);
     }

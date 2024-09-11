@@ -58,9 +58,15 @@ namespace BlossomAvenue.Service.OrdersService
             return await _orderRepository.GetAllOrdersByAdmin(oqdto);
         }
 
-        public async Task<bool> UpdateOrder(Guid orderId, string orderStatus)
+        public async Task<Order> UpdateOrder(Guid orderId, OrderUpdateDto orderUpdateDto)
         {
-            return await _orderRepository.UpdateOrder(orderId, orderStatus);
+            // fetch old order by id
+            var oldOrder = await _orderRepository.GetOrder(orderId) ?? throw new RecordNotFoundException("order");
+            // update old order
+            var updatedOrder = orderUpdateDto.UpdateOrder(oldOrder);
+            // ask repo to save the changes and return updated order
+            var savedOrder = await _orderRepository.UpdateOrder(updatedOrder);
+            return savedOrder;
         }
     }
 }
