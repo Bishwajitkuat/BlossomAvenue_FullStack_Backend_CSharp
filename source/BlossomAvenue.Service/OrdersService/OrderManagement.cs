@@ -41,9 +41,10 @@ namespace BlossomAvenue.Service.OrdersService
             return newOrder;
         }
 
-        public async Task<Order> GetOrder(Guid orderId)
+        public async Task<Order> GetOrder(Guid orderId, Guid? userId)
         {
             var order = await _orderRepository.GetOrder(orderId) ?? throw new RecordNotFoundException("order");
+            if (userId != null && order.UserId != userId) throw new UnauthorizedAccessException("You can not access resource which does not belong to you.");
             return order;
         }
 
