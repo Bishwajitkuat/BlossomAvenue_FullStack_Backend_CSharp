@@ -69,5 +69,14 @@ namespace BlossomAvenue.Service.OrdersService
             var savedOrder = await _orderRepository.UpdateOrder(updatedOrder);
             return savedOrder;
         }
+
+        public async Task<bool> DeleteOrderById(Guid orderId)
+        {
+            return await _orderRepository.DeleteOrderById(orderId);
+        }
+
+
+
+
     }
 }

@@ -15,5 +15,6 @@ namespace BlossomAvenue.Service.Repositories.Orders
         public Task<Order> UpdateOrder(Order order);
         public Task<ICollection<Order>> GetAllOrdersByUser(OrderQueryDto oqdto, Guid userId);
         public Task<ICollection<Order>> GetAllOrdersByAdmin(OrderQueryDto oqdto);
+        public Task<bool> DeleteOrderById(Guid orderId);
     }
 }

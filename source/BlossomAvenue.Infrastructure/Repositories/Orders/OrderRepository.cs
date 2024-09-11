@@ -9,6 +9,7 @@ using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.OrdersService;
 using BlossomAvenue.Service.Repositories.Orders;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlossomAvenue.Infrastructure.Repositories.Orders
@@ -113,5 +114,19 @@ namespace BlossomAvenue.Infrastructure.Repositories.Orders
             if (await _context.SaveChangesAsync() > 0) return order;
             throw new RecordNotUpdatedException("order");
         }
+
+        public async Task<bool> DeleteOrderById(Guid orderId)
+        {
+            var order = await _context.Orders
+                                        .Include(o => o.OrderItems)
+                                        .Include(o => o.AddressDetail)
+                                        .FirstOrDefaultAsync(o => o.OrderId == orderId);
+            if (order == null) throw new RecordNotFoundException("order");
+            _context.Remove(order);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+
+
     }
 }

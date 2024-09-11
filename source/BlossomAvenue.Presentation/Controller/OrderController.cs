@@ -34,16 +34,6 @@ namespace BlossomAvenue.Presentation.Controller
             return Created(nameof(CreateOrder), readOrder);
         }
 
-
-        [Authorize(Roles = "Admin, Employee")]
-        [HttpPatch("{orderId}")]
-        public async Task<ActionResult<ReadOrderDto>> UpdateOrder([FromRoute] Guid orderId, [FromBody] OrderUpdateDto orderUpdateDto)
-        {
-            var order = await _orderManagement.UpdateOrder(orderId, orderUpdateDto);
-            var readOrder = new ReadOrderDto(order);
-            return Ok(readOrder);
-        }
-
         [Authorize]
         [HttpGet("{orderId}")]
         public async Task<ActionResult<ReadOrderDto>> GetOrderByIdByUser([FromRoute] Guid orderId)
@@ -64,6 +54,9 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(readOrders);
         }
 
+
+        // ADMIN OPERATIONS
+
         [Authorize(Roles = "Admin, Employee")]
         [HttpGet("admin")]
         public async Task<ActionResult<List<ReadOrderDto>>> GetAllOrdersByAdmin([FromQuery] OrderQueryDto oqdto)
@@ -80,6 +73,24 @@ namespace BlossomAvenue.Presentation.Controller
             var order = await _orderManagement.GetOrder(orderId, null);
             var readOrder = new ReadOrderDto(order);
             return Ok(readOrder);
+        }
+
+        [Authorize(Roles = "Admin, Employee")]
+        [HttpPatch("admin/{orderId}")]
+        public async Task<ActionResult<ReadOrderDto>> UpdateOrder([FromRoute] Guid orderId, [FromBody] OrderUpdateDto orderUpdateDto)
+        {
+            var order = await _orderManagement.UpdateOrder(orderId, orderUpdateDto);
+            var readOrder = new ReadOrderDto(order);
+            return Ok(readOrder);
+        }
+
+        [Authorize(Roles = "Admin, Employee")]
+        [HttpDelete("admin/{orderId}")]
+        public async Task<IActionResult> DeleteOrderByIdByAdmin([FromRoute] Guid orderId)
+        {
+            var status = await _orderManagement.DeleteOrderById(orderId);
+            if (status) return NoContent();
+            else throw new RecordNotFoundException("order");
         }
 
 
