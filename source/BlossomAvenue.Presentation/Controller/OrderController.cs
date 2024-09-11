@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Orders;
+using BlossomAvenue.Core.ValueTypes;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.OrdersService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlossomAvenue.Presentation.Controller
@@ -31,26 +33,14 @@ namespace BlossomAvenue.Presentation.Controller
             return Created(nameof(CreateOrder), readOrder);
         }
 
-        [HttpPatch]
-        public async Task<IActionResult> UpdateOrder(Guid orderId, string orderStatus)
-        {
-            try
-            {
-                var success = await _orderManagement.UpdateOrder(orderId, orderStatus);
 
-                if (success)
-                {
-                    return Ok(new { Message = "Order updated successfully." });
-                }
-                else
-                {
-                    throw new Exception("Something went wrong!");
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Message = ex.Message });
-            }
+        //[Authorize(Roles = "Admin, Employee")]
+        [HttpPatch("{orderId}")]
+        public async Task<ActionResult<ReadOrderDto>> UpdateOrder([FromRoute] Guid orderId, [FromBody] OrderUpdateDto orderUpdateDto)
+        {
+            var order = await _orderManagement.UpdateOrder(orderId, orderUpdateDto);
+            var readOrder = new ReadOrderDto(order);
+            return Ok(readOrder);
         }
 
         [HttpGet("{orderId}")]
