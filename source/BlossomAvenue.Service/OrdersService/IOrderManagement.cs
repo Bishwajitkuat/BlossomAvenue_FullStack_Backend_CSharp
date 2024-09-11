@@ -13,6 +13,8 @@ namespace BlossomAvenue.Service.OrdersService
         public Task<Order> GetOrder(Guid orderId);
 
         public Task<bool> UpdateOrder(Guid orderId, string orderStatus);
+        public Task<ICollection<Order>> GetAllOrdersByUser(OrderQueryDto oqdto, Guid userId);
+        public Task<ICollection<Order>> GetAllOrdersByAdmin(OrderQueryDto oqdto);
 
     }
 }

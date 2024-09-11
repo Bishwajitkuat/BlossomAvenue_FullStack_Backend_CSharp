@@ -47,6 +47,17 @@ namespace BlossomAvenue.Service.OrdersService
             return order;
         }
 
+        public async Task<ICollection<Order>> GetAllOrdersByUser(OrderQueryDto oqdto, Guid userId)
+        {
+            return await _orderRepository.GetAllOrdersByUser(oqdto, userId);
+        }
+
+
+        public async Task<ICollection<Order>> GetAllOrdersByAdmin(OrderQueryDto oqdto)
+        {
+            return await _orderRepository.GetAllOrdersByAdmin(oqdto);
+        }
+
         public async Task<bool> UpdateOrder(Guid orderId, string orderStatus)
         {
             return await _orderRepository.UpdateOrder(orderId, orderStatus);
