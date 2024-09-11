@@ -100,45 +100,6 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminOrUserIdPolicy", policy =>
-        policy.RequireAssertion(context => IsAdminOrMatchingUserId(context))
-    );
-
-    options.AddPolicy("UserIdPolicy", policy =>
-        policy.RequireAssertion(context => IsMatchingUserId(context))
-    );
-});
-
-bool IsAdminOrMatchingUserId(AuthorizationHandlerContext context)
-{
-    var roleClaim = context.User.Claims.FirstOrDefault(c =>
-        c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value;
-
-    var userIdClaim = context.User.Claims.FirstOrDefault(c =>
-        c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-
-    var routeUserId = GetRouteUserId(context);
-
-    return roleClaim == "Admin" || userIdClaim == routeUserId;
-}
-bool IsMatchingUserId(AuthorizationHandlerContext context)
-{
-    var userIdClaim = context.User.Claims.FirstOrDefault(c =>
-        c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-
-    var routeUserId = GetRouteUserId(context);
-
-    return userIdClaim is not null && routeUserId is not null && userIdClaim == routeUserId;
-}
-string GetRouteUserId(AuthorizationHandlerContext context)
-{
-    return context.Resource is HttpContext httpContext
-        ? httpContext?.Request.RouteValues["userId"]?.ToString()
-        : null;
-}
-
 builder.Services.AddControllers(options =>
 {
 
@@ -196,7 +157,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<TokenValidationMiddleware>();
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
