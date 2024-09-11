@@ -44,9 +44,10 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [HttpGet("{orderId}")]
-        public async Task<ActionResult<ReadOrderDto>> GetOrder([FromRoute] Guid orderId)
+        public async Task<ActionResult<ReadOrderDto>> GetOrderByIdByUser([FromRoute] Guid orderId)
         {
-            var order = await _orderManagement.GetOrder(orderId);
+            var userId = Guid.NewGuid();
+            var order = await _orderManagement.GetOrder(orderId, userId);
             var readOrder = new ReadOrderDto(order);
             return Ok(readOrder);
         }
