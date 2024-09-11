@@ -1,6 +1,9 @@
 ﻿using BlossomAvenue.Core.ProductReviews;
+using BlossomAvenue.Core.Users;
+using BlossomAvenue.Core.ValueTypes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlossomAvenue.Core.Orders;
 
@@ -9,15 +12,15 @@ public partial class Order
     public Guid OrderId { get; set; }
 
     public Guid UserId { get; set; }
+    [ForeignKey("AddressDetail")]
+    public Guid AddressId { get; set; }
 
-    public Guid? AddressId { get; set; }
+    public decimal TotalAmount { get; set; }
 
-    public decimal? TotalAmount { get; set; }
-
-    public string OrderStatus { get; set; }
+    public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
 
     public DateTime? CreatedAt { get; set; }
-
-    public ICollection<OrderItem> OrderItems { get; set; }
+    public virtual AddressDetail AddressDetail { get; set; }
+    public virtual ICollection<OrderItem> OrderItems { get; set; }
 
 }

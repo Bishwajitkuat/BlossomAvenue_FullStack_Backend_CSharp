@@ -75,10 +75,8 @@ namespace BlossomAvenue.Presentation.Controller
         [HttpGet("profile")]
         public async Task<IActionResult> GetUserProfile()
         {
-            var claims = HttpContext.User;
-            var userId = claims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
-            if (userId is null) return Unauthorized();
-            var user = await _userManagement.GetUser(new Guid(userId.Value));
+            var userId = GetUserIdFromClaim();
+            var user = await _userManagement.GetUser(userId);
             var userReadDto = new ReadUserProfileDto(user);
             return Ok(userReadDto);
         }
@@ -87,12 +85,18 @@ namespace BlossomAvenue.Presentation.Controller
         [HttpPatch("profile")]
         public async Task<IActionResult> UpdateUserProfile(UpdateUserProfileDto updateUserProfileDto)
         {
-            var claims = HttpContext.User;
-            var userId = claims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
-            if (userId is null || new Guid(userId.Value) != updateUserProfileDto.UserId) return Unauthorized();
+            var userId = GetUserIdFromClaim();
+            if (userId != updateUserProfileDto.UserId) return Unauthorized();
             await _userManagement.UpdateUserProfile(updateUserProfileDto);
             return NoContent();
+        }
 
+
+        private Guid GetUserIdFromClaim()
+        {
+            var claims = HttpContext.User;
+            var userId = claims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier) ?? throw new UnauthorizedAccessException();
+            return new Guid(userId.Value);
         }
 
 

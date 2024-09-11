@@ -21,15 +21,10 @@ public partial class BlossomAvenueDbContext : DbContext
     }
 
     public virtual DbSet<AddressDetail> AddressDetails { get; set; }
-
     public virtual DbSet<City> Cities { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
-
     public virtual DbSet<UserAddress> UserAddresses { get; set; }
-
     public virtual DbSet<UserContactNumber> UserContactNumbers { get; set; }
-
     public virtual DbSet<UserCredential> UserCredentials { get; set; }
 
     // product related tables
@@ -75,20 +70,16 @@ public partial class BlossomAvenueDbContext : DbContext
         modelBuilder.Entity<UserAddress>(entity =>
         {
             entity.HasKey(e => new { e.UserId, e.AddressId }).HasName("user_addresses_pkey");
-
-
         });
 
         modelBuilder.Entity<UserContactNumber>(entity =>
         {
             entity.HasKey(c => c.ContactNumberId);
-
         });
 
         modelBuilder.Entity<UserCredential>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("user_credentials_pk");
-
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -97,13 +88,27 @@ public partial class BlossomAvenueDbContext : DbContext
             .HasDefaultValueSql("CURRENT_TIMESTAMP")
             .HasColumnType("timestamp without time zone")
             .HasColumnName("created_at");
+        });
 
+        modelBuilder.Entity<Cart>(entity =>
+        {
+            entity.HasKey(c => c.CartId);
         });
 
         modelBuilder.Entity<CartItem>(entity =>
         {
             entity.HasKey(ci => ci.CartItemsId);
         });
+
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.HasKey(o => o.OrderId);
+            entity.Property(e => e.CreatedAt)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            .HasColumnType("timestamp without time zone")
+            .HasColumnName("created_at");
+        });
+
         modelBuilder.Entity<OrderItem>(entity =>
         {
             entity.HasKey(oi => oi.OrderItemsId);
@@ -113,10 +118,7 @@ public partial class BlossomAvenueDbContext : DbContext
         {
             entity.HasKey(pr => pr.ReviewId);
         });
-        modelBuilder.Entity<Cart>(entity =>
-        {
-            entity.HasKey(c => c.CartId);
-        });
+
 
         OnModelCreatingPartial(modelBuilder);
     }
