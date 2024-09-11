@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlossomAvenue.Presentation"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlossomAvenue.Service", "BlossomAvenue.Service\BlossomAvenue.Service.csproj", "{41526BF5-CBBA-4E8A-979E-1E5B261503E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlossomAvenue.Infrastrcture", "BlossomAvenue.Infrastructure\BlossomAvenue.Infrastrcture.csproj", "{F65557D3-2536-488B-BA6E-63105E8568B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlossomAvenue.Infrastructure", "BlossomAvenue.Infrastructure\BlossomAvenue.Infrastructure.csproj", "{F65557D3-2536-488B-BA6E-63105E8568B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlossomAvenue.Tests", "BlossomAvenue.Tests\BlossomAvenue.Tests.csproj", "{4C38E4D8-8931-4F03-9FE0-9F22E435EFA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{F65557D3-2536-488B-BA6E-63105E8568B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F65557D3-2536-488B-BA6E-63105E8568B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F65557D3-2536-488B-BA6E-63105E8568B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C38E4D8-8931-4F03-9FE0-9F22E435EFA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C38E4D8-8931-4F03-9FE0-9F22E435EFA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C38E4D8-8931-4F03-9FE0-9F22E435EFA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C38E4D8-8931-4F03-9FE0-9F22E435EFA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
