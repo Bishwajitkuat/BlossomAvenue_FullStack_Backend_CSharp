@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using BlossomAvenue.Core.Users;
+using BlossomAvenue.Core.ValueTypes;
 using BlossomAvenue.Service.CustomAttributes;
 
 namespace BlossomAvenue.Service.UsersService.Dtos
@@ -14,7 +15,7 @@ namespace BlossomAvenue.Service.UsersService.Dtos
         public string LastName { get; set; } = null!;
 
         [Required, EmailAddress(ErrorMessage = "Invalid email address")]
-        public string? Email { get; set; }
+        public string Email { get; set; } = null!;
 
         [ContactNumbersValidation]
         public string[] ContactNumbers { get; set; } = [];
@@ -22,10 +23,15 @@ namespace BlossomAvenue.Service.UsersService.Dtos
         [Required]
         public string AddressLine1 { get; set; } = null!;
 
-        public string AddressLine2 { get; set; } = null!;
-        public Guid? CityId { get; set; }
+        public string? AddressLine2 { get; set; }
+
+        [Required, StringLength(5, ErrorMessage = "Invalid formate, a valid postcode has five digits.")]
+        public string PostCode { get; set; } = null!;
+
         [Required]
-        public string CityName { get; set; }
+        public string City { get; set; } = null!;
+        [Required]
+        public Country Country { get; set; }
 
         [Required, PasswordValidation]
         public string Password { get; set; } = null!;
@@ -51,23 +57,17 @@ namespace BlossomAvenue.Service.UsersService.Dtos
                 {
                     new UserAddress{
                         DefaultAddress = true,
-                        Address = new AddressDetail{
+                        AddressDetail = new AddressDetail{
+                            FullName = $"{FirstName} {LastName}",
                             AddressLine1 = AddressLine1,
                             AddressLine2 = AddressLine2,
-                            //CityId = CityId,
+                            PostCode = PostCode,
+                            City = City,
+                            Country = Country,
                         }
                     }
                 },
             };
-
-            if (CityId != null)
-            {
-                newUser.UserAddresses.ToList()[0].Address.CityId = (Guid)CityId;
-            }
-            else
-            {
-                newUser.UserAddresses.ToList()[0].Address.City = new City { CityName = CityName };
-            }
 
             return newUser;
 

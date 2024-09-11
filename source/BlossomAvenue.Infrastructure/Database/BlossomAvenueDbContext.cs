@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using BlossomAvenue.Core.Users;
 using BlossomAvenue.Core.ProductReviews;
@@ -21,7 +21,6 @@ public partial class BlossomAvenueDbContext : DbContext
     }
 
     public virtual DbSet<AddressDetail> AddressDetails { get; set; }
-    public virtual DbSet<City> Cities { get; set; }
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<UserAddress> UserAddresses { get; set; }
     public virtual DbSet<UserContactNumber> UserContactNumbers { get; set; }
@@ -47,14 +46,13 @@ public partial class BlossomAvenueDbContext : DbContext
 
         modelBuilder.Entity<AddressDetail>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("address_details_pkey");
+            entity.HasKey(e => e.AddressDetailId).HasName("address_details_pkey");
 
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("users_pkey");
-
+            entity.HasKey(e => e.UserId);
             entity.ToTable("users");
 
             entity.Property(e => e.UserId)
