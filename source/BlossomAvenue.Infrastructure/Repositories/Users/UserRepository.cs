@@ -33,7 +33,12 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
 
         public async Task<bool> DeleteUser(Guid userId)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            var user = await _context.Users
+                                            .Include(u => u.Cart)
+                                            .Include(u => u.UserAddresses)
+                                                .ThenInclude(u => u.AddressDetail)
+                                            .Include(u => u.UserContactNumbers)
+                                            .FirstOrDefaultAsync(u => u.UserId == userId);
             if (user == null) return false;
             _context.Remove(user);
             return await _context.SaveChangesAsync() > 0;
@@ -45,8 +50,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
                 .Include(u => u.UserContactNumbers)
                 .Include(u => u.UserCredential)
                 .Include(u => u.UserAddresses)
-                .ThenInclude(ua => ua.Address)
-                .ThenInclude(a => a.City)
+                .ThenInclude(ua => ua.AddressDetail)
                 .FirstOrDefaultAsync(u => u.UserId == userId);
         }
 
@@ -57,8 +61,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
                 .Include(u => u.UserContactNumbers)
                 .Include(u => u.UserCredential)
                 .Include(u => u.UserAddresses)
-                .ThenInclude(ua => ua.Address)
-                .ThenInclude(a => a.City)
+                .ThenInclude(ua => ua.AddressDetail)
                 .AsQueryable();
 
             // filter by user role
