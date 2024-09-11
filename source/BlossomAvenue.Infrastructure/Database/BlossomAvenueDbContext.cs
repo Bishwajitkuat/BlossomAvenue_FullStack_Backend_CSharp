@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using BlossomAvenue.Core.Users;
 using BlossomAvenue.Core.ProductReviews;
@@ -69,7 +69,14 @@ public partial class BlossomAvenueDbContext : DbContext
 
         modelBuilder.Entity<UserAddress>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.AddressId }).HasName("user_addresses_pkey");
+            entity.HasKey(e => e.UserAddressId);
+        });
+
+        modelBuilder.Entity<AddressDetail>(entity =>
+        {
+            entity.HasKey(ad => ad.AddressDetailId);
+            entity.Property(ad => ad.Country)
+                .HasConversion<string>();
         });
 
         modelBuilder.Entity<UserContactNumber>(entity =>
