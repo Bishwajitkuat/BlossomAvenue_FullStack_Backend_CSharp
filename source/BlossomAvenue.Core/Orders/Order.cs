@@ -12,9 +12,7 @@ public partial class Order
     public Guid OrderId { get; set; }
 
     public Guid UserId { get; set; }
-    [ForeignKey("AddressDetail")]
-    public Guid AddressId { get; set; }
-
+    public Guid AddressDetailId { get; set; }
     public decimal TotalAmount { get; set; }
 
     public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;

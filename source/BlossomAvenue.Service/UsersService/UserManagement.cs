@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Users;
 using Microsoft.Extensions.Configuration;
-using BlossomAvenue.Service.Repositories.Cities;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Service.UsersService.Dtos;
 using System.Security.Cryptography;

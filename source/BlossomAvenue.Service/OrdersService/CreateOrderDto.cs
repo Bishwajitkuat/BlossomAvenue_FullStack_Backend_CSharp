@@ -11,7 +11,7 @@ namespace BlossomAvenue.Service.OrdersService
 {
     public class CreateOrderDto
     {
-        public Guid? AddressId { get; set; }
+        public Guid? AddressDetailId { get; set; }
         public CreateShippingAddressDto ShippingAddress { get; set; }
 
         public Order ConvertToOrder(Cart cart, Guid userId)
@@ -20,9 +20,9 @@ namespace BlossomAvenue.Service.OrdersService
             {
                 UserId = userId,
             };
-            if (AddressId != null)
+            if (AddressDetailId != null)
             {
-                order.AddressId = (Guid)AddressId;
+                order.AddressDetailId = (Guid)AddressDetailId;
             }
             else if (ShippingAddress != null)
             {

@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Service.Repositories.Categories;
 using BlossomAvenue.Infrastructure.Repositories.Categories;
 using BlossomAvenue.Service.CategoriesService;
-using BlossomAvenue.Service.Repositories.Cities;
-using BlossomAvenue.Infrastructure.Repositories.Cities;
 using BlossomAvenue.Service.Repositories.Carts;
 using BlossomAvenue.Infrastructure.Repositories.Carts;
 using BlossomAvenue.Service.CartsService;
@@ -70,7 +68,6 @@ builder.Services.AddScoped<IProductManagement, ProductManagement>();
 builder.Services.AddScoped<IProductReviewRepository, ProductReviewsRepository>();
 // DI order management service
 builder.Services.AddScoped<IProductReviewManagement, ProductReviewManagement>();
-builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthManagement, AuthManagement>();
 builder.Services.AddSingleton<IInMemoryDB, InMemoryDB>();

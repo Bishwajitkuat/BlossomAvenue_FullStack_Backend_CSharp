@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using BlossomAvenue.Core.Users;
+using BlossomAvenue.Core.ValueTypes;
 
 namespace BlossomAvenue.Service.UsersService.Dtos
 {
@@ -53,30 +55,39 @@ namespace BlossomAvenue.Service.UsersService.Dtos
                 List<UserAddress> newUserAddressList = [];
                 foreach (var address in UserAddresses)
                 {
-                    if (address.AddressId == null)
+                    // this address currently does not exist
+                    // will be create for the user
+                    if (address.UserAddressId == null)
                     {
                         newUserAddressList.Add(new UserAddress
                         {
                             DefaultAddress = address.DefaultAddress,
-                            Address = new AddressDetail
+                            AddressDetail = new AddressDetail
                             {
+                                FullName = address.Address.FullName,
                                 AddressLine1 = address.Address.AddressLine1,
                                 AddressLine2 = address.Address.AddressLine2,
-                                CityId = address.Address.CityId,
-
+                                PostCode = address.Address.PostCode,
+                                City = address.Address.City,
+                                Country = address.Address.Country
                             }
 
                         });
                     }
                     else
                     {
-                        var addressToUpdate = user.UserAddresses.FirstOrDefault(u => u.AddressId == address.AddressId);
+                        // address already exist
+                        // updating values
+                        var addressToUpdate = user.UserAddresses.FirstOrDefault(u => u.UserAddressId == address.UserAddressId);
                         if (addressToUpdate != null)
                         {
                             addressToUpdate.DefaultAddress = address.DefaultAddress;
-                            addressToUpdate.Address.AddressLine1 = address.Address.AddressLine1;
-                            addressToUpdate.Address.AddressLine2 = address.Address.AddressLine2;
-                            addressToUpdate.Address.CityId = address.Address.CityId;
+                            addressToUpdate.AddressDetail.FullName = address.Address.FullName;
+                            addressToUpdate.AddressDetail.AddressLine1 = address.Address.AddressLine1;
+                            addressToUpdate.AddressDetail.AddressLine2 = address.Address.AddressLine2;
+                            addressToUpdate.AddressDetail.PostCode = address.Address.PostCode;
+                            addressToUpdate.AddressDetail.City = address.Address.City;
+                            addressToUpdate.AddressDetail.Country = address.Address.Country;
                             // adding to temporary list
                             newUserAddressList.Add(addressToUpdate);
                         }
@@ -84,6 +95,8 @@ namespace BlossomAvenue.Service.UsersService.Dtos
                 }
                 // finally updating actual list from temp list
                 user.UserAddresses = newUserAddressList;
+
+
             }
 
             return user;
@@ -99,7 +112,7 @@ namespace BlossomAvenue.Service.UsersService.Dtos
 
     public class UpdateUserAddress
     {
-        public Guid? AddressId { get; set; }
+        public Guid? UserAddressId { get; set; }
 
         public bool? DefaultAddress { get; set; }
 
@@ -109,11 +122,18 @@ namespace BlossomAvenue.Service.UsersService.Dtos
 
     public class UpdateAddressDetail
     {
-        public string AddressLine1 { get; set; }
-
+        public Guid? AddressDetailId { get; set; }
+        [Required]
+        public string FullName { get; set; } = null!;
+        [Required]
+        public string AddressLine1 { get; set; } = null!;
         public string? AddressLine2 { get; set; }
-
-        public Guid CityId { get; set; }
+        [Required, StringLength(5, ErrorMessage = "Invalid formate, a valid postcode has five digits.")]
+        public string PostCode { get; set; } = null!;
+        [Required]
+        public string City { get; set; } = null!;
+        [Required]
+        public Country Country { get; set; }
     }
 
 

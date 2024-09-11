@@ -21,7 +21,6 @@ public partial class BlossomAvenueDbContext : DbContext
     }
 
     public virtual DbSet<AddressDetail> AddressDetails { get; set; }
-    public virtual DbSet<City> Cities { get; set; }
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<UserAddress> UserAddresses { get; set; }
     public virtual DbSet<UserContactNumber> UserContactNumbers { get; set; }
@@ -47,14 +46,13 @@ public partial class BlossomAvenueDbContext : DbContext
 
         modelBuilder.Entity<AddressDetail>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("address_details_pkey");
+            entity.HasKey(e => e.AddressDetailId).HasName("address_details_pkey");
 
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("users_pkey");
-
+            entity.HasKey(e => e.UserId);
             entity.ToTable("users");
 
             entity.Property(e => e.UserId)
@@ -69,7 +67,14 @@ public partial class BlossomAvenueDbContext : DbContext
 
         modelBuilder.Entity<UserAddress>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.AddressId }).HasName("user_addresses_pkey");
+            entity.HasKey(e => e.UserAddressId);
+        });
+
+        modelBuilder.Entity<AddressDetail>(entity =>
+        {
+            entity.HasKey(ad => ad.AddressDetailId);
+            entity.Property(ad => ad.Country)
+                .HasConversion<string>();
         });
 
         modelBuilder.Entity<UserContactNumber>(entity =>

@@ -56,7 +56,6 @@ namespace BlossomAvenue.Infrastructure.Repositories.Orders
                 .ThenInclude(o => o.Product)
                     .ThenInclude(o => o.Images)
             .Include(o => o.AddressDetail)
-                .ThenInclude(o => o.City)
             .FirstOrDefaultAsync(o => o.OrderId == orderId);
             return order;
         }
@@ -70,7 +69,6 @@ namespace BlossomAvenue.Infrastructure.Repositories.Orders
                 .ThenInclude(o => o.Product)
                     .ThenInclude(o => o.Images)
             .Include(o => o.AddressDetail)
-                .ThenInclude(o => o.City)
                 .AsQueryable();
 
             if (userId != null)
