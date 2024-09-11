@@ -68,5 +68,13 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(readOrders);
         }
 
+        [HttpGet("admin/{orderId}")]
+        public async Task<ActionResult<ReadOrderDto>> GetOrderByIdByAdmin([FromRoute] Guid orderId)
+        {
+            var order = await _orderManagement.GetOrder(orderId, null);
+            var readOrder = new ReadOrderDto(order);
+            return Ok(readOrder);
+        }
+
     }
 }
