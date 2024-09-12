@@ -1,4 +1,5 @@
 ﻿using BlossomAvenue.Core.Users;
+using BlossomAvenue.Service.SharedDtos;
 using BlossomAvenue.Service.UsersService.Dtos;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace BlossomAvenue.Service.UsersService
 {
     public interface IUserManagement
     {
-        public Task<List<User>> GetUsers(UsersQueryDto query);
+        public Task<PaginatedResponse<User>> GetUsers(UsersQueryDto query);
         public Task<User> GetUser(Guid userId);
         public Task<bool> UpdateUser(Guid userId, UpdateUserDto updateUserDto);
         public Task<bool> UpdateUserProfile(UpdateUserProfileDto updateUserProfileDto);
