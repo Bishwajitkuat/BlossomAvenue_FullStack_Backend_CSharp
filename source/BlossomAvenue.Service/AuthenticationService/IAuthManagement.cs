@@ -8,7 +8,7 @@ namespace BlossomAvenue.Service.AuthenticationService
 {
     public interface IAuthManagement
     {
-        Task<AuthenticationResultDto> Authenticate(string username, string password);
+        Task<AuthenticationResultDto> Login(string username, string password);
         public void Logout(string token);
     }
 }

@@ -23,7 +23,7 @@ namespace BlossomAvenue.Presentation.Controller
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequest)
         {
-            var result = await _authService.Authenticate(loginRequest.Username, loginRequest.Password);
+            var result = await _authService.Login(loginRequest.Username, loginRequest.Password);
 
             if (!result.IsAuthenticated)
             {
@@ -36,7 +36,7 @@ namespace BlossomAvenue.Presentation.Controller
         [Authorize]
         [HttpPost("logout")]
         public IActionResult Logout()
-        {   
+        {
             var token = Request.Headers["Authorization"].ToString().Split(" ")[1];
             _authService.Logout(token);
 

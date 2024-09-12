@@ -1,4 +1,4 @@
-using BlossomAvenue.Core.Products;
+﻿using BlossomAvenue.Core.Products;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.Repositories.InMemory;
@@ -23,7 +23,7 @@ namespace BlossomAvenue.Service.AuthenticationService
             _tokenMgt = tokenMgt;
             _passwordHasher = passwordHasher;
         }
-        public async Task<AuthenticationResultDto> Authenticate(string username, string password)
+        public async Task<AuthenticationResultDto> Login(string username, string password)
         {
             var user = await _userRepository.GetUserByUsername(username);
 
