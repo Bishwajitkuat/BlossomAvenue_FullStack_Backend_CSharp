@@ -6,6 +6,8 @@ using BlossomAvenue.Core.Orders;
 using BlossomAvenue.Core.Carts;
 using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Core.Products;
+using System.Reflection;
+using BlossomAvenue.Infrastructure.Database.SeedData;
 
 namespace BlossomAvenue.Infrastructure.Database;
 
@@ -44,60 +46,30 @@ public partial class BlossomAvenueDbContext : DbContext
     {
         modelBuilder.HasPostgresExtension("pg_trgm");
 
-        modelBuilder.Entity<AddressDetail>(entity =>
-        {
-            entity.HasKey(e => e.AddressDetailId).HasName("address_details_pkey");
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+        modelBuilder.Entity<UserAddress>(b =>
+        {
+            b.HasKey(e => e.UserAddressId);
+            b.HasData(SeedDataUsers.UserAddresses);
         });
 
-        modelBuilder.Entity<User>(entity =>
+        modelBuilder.Entity<Image>(b =>
         {
-            entity.HasKey(e => e.UserId);
-            entity.ToTable("users");
-
-            entity.Property(e => e.UserId)
-                .HasDefaultValueSql("gen_random_uuid()")
-                .HasColumnName("user_id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("created_at");
-
+            b.HasKey(b => b.ImageId);
+            b.HasData(SeedDataProducts.Images);
         });
 
-        modelBuilder.Entity<UserAddress>(entity =>
+        modelBuilder.Entity<ProductCategory>(b =>
         {
-            entity.HasKey(e => e.UserAddressId);
+            b.HasKey(b => b.ProductCategoryId);
+            b.HasData(SeedDataProducts.ProductCategories);
         });
 
-        modelBuilder.Entity<AddressDetail>(entity =>
+        modelBuilder.Entity<Cart>(b =>
         {
-            entity.HasKey(ad => ad.AddressDetailId);
-            entity.Property(ad => ad.Country)
-                .HasConversion<string>();
-        });
-
-        modelBuilder.Entity<UserContactNumber>(entity =>
-        {
-            entity.HasKey(c => c.ContactNumberId);
-        });
-
-        modelBuilder.Entity<UserCredential>(entity =>
-        {
-            entity.HasKey(e => e.UserId).HasName("user_credentials_pk");
-        });
-
-        modelBuilder.Entity<Product>(entity =>
-        {
-            entity.Property(e => e.CreatedAt)
-            .HasDefaultValueSql("CURRENT_TIMESTAMP")
-            .HasColumnType("timestamp without time zone")
-            .HasColumnName("created_at");
-        });
-
-        modelBuilder.Entity<Cart>(entity =>
-        {
-            entity.HasKey(c => c.CartId);
+            b.HasKey(c => c.CartId);
+            b.HasData(SeedDataUsers.Carts);
         });
 
         modelBuilder.Entity<CartItem>(entity =>
