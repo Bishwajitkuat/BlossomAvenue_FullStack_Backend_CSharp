@@ -12,7 +12,7 @@ namespace BlossomAvenue.Service.ProductsServices
         public Task<Product> CreateProduct(Product product);
         public Task<Product> GetProductById(Guid productId);
 
-        public Task<bool> UpdateProduct(Guid productId, UpdateProductDto productToUpdate);
+        public Task<Product> UpdateProduct(Guid productId, UpdateProductDto productToUpdate);
         public Task<bool> DeleteProductById(Guid productId);
 
         public Task<PaginatedResponse<Product>> GetAllProducts(ProductQueryDto pqdto);
