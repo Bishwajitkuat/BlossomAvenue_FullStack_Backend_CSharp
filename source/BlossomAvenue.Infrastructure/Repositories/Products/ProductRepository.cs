@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
 using BlossomAvenue.Core.ValueTypes;
 using BlossomAvenue.Infrastructure.Database;
+using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.ProductsServices;
 using BlossomAvenue.Service.Repositories.Products;
 using BlossomAvenue.Service.SharedDtos;
@@ -48,10 +49,11 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
             return product;
         }
 
-        public async Task<bool> UpdateProduct(Product updatedProduct)
+        public async Task<Product> UpdateProduct(Product updatedProduct)
         {
             _context.Products.Update(updatedProduct);
-            return await _context.SaveChangesAsync() > 0;
+            if (await _context.SaveChangesAsync() > 0) return updatedProduct;
+            else throw new RecordNotUpdatedException("product");
         }
 
 

@@ -47,10 +47,11 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize(Roles = "Admin")]
         [HttpPatch("{userId}")]
-        public async Task<IActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] UpdateUserDto updateUserDto)
+        public async Task<ActionResult<ReadUserDto>> UpdateUser([FromRoute] Guid userId, [FromBody] UpdateUserDto updateUserDto)
         {
-            await _userManagement.UpdateUser(userId, updateUserDto);
-            return NoContent();
+            var user = await _userManagement.UpdateUser(userId, updateUserDto);
+            var readUser = new ReadUserDto(user);
+            return Ok(readUser);
         }
 
         [Authorize(Roles = "Admin")]
@@ -75,7 +76,7 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize]
         [HttpGet("profile")]
-        public async Task<IActionResult> GetUserProfile()
+        public async Task<ActionResult<ReadUserProfileDto>> GetUserProfile()
         {
             var userId = GetUserIdFromClaim();
             var user = await _userManagement.GetUser(userId);
@@ -85,12 +86,13 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize]
         [HttpPatch("profile")]
-        public async Task<IActionResult> UpdateUserProfile(UpdateUserProfileDto updateUserProfileDto)
+        public async Task<ActionResult<ReadUserProfileDto>> UpdateUserProfile(UpdateUserProfileDto updateUserProfileDto)
         {
             var userId = GetUserIdFromClaim();
             if (userId != updateUserProfileDto.UserId) return Unauthorized();
-            await _userManagement.UpdateUserProfile(updateUserProfileDto);
-            return NoContent();
+            var user = await _userManagement.UpdateUserProfile(updateUserProfileDto);
+            var readUserProfile = new ReadUserProfileDto(user);
+            return Ok(readUserProfile);
         }
 
 

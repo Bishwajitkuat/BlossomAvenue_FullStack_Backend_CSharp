@@ -42,11 +42,12 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize(Roles = "Admin, Employee")]
         [HttpPatch("{id:Guid}")]
-        public async Task<ActionResult> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto)
+        public async Task<ActionResult<GetProductByIdReadDto>> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto)
         {
 
-            await _productManagement.UpdateProduct(id, updateProductDto);
-            return NoContent();
+            var product = await _productManagement.UpdateProduct(id, updateProductDto);
+            var readProduct = new GetProductByIdReadDto(product);
+            return Ok(readProduct);
         }
 
         [Authorize(Roles = "Admin, Employee")]

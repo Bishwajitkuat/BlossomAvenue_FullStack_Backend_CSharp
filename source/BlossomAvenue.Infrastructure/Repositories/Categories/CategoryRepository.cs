@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
 using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.CategoriesService;
+using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.Repositories.Categories;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,13 +31,14 @@ namespace BlossomAvenue.Infrastructure.Repositories.Categories
             return await _context.Categories.ToListAsync();
         }
 
-        public async Task<bool> UpdateCategory(Guid categoryId, UpdateCategoryDto updateCategoryDto)
+        public async Task<Category> UpdateCategory(Guid categoryId, UpdateCategoryDto updateCategoryDto)
         {
             Category category = await _context.Categories.Where(c => c.CategoryId == categoryId).FirstOrDefaultAsync<Category>();
-            if (category is null) return false;
+            if (category is null) throw new RecordNotFoundException("category");
             category.CategoryName = updateCategoryDto.CategoryName;
             category.ParentId = updateCategoryDto.ParentId;
-            return await _context.SaveChangesAsync() > 0;
+            if (await _context.SaveChangesAsync() > 0) return category;
+            else throw new RecordNotUpdatedException("category");
         }
 
         public async Task<bool> DeleteCategory(Guid categoryId)
