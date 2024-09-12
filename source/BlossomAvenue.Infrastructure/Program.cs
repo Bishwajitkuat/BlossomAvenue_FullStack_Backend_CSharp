@@ -19,7 +19,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using BlossomAvenue.Core.Authentication;
-using BlossomAvenue.Infrastructure.Repositories.Jwt;
 using BlossomAvenue.Service.AuthenticationService;
 using Microsoft.OpenApi.Models;
 using BlossomAvenue.Service.Repositories.InMemory;
@@ -32,6 +31,7 @@ using BlossomAvenue.Service.Repositories.Products;
 using BlossomAvenue.Infrastructure.Repositories.Products;
 using BlossomAvenue.Service.ProductsServices;
 using System.Text.Json.Serialization;
+using BlossomAvenue.Infrastructure.Token.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,7 +71,7 @@ builder.Services.AddScoped<IProductReviewManagement, ProductReviewManagement>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthManagement, AuthManagement>();
 builder.Services.AddSingleton<IInMemoryDB, InMemoryDB>();
-builder.Services.AddTransient<IJwtManagement, JwtManagement>();
+builder.Services.AddTransient<ITokenManagement, TokenManagement>();
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtConfiguration"));
 // DI Exception middleware
 builder.Services.AddScoped<ExceptionMiddleware>();
@@ -150,13 +150,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
-
 app.UseMiddleware<TokenValidationMiddleware>();
-
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

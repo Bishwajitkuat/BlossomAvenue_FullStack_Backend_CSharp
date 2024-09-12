@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlossomAvenue.Service.AuthenticationService
 {
-    public interface IJwtManagement
+    public interface ITokenManagement
     {
         string GenerateToken(User user);
         void InvalidateToken(string token);

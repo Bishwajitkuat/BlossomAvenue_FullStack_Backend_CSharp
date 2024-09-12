@@ -8,14 +8,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace BlossomAvenue.Infrastructure.Repositories.Jwt
+namespace BlossomAvenue.Infrastructure.Token.Jwt
 {
-    public class JwtManagement : IJwtManagement
+    public class TokenManagement : ITokenManagement
     {
         private readonly JwtConfiguration _jwtConfigurations;
         private readonly IInMemoryDB _inMemoryDB;
 
-        public JwtManagement(IOptions<JwtConfiguration> jwtSettings, IInMemoryDB inMemoryDB)
+        public TokenManagement(IOptions<JwtConfiguration> jwtSettings, IInMemoryDB inMemoryDB)
         {
             _jwtConfigurations = jwtSettings.Value;
             this._inMemoryDB = inMemoryDB;

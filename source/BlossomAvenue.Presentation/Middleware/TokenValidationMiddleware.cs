@@ -11,12 +11,12 @@ namespace BlossomAvenue.Presentation.Middleware
     public class TokenValidationMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IJwtManagement _jwtService;
+        private readonly ITokenManagement _tokenMgt;
 
-        public TokenValidationMiddleware(RequestDelegate next, IJwtManagement jwtService)
+        public TokenValidationMiddleware(RequestDelegate next, ITokenManagement tokenMgt)
         {
             _next = next;
-            _jwtService = jwtService;
+            _tokenMgt = tokenMgt;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -29,7 +29,7 @@ namespace BlossomAvenue.Presentation.Middleware
                 try
                 {
 
-                    if (!_jwtService.ValidateToken(token))
+                    if (!_tokenMgt.ValidateToken(token))
                     {
                         context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                         return;

@@ -1,4 +1,4 @@
-﻿using BlossomAvenue.Core.Products;
+using BlossomAvenue.Core.Products;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.Repositories.InMemory;
@@ -14,13 +14,13 @@ namespace BlossomAvenue.Service.AuthenticationService
     public class AuthManagement : IAuthManagement
     {
         private readonly IUserRepository _userRepository;
-        private readonly IJwtManagement _jwtService;
+        private readonly ITokenManagement _tokenMgt;
         private readonly IPasswordHasher _passwordHasher;
 
-        public AuthManagement(IUserRepository userRepository, IJwtManagement jwtService, IPasswordHasher passwordHasher)
+        public AuthManagement(IUserRepository userRepository, ITokenManagement tokenMgt, IPasswordHasher passwordHasher)
         {
             _userRepository = userRepository;
-            _jwtService = jwtService;
+            _tokenMgt = tokenMgt;
             _passwordHasher = passwordHasher;
         }
         public async Task<AuthenticationResultDto> Authenticate(string username, string password)
@@ -35,7 +35,7 @@ namespace BlossomAvenue.Service.AuthenticationService
 
             if (_passwordHasher.VerifyPassword(password, user.UserCredential.Password, user.UserCredential.Salt))
             {
-                var token = _jwtService.GenerateToken(user);
+                var token = _tokenMgt.GenerateToken(user);
                 return new AuthenticationResultDto { IsAuthenticated = true, Token = token };
             }
             return new AuthenticationResultDto() { IsAuthenticated = false };
@@ -43,7 +43,7 @@ namespace BlossomAvenue.Service.AuthenticationService
 
         public void Logout(string token)
         {
-            _jwtService.InvalidateToken(token);
+            _tokenMgt.InvalidateToken(token);
         }
 
 
