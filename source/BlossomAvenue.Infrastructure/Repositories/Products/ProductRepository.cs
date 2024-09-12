@@ -8,6 +8,7 @@ using BlossomAvenue.Core.ValueTypes;
 using BlossomAvenue.Infrastructure.Database;
 using BlossomAvenue.Service.ProductsServices;
 using BlossomAvenue.Service.Repositories.Products;
+using BlossomAvenue.Service.SharedDtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlossomAvenue.Infrastructure.Repositories.Products
@@ -62,7 +63,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<ICollection<Product>> GetAllProducts(ProductQueryDto pqdto)
+        public async Task<PaginatedResponse<Product>> GetAllProducts(ProductQueryDto pqdto)
         {
             var query = _context.Products
             .Include(p => p.Variations)
@@ -74,6 +75,9 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
             {
                 query = query.Where(p => p.Title.ToLower().Contains(pqdto.Search.ToLower()));
             }
+
+            // total count after the filtering
+            var totalItemCount = await query.CountAsync();
 
             var isAscending = pqdto.OrderBy.ToString().ToLower().Equals("asc", StringComparison.OrdinalIgnoreCase);
 
@@ -90,7 +94,9 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
             .Skip((pqdto.PageNo - 1) * pqdto.PageSize)
             .Take(pqdto.PageSize)
             .ToListAsync();
-            return products;
+
+
+            return new PaginatedResponse<Product>(products, pqdto.PageSize, pqdto.PageNo, totalItemCount);
 
         }
     }

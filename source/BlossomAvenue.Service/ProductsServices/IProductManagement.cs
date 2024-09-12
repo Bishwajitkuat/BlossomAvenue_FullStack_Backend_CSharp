@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
+using BlossomAvenue.Service.SharedDtos;
 
 namespace BlossomAvenue.Service.ProductsServices
 {
@@ -14,6 +15,6 @@ namespace BlossomAvenue.Service.ProductsServices
         public Task<bool> UpdateProduct(Guid productId, UpdateProductDto productToUpdate);
         public Task<bool> DeleteProductById(Guid productId);
 
-        public Task<ICollection<Product>> GetAllProducts(ProductQueryDto pqdto);
+        public Task<PaginatedResponse<Product>> GetAllProducts(ProductQueryDto pqdto);
     }
 }
