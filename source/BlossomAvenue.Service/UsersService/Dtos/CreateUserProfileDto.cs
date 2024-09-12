@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BlossomAvenue.Core.Carts;
 using BlossomAvenue.Core.Users;
 using BlossomAvenue.Core.ValueTypes;
 using BlossomAvenue.Service.CustomAttributes;
@@ -67,6 +68,7 @@ namespace BlossomAvenue.Service.UsersService.Dtos
                         }
                     }
                 },
+                Cart = new Cart()
             };
 
             return newUser;
