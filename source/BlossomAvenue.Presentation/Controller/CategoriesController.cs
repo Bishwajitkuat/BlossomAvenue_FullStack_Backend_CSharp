@@ -28,7 +28,7 @@ namespace BlossomAvenue.Presentation.Controller
             return Ok(categories);
 
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
         {
@@ -37,7 +37,7 @@ namespace BlossomAvenue.Presentation.Controller
             return Created(nameof(CreateCategory), newCategory);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateCategory([FromRoute] Guid id, [FromBody] UpdateCategoryDto updateCategoryDto)
         {
@@ -47,7 +47,7 @@ namespace BlossomAvenue.Presentation.Controller
 
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Employee")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
