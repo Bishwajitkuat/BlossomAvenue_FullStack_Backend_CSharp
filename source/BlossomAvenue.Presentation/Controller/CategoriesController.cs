@@ -39,12 +39,10 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize(Roles = "Admin, Employee")]
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateCategory([FromRoute] Guid id, [FromBody] UpdateCategoryDto updateCategoryDto)
+        public async Task<ActionResult<Category>> UpdateCategory([FromRoute] Guid id, [FromBody] UpdateCategoryDto updateCategoryDto)
         {
-
-            await _categoryManagement.UpdateCategory(id, updateCategoryDto);
-            return NoContent();
-
+            var category = await _categoryManagement.UpdateCategory(id, updateCategoryDto);
+            return Ok(category);
         }
 
         [Authorize(Roles = "Admin, Employee")]

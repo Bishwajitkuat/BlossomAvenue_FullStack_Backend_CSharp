@@ -37,10 +37,9 @@ namespace BlossomAvenue.Service.CategoriesService
             return await _categoryRepository.GetAllCategories();
         }
 
-        public async Task<bool> UpdateCategory(Guid categoryId, UpdateCategoryDto updateCategoryDto)
+        public async Task<Category> UpdateCategory(Guid categoryId, UpdateCategoryDto updateCategoryDto)
         {
             var result = await _categoryRepository.UpdateCategory(categoryId, updateCategoryDto);
-            if (result is false) throw new RecordNotUpdatedException("category");
             return result;
         }
     }
