@@ -7,6 +7,7 @@ using System.Linq;
 using BlossomAvenue.Service.SharedDtos;
 using BlossomAvenue.Service.UsersService.Dtos;
 using BlossomAvenue.Core.ValueTypes;
+using BlossomAvenue.Service.CustomExceptions;
 
 namespace BlossomAvenue.Infrastructure.Repositories.Users
 {
@@ -104,10 +105,11 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
             return new PaginatedResponse<User>(users, userquery.PageSize, userquery.PageNo, totalItemCount);
         }
 
-        public async Task<bool> UpdateUser(User user)
+        public async Task<User> UpdateUser(User user)
         {
             _context.Users.Update(user);
-            return (await _context.SaveChangesAsync()) > 0;
+            if (await _context.SaveChangesAsync() > 0) return user;
+            else throw new RecordNotUpdatedException("user");
         }
 
         public Task<bool> CheckUserExistsByEmail(string email)
