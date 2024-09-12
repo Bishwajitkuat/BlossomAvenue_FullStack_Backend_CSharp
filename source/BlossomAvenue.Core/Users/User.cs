@@ -23,7 +23,8 @@ public partial class User
     public bool? IsUserActive { get; set; }
 
     public DateTime? CreatedAt { get; set; }
-    public Cart Cart { get; set; } = new Cart();
+
+    public Cart Cart { get; set; } = null!;
     public virtual UserCredential UserCredential { get; set; } = null!;
     public virtual ICollection<UserContactNumber> UserContactNumbers { get; set; } = new List<UserContactNumber>();
 
