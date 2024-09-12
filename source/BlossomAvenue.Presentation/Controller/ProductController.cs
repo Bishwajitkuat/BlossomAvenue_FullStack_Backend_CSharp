@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BlossomAvenue.Core.Products;
 using BlossomAvenue.Service.ProductsServices;
 using BlossomAvenue.Service.Repositories.Products;
+using BlossomAvenue.Service.SharedDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,11 +58,12 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts([FromQuery] ProductQueryDto pqdto)
+        public async Task<ActionResult<PaginatedResponse<GetAllProductReadDto>>> GetAllProducts([FromQuery] ProductQueryDto pqdto)
         {
-            var products = await _productManagement.GetAllProducts(pqdto);
-            var readProducts = products.Select(p => new GetAllProductReadDto(p)).ToList();
-            return Ok(readProducts);
+            var paginatedProducts = await _productManagement.GetAllProducts(pqdto);
+            var readProducts = paginatedProducts.Items.Select(p => new GetAllProductReadDto(p)).ToList();
+            var readPaginatedProducts = new PaginatedResponse<GetAllProductReadDto>(readProducts, paginatedProducts.ItemPerPage, paginatedProducts.CurrentPage, paginatedProducts.TotalItemCount);
+            return Ok(readPaginatedProducts);
         }
 
 

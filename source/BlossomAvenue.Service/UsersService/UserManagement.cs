@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Service.UsersService.Dtos;
 using System.Security.Cryptography;
+using BlossomAvenue.Service.SharedDtos;
 
 namespace BlossomAvenue.Service.UsersService
 {
@@ -53,10 +54,9 @@ namespace BlossomAvenue.Service.UsersService
             return user is null ? throw new RecordNotFoundException("User") : user;
         }
 
-        public async Task<List<User>> GetUsers(UsersQueryDto query)
+        public async Task<PaginatedResponse<User>> GetUsers(UsersQueryDto query)
         {
             var users = await _userRepository.GetUsers(query);
-            // return _mapper.Map<List<UserDto>>(users);
             return users;
         }
 

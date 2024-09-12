@@ -1,3 +1,4 @@
+using BlossomAvenue.Service.SharedDtos;
 using BlossomAvenue.Service.UsersService;
 using BlossomAvenue.Service.UsersService.Dtos;
 using Microsoft.AspNetCore.Authorization;
@@ -26,12 +27,13 @@ namespace BlossomAvenue.Presentation.Controller
         // ADMIN
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<ActionResult<List<ReadUserDto>>> GetUsers(
+        public async Task<ActionResult<PaginatedResponse<ReadUserDto>>> GetUsers(
             [FromQuery] UsersQueryDto query)
         {
-            var users = await _userManagement.GetUsers(query);
-            var readUsers = users.Select(u => new ReadUserDto(u));
-            return Ok(readUsers);
+            var paginatedUsers = await _userManagement.GetUsers(query);
+            var readUsers = paginatedUsers.Items.Select(u => new ReadUserDto(u)).ToList();
+            var readPaginatedUsers = new PaginatedResponse<ReadUserDto>(readUsers, paginatedUsers.ItemPerPage, paginatedUsers.CurrentPage, paginatedUsers.TotalItemCount);
+            return Ok(readPaginatedUsers);
         }
 
         [Authorize(Roles = "Admin")]

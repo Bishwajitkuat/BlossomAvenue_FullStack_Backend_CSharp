@@ -54,7 +54,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
                 .FirstOrDefaultAsync(u => u.UserId == userId);
         }
 
-        public async Task<List<User>> GetUsers(UsersQueryDto userquery)
+        public async Task<PaginatedResponse<User>> GetUsers(UsersQueryDto userquery)
         {
 
             var query = _context.Users
@@ -83,6 +83,9 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
                     u.Email.ToLower().Contains(userquery.Search.ToLower()));
             }
 
+            // total item count after filtering
+            var totalItemCount = await query.CountAsync();
+
             var isAscending = userquery.OrderBy == OrderBy.ASC;
 
             query = userquery.OrderUserWith switch
@@ -98,7 +101,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.Users
                 .Take(userquery.PageSize)
                 .ToListAsync();
 
-            return users;
+            return new PaginatedResponse<User>(users, userquery.PageSize, userquery.PageNo, totalItemCount);
         }
 
         public async Task<bool> UpdateUser(User user)
