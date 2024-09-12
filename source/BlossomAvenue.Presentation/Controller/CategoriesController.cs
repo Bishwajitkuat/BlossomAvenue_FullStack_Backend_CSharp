@@ -22,7 +22,7 @@ namespace BlossomAvenue.Presentation.Controller
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<ActionResult<ICollection<Category>>> GetAllCategories()
         {
             var categories = await _categoryManagement.GetAllCategories();
             return Ok(categories);
@@ -30,7 +30,7 @@ namespace BlossomAvenue.Presentation.Controller
         }
         [Authorize(Roles = "Admin, Employee")]
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
+        public async Task<ActionResult<Category>> CreateCategory(CreateCategoryDto createCategoryDto)
         {
             var category = createCategoryDto.ConvertToCategory();
             var newCategory = await _categoryManagement.CreateCategory(category);
