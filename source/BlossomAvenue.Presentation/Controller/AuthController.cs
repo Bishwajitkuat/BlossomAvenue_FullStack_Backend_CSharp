@@ -1,4 +1,4 @@
-using BlossomAvenue.Core.Authentication;
+﻿using BlossomAvenue.Core.Authentication;
 using BlossomAvenue.Service.AuthenticationService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -57,6 +58,26 @@ namespace BlossomAvenue.Presentation.Controller
 
         }
 
+
+        [HttpGet("refreshToken")]
+        public async Task<ActionResult<LoginRequestDto>> GetRefreshToken()
+        {
+            var authHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+            var refreshTokenCookie = Request.Cookies["blossom_avenue_rf_token"];
+
+            if (authHeader != null && refreshTokenCookie != null && authHeader.StartsWith("Bearer "))
+            {
+                var jwtToken = authHeader.Substring("Bearer ".Length).Trim();
+                var result = await _authService.GetRefreshToken(jwtToken, refreshTokenCookie);
+                if (result.LoginResponseDto.IsAuthenticated)
+                {
+                    SetRefreshToken(result.RefreshToken);
+                    return Ok(result.LoginResponseDto);
+                }
+            }
+            return Unauthorized();
+        }
+
         private void SetRefreshToken(RefreshToken refreshToken)
         {
             var cookieOptions = new CookieOptions
@@ -71,6 +92,10 @@ namespace BlossomAvenue.Presentation.Controller
         {
             Response.Cookies.Delete("blossom_avenue_rf_token");
         }
+
+
+
+
 
     }
 }
