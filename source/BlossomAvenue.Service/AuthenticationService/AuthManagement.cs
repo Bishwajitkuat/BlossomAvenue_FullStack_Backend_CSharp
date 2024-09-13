@@ -1,4 +1,4 @@
-﻿using BlossomAvenue.Core.Authentication;
+using BlossomAvenue.Core.Authentication;
 using BlossomAvenue.Core.Products;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Service.CustomExceptions;
@@ -57,8 +57,54 @@ namespace BlossomAvenue.Service.AuthenticationService
             return new AuthenticationResultDto { LoginResponseDto = new LoginResponseDto() { IsAuthenticated = false }, RefreshToken = null };
         }
 
+        public async Task<AuthenticationResultDto> GetRefreshToken(string jwtToken, string refreshToken)
+        {
+            var response = new AuthenticationResultDto();
+            response.LoginResponseDto = new LoginResponseDto();
+            response.LoginResponseDto.IsAuthenticated = false;
+            // get user id from jwt token
+            var userId = _tokenMgt.GetUserIdFromToken(jwtToken);
 
-        public void Logout(string token)
+            if (userId != null)
+            {
+                // find the refresh token by refresh token
+                var oldRefreshToken = await _refreshTokenRepository.GetUserByRefreshToken(refreshToken);
+                if (oldRefreshToken == null)
+                {
+                    return response;
+                }
+                else if (oldRefreshToken.UserId != userId)
+                {
+                    // delete the refresh token, it might be compromised 
+                    var res = await _refreshTokenRepository.DeleteRefreshTokenByRefreshToken(refreshToken);
+                    return response;
+                }
+                else if (oldRefreshToken.UserId == userId && oldRefreshToken.ExpiredAt > DateTime.Now)
+                {
+                    // create new jwt token
+                    var newToken = _tokenMgt.GenerateToken(oldRefreshToken.User);
+
+                    // generate refresh token
+                    var newRefreshToken = _tokenMgt.GenerateRefreshToken(oldRefreshToken.User);
+                    // update the token in db
+                    oldRefreshToken.Token = newRefreshToken.Token;
+                    oldRefreshToken.CreatedAt = DateTime.Now;
+                    oldRefreshToken.ExpiredAt = newRefreshToken.ExpiredAt;
+                    var isSaved = await _refreshTokenRepository.UpdateRefreshToken(oldRefreshToken);
+                    if (!isSaved) throw new RecordNotUpdatedException("refresh token");
+                    // update the response objet with appropriate values
+                    response.LoginResponseDto.IsAuthenticated = true;
+                    response.LoginResponseDto.Token = newToken;
+                    response.LoginResponseDto.UserRole = oldRefreshToken.User.UserRole;
+                    response.RefreshToken = newRefreshToken;
+                    // return the response
+                    return response;
+                }
+            }
+            return response;
+        }
+
+
         {
             _tokenMgt.InvalidateToken(token);
         }
