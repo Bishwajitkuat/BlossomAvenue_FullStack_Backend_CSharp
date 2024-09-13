@@ -14,5 +14,6 @@ namespace BlossomAvenue.Service.AuthenticationService
         void InvalidateToken(string token);
         bool ValidateToken(string token);
         public RefreshToken GenerateRefreshToken(User user);
+        public Guid? GetUserIdFromToken(string token);
     }
 }

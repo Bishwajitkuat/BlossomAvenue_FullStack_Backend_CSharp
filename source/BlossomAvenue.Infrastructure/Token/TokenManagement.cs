@@ -24,6 +24,7 @@ namespace BlossomAvenue.Infrastructure.Token.Jwt
 
         public string GenerateToken(User user)
         {
+
             var claims = new[]
             {
                 new Claim(ClaimTypes.GivenName, String.Concat(user.FirstName, " ", user.LastName)),
@@ -67,6 +68,15 @@ namespace BlossomAvenue.Infrastructure.Token.Jwt
                 Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
                 ExpiredAt = DateTime.Now.AddDays(7),
             };
+        }
+
+        public Guid? GetUserIdFromToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var claims = jwtToken.Claims.Select(claim => (claim.Type, claim.Value)).ToList();
+            var userId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            return new Guid(userId.Value);
         }
 
 
