@@ -13,6 +13,7 @@ namespace BlossomAvenue.Service.Repositories.Authentications
         public Task<bool> DeleteAllRefreshToken(Guid userId, string token);
         public Task<bool> DeleteRefreshTokenByRefreshToken(string refreshToken);
 
+        public Task<bool> UpdateRefreshToken(RefreshToken refreshToken);
         public Task<RefreshToken>? GetUserByRefreshToken(string token);
         public Task<bool> AddRefreshToken(RefreshToken refreshToken);
     }
