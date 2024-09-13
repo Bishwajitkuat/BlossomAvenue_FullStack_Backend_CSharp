@@ -1,5 +1,7 @@
+using BlossomAvenue.Core.Authentication;
 using BlossomAvenue.Service.AuthenticationService;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,20 +19,20 @@ namespace BlossomAvenue.Presentation.Controller
 
         public AuthController(IAuthManagement authService)
         {
-            this._authService = authService;
+            _authService = authService;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequest)
+        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto loginRequest)
         {
             var result = await _authService.Login(loginRequest.Username, loginRequest.Password);
 
-            if (!result.IsAuthenticated)
+            if (!result.LoginResponseDto.IsAuthenticated)
             {
                 return Unauthorized();
             }
-
-            return Ok(result);
+            SetRefreshToken(result.RefreshToken);
+            return Ok(result.LoginResponseDto);
         }
 
         [Authorize]
