@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BlossomAvenue.Infrastructure.Token.Jwt
@@ -57,5 +58,23 @@ namespace BlossomAvenue.Infrastructure.Token.Jwt
 
             return !deniedTokens.Contains(token);
         }
+
+        public RefreshToken GenerateRefreshToken(User user)
+        {
+            return new RefreshToken
+            {
+                UserId = user.UserId,
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                ExpiredAt = DateTime.Now.AddDays(7),
+            };
+        }
+
+
+
+
+
+
+
+
     }
 }
