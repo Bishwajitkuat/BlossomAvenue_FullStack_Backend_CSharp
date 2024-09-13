@@ -59,7 +59,19 @@ namespace BlossomAvenue.Infrastructure.Repositories.RefreshTokens
         }
 
 
+        public async Task<bool> DeleteRefreshTokenByRefreshToken(string refreshToken)
+        {
+            var tokens = _context.RefreshTokens.Where(t => t.Token == refreshToken);
+            _context.RemoveRange(tokens);
+            return await _context.SaveChangesAsync() > 0;
+        }
 
+
+        public async Task<bool> UpdateRefreshToken(RefreshToken refreshToken)
+        {
+            _context.Update(refreshToken);
+            return await _context.SaveChangesAsync() > 0;
+        }
 
     }
 }
