@@ -32,6 +32,8 @@ using BlossomAvenue.Infrastructure.Repositories.Products;
 using BlossomAvenue.Service.ProductsServices;
 using System.Text.Json.Serialization;
 using BlossomAvenue.Infrastructure.Token.Jwt;
+using BlossomAvenue.Service.Repositories.Authentications;
+using BlossomAvenue.Infrastructure.Repositories.RefreshTokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +46,7 @@ builder.Services.AddDbContext<BlossomAvenueDbContext>(options =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 /** Domain DI Container */
-
+builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserManagement, UserManagement>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
