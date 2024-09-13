@@ -1,4 +1,4 @@
-﻿using BlossomAvenue.Service.AuthenticationService;
+using BlossomAvenue.Service.AuthenticationService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -39,8 +39,14 @@ namespace BlossomAvenue.Presentation.Controller
         {
             var token = Request.Headers["Authorization"].ToString().Split(" ")[1];
             _authService.Logout(token);
-
-            return NoContent();
+        private void SetRefreshToken(RefreshToken refreshToken)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = refreshToken.ExpiredAt
+            };
+            Response.Cookies.Append("blossom_avenue_rf_token", refreshToken.Token, cookieOptions);
         }
     }
 }
