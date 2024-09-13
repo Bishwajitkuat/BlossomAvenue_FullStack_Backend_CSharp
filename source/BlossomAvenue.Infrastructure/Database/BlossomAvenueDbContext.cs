@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BlossomAvenue.Core.Products;
 using System.Reflection;
 using BlossomAvenue.Infrastructure.Database.SeedData;
+using BlossomAvenue.Core.Authentication;
 
 namespace BlossomAvenue.Infrastructure.Database;
 
@@ -27,6 +28,7 @@ public partial class BlossomAvenueDbContext : DbContext
     public virtual DbSet<UserAddress> UserAddresses { get; set; }
     public virtual DbSet<UserContactNumber> UserContactNumbers { get; set; }
     public virtual DbSet<UserCredential> UserCredentials { get; set; }
+    public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
     // product related tables
     public virtual DbSet<Category> Categories { get; set; }
@@ -84,6 +86,19 @@ public partial class BlossomAvenueDbContext : DbContext
             .HasDefaultValueSql("CURRENT_TIMESTAMP")
             .HasColumnType("timestamp without time zone")
             .HasColumnName("created_at");
+        });
+
+        modelBuilder.Entity<RefreshToken>(b =>
+        {
+            b.HasKey(b => b.RefreshTokenId);
+            b.Property(e => e.CreatedAt)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            .HasColumnType("timestamp without time zone")
+            .HasColumnName("created_at");
+            b.Property(e => e.ExpiredAt)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            .HasColumnType("timestamp without time zone")
+            .HasColumnName("expired_at");
         });
 
         modelBuilder.Entity<OrderItem>(entity =>

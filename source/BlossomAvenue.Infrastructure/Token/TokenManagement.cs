@@ -1,11 +1,11 @@
 ﻿using BlossomAvenue.Core.Authentication;
 using BlossomAvenue.Core.Users;
 using BlossomAvenue.Service.AuthenticationService;
-using BlossomAvenue.Service.Repositories.InMemory;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BlossomAvenue.Infrastructure.Token.Jwt
@@ -13,16 +13,15 @@ namespace BlossomAvenue.Infrastructure.Token.Jwt
     public class TokenManagement : ITokenManagement
     {
         private readonly JwtConfiguration _jwtConfigurations;
-        private readonly IInMemoryDB _inMemoryDB;
 
-        public TokenManagement(IOptions<JwtConfiguration> jwtSettings, IInMemoryDB inMemoryDB)
+        public TokenManagement(IOptions<JwtConfiguration> jwtSettings)
         {
             _jwtConfigurations = jwtSettings.Value;
-            this._inMemoryDB = inMemoryDB;
         }
 
         public string GenerateToken(User user)
         {
+
             var claims = new[]
             {
                 new Claim(ClaimTypes.GivenName, String.Concat(user.FirstName, " ", user.LastName)),
@@ -46,16 +45,32 @@ namespace BlossomAvenue.Infrastructure.Token.Jwt
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public void InvalidateToken(string token)
+
+        public RefreshToken GenerateRefreshToken(User user)
         {
-            _inMemoryDB.AddDeniedToken(token);
+            return new RefreshToken
+            {
+                UserId = user.UserId,
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                ExpiredAt = DateTime.Now.AddDays(7),
+            };
         }
 
-        public bool ValidateToken(string token)
+        public Guid? GetUserIdFromToken(string token)
         {
-            var deniedTokens = _inMemoryDB.GetDeniedTokens();
-
-            return !deniedTokens.Contains(token);
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var claims = jwtToken.Claims.Select(claim => (claim.Type, claim.Value)).ToList();
+            var userId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            return new Guid(userId.Value);
         }
+
+
+
+
+
+
+
+
     }
 }
