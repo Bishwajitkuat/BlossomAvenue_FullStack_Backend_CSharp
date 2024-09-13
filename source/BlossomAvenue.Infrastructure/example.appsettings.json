@@ -1,0 +1,18 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost; Port=5433;Database=shopdb;Username=shopdb;Password=pass"
+  },
+  "JwtConfiguration": {
+    "Secret": "myuR@HG95y*NQq^Jute5DHLBleb2EFsW",
+    "Issuer": "http://localhost:5000",
+    "Audience": "http://localhost:5000",
+    "ExpiryMinutes": 10
+  }
+}
