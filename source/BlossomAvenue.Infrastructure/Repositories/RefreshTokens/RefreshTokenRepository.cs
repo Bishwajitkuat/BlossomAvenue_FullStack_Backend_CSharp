@@ -49,10 +49,13 @@ namespace BlossomAvenue.Infrastructure.Repositories.RefreshTokens
             return false;
         }
 
+
+
         public async Task<RefreshToken>? GetUserByRefreshToken(string token)
         {
             var tokenWithUser = await _context.RefreshTokens
                                     .Include(t => t.User)
+                                        .ThenInclude(t => t.Cart)
                                     .FirstOrDefaultAsync(t => t.Token == token);
 
             return tokenWithUser;
