@@ -37,10 +37,26 @@ namespace BlossomAvenue.Presentation.Controller
 
         [Authorize]
         [HttpPost("logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            var token = Request.Headers["Authorization"].ToString().Split(" ")[1];
-            _authService.Logout(token);
+            var authHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+            var refreshTokenCookie = Request.Cookies["blossom_avenue_rf_token"];
+
+            if (authHeader != null && refreshTokenCookie != null && authHeader.StartsWith("Bearer "))
+            {
+                var jwtToken = authHeader.Substring("Bearer ".Length).Trim();
+                var isLoggedOut = await _authService.Logout(jwtToken, refreshTokenCookie);
+                if (isLoggedOut)
+                {
+                    RemoveRefreshToken();
+                    return Ok("Thank you! See you soon. You have been logged out from all the sessions.");
+                }
+            }
+
+            return Unauthorized();
+
+        }
+
         private void SetRefreshToken(RefreshToken refreshToken)
         {
             var cookieOptions = new CookieOptions
