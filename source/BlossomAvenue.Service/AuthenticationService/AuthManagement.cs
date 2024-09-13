@@ -1,4 +1,4 @@
-using BlossomAvenue.Core.Authentication;
+﻿using BlossomAvenue.Core.Authentication;
 using BlossomAvenue.Core.Products;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Service.CustomExceptions;
@@ -105,8 +105,19 @@ namespace BlossomAvenue.Service.AuthenticationService
         }
 
 
+        public async Task<bool> Logout(string jwtToken, string refreshToken)
         {
-            _tokenMgt.InvalidateToken(token);
+            var userId = _tokenMgt.GetUserIdFromToken(jwtToken);
+            // add jwtToken to invalid list
+            _tokenMgt.InvalidateToken(jwtToken);
+            if (userId != null)
+            {
+                // remove all the refresh token belongs to the current user.
+                // currently logout from one device, will log out the user from all devices
+                var isDeleted = await _refreshTokenRepository.DeleteAllRefreshToken((Guid)userId, refreshToken);
+                if (isDeleted) return true;
+            }
+            return false;
         }
 
 
