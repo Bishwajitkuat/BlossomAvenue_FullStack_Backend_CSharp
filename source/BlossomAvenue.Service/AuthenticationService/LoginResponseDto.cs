@@ -1,16 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BlossomAvenue.Core.Authentication;
 using BlossomAvenue.Core.ValueTypes;
 
 namespace BlossomAvenue.Service.AuthenticationService
 {
-    public class AuthenticationResultDto
+    public class LoginResponseDto
     {
-        public LoginResponseDto LoginResponseDto { get; set; }
-        public RefreshToken RefreshToken { get; set; }
+        public bool IsAuthenticated { get; set; }
+        public UserRole UserRole { get; set; }
+        public string Token { get; set; }
+
     }
 }
