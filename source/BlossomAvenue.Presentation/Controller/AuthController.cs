@@ -48,5 +48,11 @@ namespace BlossomAvenue.Presentation.Controller
             };
             Response.Cookies.Append("blossom_avenue_rf_token", refreshToken.Token, cookieOptions);
         }
+
+        private void RemoveRefreshToken()
+        {
+            Response.Cookies.Delete("blossom_avenue_rf_token");
+        }
+
     }
 }
