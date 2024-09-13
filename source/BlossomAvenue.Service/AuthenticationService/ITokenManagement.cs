@@ -1,4 +1,5 @@
-﻿using BlossomAvenue.Core.Users;
+﻿using BlossomAvenue.Core.Authentication;
+using BlossomAvenue.Core.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace BlossomAvenue.Service.AuthenticationService
         string GenerateToken(User user);
         void InvalidateToken(string token);
         bool ValidateToken(string token);
+        public RefreshToken GenerateRefreshToken(User user);
     }
 }
