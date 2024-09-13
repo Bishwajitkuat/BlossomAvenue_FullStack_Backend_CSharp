@@ -3,7 +3,6 @@ using BlossomAvenue.Core.Products;
 using BlossomAvenue.Service.Cryptography;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.Repositories.Authentications;
-using BlossomAvenue.Service.Repositories.InMemory;
 using BlossomAvenue.Service.Repositories.Users;
 using System;
 using System.Collections.Generic;
@@ -108,8 +107,6 @@ namespace BlossomAvenue.Service.AuthenticationService
         public async Task<bool> Logout(string jwtToken, string refreshToken)
         {
             var userId = _tokenMgt.GetUserIdFromToken(jwtToken);
-            // add jwtToken to invalid list
-            _tokenMgt.InvalidateToken(jwtToken);
             if (userId != null)
             {
                 // remove all the refresh token belongs to the current user.

@@ -21,7 +21,6 @@ using Microsoft.Extensions.Configuration;
 using BlossomAvenue.Core.Authentication;
 using BlossomAvenue.Service.AuthenticationService;
 using Microsoft.OpenApi.Models;
-using BlossomAvenue.Service.Repositories.InMemory;
 using BlossomAvenue.Presentation.Middleware;
 using BlossomAvenue.Service.Repositories.ProductReviews;
 using BlossomAvenue.Infrastructure.Repositories.ProductReviews;
@@ -72,7 +71,6 @@ builder.Services.AddScoped<IProductReviewRepository, ProductReviewsRepository>()
 builder.Services.AddScoped<IProductReviewManagement, ProductReviewManagement>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthManagement, AuthManagement>();
-builder.Services.AddSingleton<IInMemoryDB, InMemoryDB>();
 builder.Services.AddTransient<ITokenManagement, TokenManagement>();
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtConfiguration"));
 // DI Exception middleware
@@ -89,13 +87,14 @@ builder.Services.AddAuthentication(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            ClockSkew = TimeSpan.Zero,
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["JwtConfiguration:Issuer"],
             ValidAudience = builder.Configuration["JwtConfiguration:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfiguration:Secret"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfiguration:Secret"])),
         };
     });
 
@@ -152,7 +151,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseMiddleware<TokenValidationMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
