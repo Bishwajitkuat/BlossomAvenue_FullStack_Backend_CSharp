@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace BlossomAvenue.Presentation.Controller
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthManagement _authService;

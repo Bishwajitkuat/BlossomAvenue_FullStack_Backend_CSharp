@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlossomAvenue.Presentation.Controller
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class ProductReviewController : ControllerBase
     {
         IProductReviewManagement _productReviewManagement;
