@@ -10,9 +10,6 @@ namespace BlossomAvenue.Service.ProductReviewsService
         public Guid UserId { get; set; }
 
         public Guid ProductId { get; set; }
-
-        public Guid OrderId { get; set; }
-
         public string Review { get; set; }
 
         public int Star { get; set; }

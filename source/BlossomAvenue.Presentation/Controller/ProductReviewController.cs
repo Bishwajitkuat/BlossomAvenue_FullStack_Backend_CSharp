@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BlossomAvenue.Service.CustomExceptions;
 using BlossomAvenue.Service.ProductReviewsService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlossomAvenue.Presentation.Controller
@@ -18,10 +20,12 @@ namespace BlossomAvenue.Presentation.Controller
             _productReviewManagement = productReviewManagement;
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateReview(ProductReviewCreateDto reviewCreateDto)
         {
             try
             {
+                reviewCreateDto.UserId = GetUserIdFromClaim();
                 var success = await _productReviewManagement.CreateReview(reviewCreateDto);
 
                 if (success)
@@ -125,6 +129,13 @@ namespace BlossomAvenue.Presentation.Controller
             {
                 return StatusCode(500, new { Message = ex.Message });
             }
+        }
+
+        private Guid GetUserIdFromClaim()
+        {
+            var claims = HttpContext.User;
+            var userId = claims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier) ?? throw new UnauthorizedAccessException();
+            return new Guid(userId.Value);
         }
     }
 }

@@ -20,31 +20,16 @@ namespace BlossomAvenue.Infrastructure.Repositories.ProductReviews
         }
         public async Task<bool> CreateReview(ProductReviewCreateDto reviewCreateDto)
         {
-            Console.WriteLine($"OrderId: {reviewCreateDto.OrderId}, UserId: {reviewCreateDto.UserId}");
 
-            var order = await _context.Orders
-                                      .Include(o => o.OrderItems)
-                                      .FirstOrDefaultAsync(o => o.OrderId == reviewCreateDto.OrderId && o.UserId == reviewCreateDto.UserId);
 
             if (0 >= reviewCreateDto.Star && reviewCreateDto.Star > 5)
             {
                 throw new ArgumentException("Rating should be 0 - 5");
             }
-            if (order == null)
-            {
-                throw new RecordNotFoundException("Order does not exist for the specified user.");
-            }
-
-            var hasProduct = order.OrderItems.Any(oi => oi.ProductId == reviewCreateDto.ProductId);
-            if (!hasProduct)
-            {
-                throw new RecordNotFoundException("The specified product is not part of the order.");
-            }
 
             // Create the new review
             var newReview = new ProductReview
             {
-                ReviewId = Guid.NewGuid(),
                 ProductId = reviewCreateDto.ProductId,
                 UserId = reviewCreateDto.UserId,
                 Review = reviewCreateDto.Review,

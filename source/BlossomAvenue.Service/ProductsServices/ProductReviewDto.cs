@@ -21,7 +21,6 @@ namespace BlossomAvenue.Service.ProductsServices
             ReviewId = pr.ReviewId;
             Review = pr.Review;
             Star = pr.Star;
-            UserName = pr.User.FirstName + " " + pr.User.LastName;
         }
 
 
