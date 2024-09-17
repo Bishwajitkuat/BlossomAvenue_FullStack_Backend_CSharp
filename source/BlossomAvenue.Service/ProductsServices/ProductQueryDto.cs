@@ -11,5 +11,7 @@ namespace BlossomAvenue.Service.ProductsServices
     {
         public ProductOrderWith? ProductOrderWith { get; set; }
 
+        public Guid? CategoryId { get; set; }
+
     }
 }

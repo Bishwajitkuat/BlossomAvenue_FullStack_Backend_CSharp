@@ -71,11 +71,17 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
             .Include(p => p.Variations)
             .Include(p => p.Images)
             .Include(p => p.ProductReviews)
+            .AsSplitQuery()
             .AsQueryable();
 
             if (!string.IsNullOrEmpty(pqdto.Search))
             {
                 query = query.Where(p => p.Title.ToLower().Contains(pqdto.Search.ToLower()));
+            }
+
+            if (pqdto.CategoryId is not null)
+            {
+                query = query.Where(p => p.ProductCategories.Where(c => c.CategoryId == pqdto.CategoryId).Count() > 0);
             }
 
             // total count after the filtering
