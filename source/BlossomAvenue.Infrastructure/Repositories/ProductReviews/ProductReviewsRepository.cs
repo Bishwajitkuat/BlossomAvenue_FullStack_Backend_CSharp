@@ -31,7 +31,7 @@ namespace BlossomAvenue.Infrastructure.Repositories.ProductReviews
             var newReview = new ProductReview
             {
                 ProductId = reviewCreateDto.ProductId,
-                UserId = reviewCreateDto.UserId,
+                UserId = (Guid)reviewCreateDto.UserId,
                 Review = reviewCreateDto.Review,
                 Star = reviewCreateDto.Star,
             };

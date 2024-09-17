@@ -19,12 +19,13 @@ namespace BlossomAvenue.Presentation.Controller
         {
             _productReviewManagement = productReviewManagement;
         }
-        [HttpPost]
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> CreateReview(ProductReviewCreateDto reviewCreateDto)
         {
             try
             {
+
                 reviewCreateDto.UserId = GetUserIdFromClaim();
                 var success = await _productReviewManagement.CreateReview(reviewCreateDto);
 
