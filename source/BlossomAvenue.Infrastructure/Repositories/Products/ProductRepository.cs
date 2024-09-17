@@ -68,8 +68,8 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
         public async Task<PaginatedResponse<Product>> GetAllProducts(ProductQueryDto pqdto)
         {
             var query = _context.Products
-            .Include(p => p.Variations)
-            .Include(p => p.Images)
+            .Include(p => p.Variations.OrderBy(v => v.Price).Take(1))
+            .Include(p => p.Images.Take(1))
             .Include(p => p.ProductReviews)
             .AsSplitQuery()
             .AsQueryable();
@@ -87,11 +87,16 @@ namespace BlossomAvenue.Infrastructure.Repositories.Products
             // total count after the filtering
             var totalItemCount = await query.CountAsync();
 
+            if (pqdto.PageNo > 1 && (pqdto.PageNo * pqdto.PageSize) > totalItemCount)
+            {
+                pqdto.PageNo = 1;
+            }
+
             var isAscending = pqdto.OrderBy.ToString().ToLower().Equals("asc", StringComparison.OrdinalIgnoreCase);
 
             query = pqdto.ProductOrderWith switch
             {
-                ProductOrderWith.Price => isAscending ? query.OrderBy(p => p.Variations.Min(a => a.Price)) : query.OrderByDescending(v => v.Variations.Max(a => a.Price)),
+                ProductOrderWith.Price => isAscending ? query.OrderBy(p => p.Variations.Min(a => a.Price)) : query.OrderByDescending(v => v.Variations.Min(a => a.Price)),
                 ProductOrderWith.Title => isAscending ? query.OrderBy(p => p.Title) : query.OrderByDescending(p => p.Title),
                 ProductOrderWith.Inventory => isAscending ? query.OrderBy(p => p.Variations.Sum(v => v.Inventory)) : query.OrderByDescending(p => p.Variations.Sum(v => v.Inventory)),
                 ProductOrderWith.CreatedAt => isAscending ? query.OrderBy(p => p.CreatedAt) : query.OrderByDescending(p => p.CreatedAt),
