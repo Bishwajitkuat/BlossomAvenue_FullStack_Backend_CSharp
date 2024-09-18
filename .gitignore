@@ -104,3 +104,6 @@ frontend/package-*.json
 
 # Migrations files
 source/BlossomAvenue.Infrastructure/Migrations
+
+
+source/BlossomAvenue.Infrastructure/publish

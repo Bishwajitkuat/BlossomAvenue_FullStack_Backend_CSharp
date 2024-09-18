@@ -45,17 +45,16 @@ builder.Services.AddDbContext<BlossomAvenueDbContext>(options =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // CORS
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    options.AddPolicy("MyAllowSpecificOrigins",
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:3000", "https://blossomavenue.vercel.app/", "http://localhost:5212")
+                          policy.WithOrigins("https://blossomavenue.vercel.app", "http://localhost:3000", "http://localhost:5212")
                                                 .AllowAnyHeader()
                                                 .AllowAnyMethod()
-                                                .AllowCredentials();
+                                                .AllowCredentials().SetIsOriginAllowedToAllowWildcardSubdomains();
 
                       });
 });
@@ -161,13 +160,17 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
     app.UseDeveloperExceptionPage();
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors("MyAllowSpecificOrigins");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
