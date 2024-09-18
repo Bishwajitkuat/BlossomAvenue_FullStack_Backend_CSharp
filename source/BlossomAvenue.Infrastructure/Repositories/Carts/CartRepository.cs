@@ -24,8 +24,11 @@ namespace BlossomAvenue.Infrastructure.Repositories.Carts
         {
             var cart = await _context.Carts
                         .Include(c => c.CartItems)
-                        .ThenInclude(ci => ci.Variation)
-                         .FirstOrDefaultAsync(c => c.CartId == cartId);
+                            .ThenInclude(ci => ci.Product)
+                                .ThenInclude(p => p.Images.Take(1))
+                        .Include(c => c.CartItems)
+                            .ThenInclude(ci => ci.Variation)
+                        .FirstOrDefaultAsync(c => c.CartId == cartId);
             return cart;
         }
 

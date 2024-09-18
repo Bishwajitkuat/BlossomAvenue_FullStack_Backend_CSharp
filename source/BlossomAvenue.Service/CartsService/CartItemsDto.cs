@@ -42,6 +42,8 @@ namespace BlossomAvenue.Service.CartsService
         public string VariationName { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public string ImageUrl { get; set; }
+        public string Title { get; set; }
 
         public ReadCartItemDto(CartItem cartItem)
         {
@@ -51,6 +53,8 @@ namespace BlossomAvenue.Service.CartsService
             VariationName = cartItem.Variation.VariationName;
             Quantity = cartItem.Quantity;
             Price = cartItem.Variation.Price;
+            Title = cartItem.Product.Title;
+            ImageUrl = cartItem.Product.Images.ElementAt(0).ImageUrl;
 
         }
 
