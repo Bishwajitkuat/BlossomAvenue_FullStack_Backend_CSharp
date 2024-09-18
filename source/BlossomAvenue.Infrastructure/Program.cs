@@ -52,7 +52,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:3000", "http://localhost:5212")
+                          policy.WithOrigins("http://localhost:3000", "https://blossomavenue.vercel.app/", "http://localhost:5212")
                                                 .AllowAnyHeader()
                                                 .AllowAnyMethod()
                                                 .AllowCredentials();
