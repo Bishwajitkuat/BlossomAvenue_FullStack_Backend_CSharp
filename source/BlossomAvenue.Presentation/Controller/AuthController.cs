@@ -1,5 +1,6 @@
 ﻿using BlossomAvenue.Core.Authentication;
 using BlossomAvenue.Service.AuthenticationService;
+using BlossomAvenue.Service.CustomExceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -52,18 +53,18 @@ namespace BlossomAvenue.Presentation.Controller
                     RemoveRefreshToken();
                     return Ok("Thank you! See you soon. You have been logged out from all the sessions.");
                 }
-                else Unauthorized("Invalid refresh or access token!");
+                else throw new UnAuthorizedException("Invalid refresh or access token!");
             }
 
             if (authHeader == null || !authHeader.StartsWith("Bearer "))
             {
-                return Unauthorized("Invalid or missing access token!");
+                throw new UnAuthorizedException("Invalid or missing access token!");
             }
             else if (refreshTokenCookie == null)
             {
-                return Unauthorized("Refresh token is missing");
+                throw new UnAuthorizedException("Refresh token is missing");
             }
-            return Unauthorized("Missing refresh or access token!");
+            throw new UnAuthorizedException("Missing refresh or access token!");
         }
 
 
@@ -82,17 +83,17 @@ namespace BlossomAvenue.Presentation.Controller
                     SetRefreshToken(result.RefreshToken);
                     return Ok(result.LoginResponseDto);
                 }
-                else Unauthorized("Invalid refresh or access token!");
+                else throw new UnAuthorizedException("Invalid refresh or access token!");
             }
             if (authHeader == null || !authHeader.StartsWith("Bearer "))
             {
-                return Unauthorized("Invalid or missing access token!");
+                throw new UnAuthorizedException("Invalid or missing access token!");
             }
             else if (refreshTokenCookie == null)
             {
-                return Unauthorized("Refresh token is missing");
+                throw new UnAuthorizedException("Refresh token is missing");
             }
-            return Unauthorized("Missing refresh or access token!");
+            throw new UnAuthorizedException("Missing refresh or access token!");
         }
 
         private void SetRefreshToken(RefreshToken refreshToken)
