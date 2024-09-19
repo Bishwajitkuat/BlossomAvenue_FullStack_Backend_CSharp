@@ -52,10 +52,18 @@ namespace BlossomAvenue.Presentation.Controller
                     RemoveRefreshToken();
                     return Ok("Thank you! See you soon. You have been logged out from all the sessions.");
                 }
+                else Unauthorized("Invalid refresh or access token!");
             }
 
-            return Unauthorized();
-
+            if (authHeader == null || !authHeader.StartsWith("Bearer "))
+            {
+                return Unauthorized("Invalid or missing access token!");
+            }
+            else if (refreshTokenCookie == null)
+            {
+                return Unauthorized("Refresh token is missing");
+            }
+            return Unauthorized("Missing refresh or access token!");
         }
 
 
@@ -74,8 +82,17 @@ namespace BlossomAvenue.Presentation.Controller
                     SetRefreshToken(result.RefreshToken);
                     return Ok(result.LoginResponseDto);
                 }
+                else Unauthorized("Invalid refresh or access token!");
             }
-            return Unauthorized();
+            if (authHeader == null || !authHeader.StartsWith("Bearer "))
+            {
+                return Unauthorized("Invalid or missing access token!");
+            }
+            else if (refreshTokenCookie == null)
+            {
+                return Unauthorized("Refresh token is missing");
+            }
+            return Unauthorized("Missing refresh or access token!");
         }
 
         private void SetRefreshToken(RefreshToken refreshToken)
@@ -83,7 +100,9 @@ namespace BlossomAvenue.Presentation.Controller
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
-                Expires = refreshToken.ExpiredAt
+                Expires = refreshToken.ExpiredAt,
+                SameSite = SameSiteMode.None,
+
             };
             Response.Cookies.Append("blossom_avenue_rf_token", refreshToken.Token, cookieOptions);
         }
