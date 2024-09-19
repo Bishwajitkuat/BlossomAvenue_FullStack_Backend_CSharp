@@ -103,6 +103,7 @@ namespace BlossomAvenue.Presentation.Controller
                 HttpOnly = true,
                 Expires = refreshToken.ExpiredAt,
                 SameSite = SameSiteMode.None,
+                Secure = true,
 
             };
             Response.Cookies.Append("blossom_avenue_rf_token", refreshToken.Token, cookieOptions);

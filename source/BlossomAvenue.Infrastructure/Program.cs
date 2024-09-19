@@ -43,6 +43,19 @@ builder.Services.AddDbContext<BlossomAvenueDbContext>(options =>
     );
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//Cookies
+
+builder.Services.Configure<CookiePolicyOptions>(option =>
+{
+    option.OnAppendCookie = context =>
+        {
+            if (context.CookieOptions.Secure && context.CookieOptions.SameSite == SameSiteMode.None)
+            {
+                context.CookieOptions.Extensions.Add("Partitioned");
+            }
+        };
+});
+
 
 // CORS
 
@@ -166,7 +179,7 @@ app.UseSwaggerUI(options =>
 });
 app.UseDeveloperExceptionPage();
 
-
+app.UseCookiePolicy();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors("MyAllowSpecificOrigins");
