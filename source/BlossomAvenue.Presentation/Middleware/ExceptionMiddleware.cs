@@ -40,14 +40,10 @@ namespace BlossomAvenue.Presentation.Middleware
                 _ => (HttpStatusCode.InternalServerError, $"Something unusual happened. Please try again or contact the system administrator. Error:{exception.Message}")
             };
 
-            var response = new { error = message };
-
-            var payload = JsonSerializer.Serialize(response);
-
-            context.Response.ContentType = "application/json";
+            context.Response.ContentType = "text/plain";
             context.Response.StatusCode = (int)statusCode;
 
-            await context.Response.WriteAsync(payload);
+            await context.Response.WriteAsync(message);
         }
     }
 }
