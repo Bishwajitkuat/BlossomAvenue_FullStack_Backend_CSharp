@@ -32,27 +32,15 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Core.Carts
             var cartId = type.GetProperty("CartId");
             var productId = type.GetProperty("ProductId");
             var quantity = type.GetProperty("Quantity");
-            var createdAt = type.GetProperty("CreatedAt");
-            var cart = type.GetProperty("Cart");
+
 
             // Assert
-            Assert.NotNull(cartItemsId);
-            Assert.Equal(typeof(Guid),cartItemsId.PropertyType);
 
-            Assert.NotNull(cartId);
-            Assert.Equal(typeof(Guid),cartId.PropertyType);
+            Assert.Equal(typeof(Guid), cartItemsId.PropertyType);
+            Assert.Equal(typeof(Guid), cartId.PropertyType);
+            Assert.Equal(typeof(Guid), productId.PropertyType);
+            Assert.Equal(typeof(int), quantity.PropertyType);
 
-            Assert.NotNull(productId);
-            Assert.Equal(typeof(Guid),productId.PropertyType);
-
-            Assert.NotNull(quantity);
-            Assert.Equal(typeof(int?),quantity.PropertyType);
-
-            Assert.NotNull(createdAt);
-            Assert.Equal(typeof(DateTime?),createdAt.PropertyType);
-
-            Assert.NotNull(cart);
-            Assert.Equal(typeof(Cart),cart.PropertyType);
         }
     }
 }

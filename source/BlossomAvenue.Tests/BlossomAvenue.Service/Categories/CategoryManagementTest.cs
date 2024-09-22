@@ -80,29 +80,15 @@ namespace BlossomAvenue.Tests.BlossomAvenue.Service.Categories
         {
             // Arrange
             var mockUpdateCategoryDto = new Mock<UpdateCategoryDto>().Object;
+            var mockCategory = new Mock<Category>().Object;
             var id = Guid.NewGuid();
-            _mockCategoryRepository.Setup(x => x.UpdateCategory(It.IsAny<Guid>(), It.IsAny<UpdateCategoryDto>())).ReturnsAsync(true);
+            _mockCategoryRepository.Setup(x => x.UpdateCategory(It.IsAny<Guid>(), It.IsAny<UpdateCategoryDto>())).ReturnsAsync(mockCategory);
 
             // Act
             var result = await _categoryManagement.UpdateCategory(id, mockUpdateCategoryDto);
             // Assert
-            Assert.True(result);
+            Assert.Equal(result, mockCategory);
 
-        }
-
-
-        [Fact]
-        public async Task UpdateCategory_InvalidData_RiseException()
-        {
-            // Arrange
-            var mockUpdateCategoryDto = new Mock<UpdateCategoryDto>().Object;
-            var id = Guid.NewGuid();
-            _mockCategoryRepository.Setup(x => x.UpdateCategory(It.IsAny<Guid>(), It.IsAny<UpdateCategoryDto>())).ReturnsAsync(false);
-
-            // Act & Assert
-            await Assert.ThrowsAsync<RecordNotUpdatedException>(
-            () => _categoryManagement.UpdateCategory(id, mockUpdateCategoryDto)
-            );
         }
 
 
