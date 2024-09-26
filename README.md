@@ -1,8 +1,13 @@
 # Blossom Avenue
 
+![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
+![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
+
 ## Overview
 
-This project is the backend service for Blossom Avenue which is a flower shop application, developed using C# and the .NET Core framework. The backend manages various functionalities including user management, product management, and order processing. The system supports two types of users: **Admin**, **Employee** and **Customer**.
+This project is the backend service for Blossom Avenue which is a flower shop application, developed using C# and the .NET Core framework. The backend manages various functionalities including user management, product management, and order processing. The system supports three types of users: **Admin**, **Employee** and **Customer**.
 
 ### Key Features
 
@@ -136,7 +141,7 @@ You can use the following credential to test the endpoints.
 3. **Run application**:
 
    ```bash
-   cd source/BlossomAvenue.Ingrastructure
+   cd source/BlossomAvenue.Infrastructure
    dotnet run
 
    ```
